@@ -1,0 +1,66 @@
+\section{FURPS+}
+I \textbf{UP} bruger man \textbf{FURPS+}, der er udviklet af Hewlett-Packard til at kategoriserer kravene til ens system. "\textbf{+}" i \textbf{FURPS+} kom i følge \cite{WikiFURPS} til senere, efter HP ønskede at dække flere kategorier med denne model. Vi har beskrevet kort, hvad der generelt hører under de forskellige punkter i \textbf{FURPS+}, og efterfølgende listet de funde krav i den aktuelle opgave op.
+\subsection{Functional}
+Hvilke funktioner skal systemt have. Hvad skal det kunne. Sikkerhed.
+
+
+Vi har taget udgangspunkt i kundens \cite{CDIO3} opgave. Ud fra deres vision, bilag og andre punkter i rapporten har vi fundet frem til følgende punkter:
+\begin{itemize}
+\item En udbyggelse af forrige system med forskellige felttyper.
+\item En spilleplade, hvor spillerne skal kunne lande på et felt og fortsætte på næste slag. Samtidig skal man kunne gå i ring på brættet.
+\item Man skal kunne vælge mellem 2-6 spillere.
+\item Et \textit{Territory} skal kunne købes af en spiller, når han lander på feltet. Feltet skalhave en fast leje. Jo højere feltnummer jo højere pris og leje.
+\item Et \textit{Refuge} skal give en bonus på enten 5000 eller 500 afhængigt af feltnummeret, når en spiller lander på denne type felt.
+\item Når man lander på et \textit{Labor Camp} felt, skal man betale 100 gange værdien af et nyt terningeslag. Dette beløb skal i øvrigt ganges med antallet af \textit{Labor Camps} med den samme ejer.
+\item Der er to felter af typen \textit{Tax}. Det ene felt betaler man et fast beløb af Kr. 2000,-, når man lander på feltet. Det andet skal man selv vælge om man vil betale et fast beløb af Kr. 4000,- eller om man vil betale 10\% af hele sin formue. (Hvilket betyder, både af hvad der står på kontoen og af felter man ejer).
+\item Lander man på et felt af typen \textit{Fleet}, bestemmes beløbets størrelse ud fra hvor mange \textit{Fleet} felter, der har samme ejer.
+\end{itemize}
+Sikkerhed er et punkt, vi ikke kan finde noget om, så vi må gå ud fra firmaet selv sørger for dette.
+\subsection{Usability}
+Menneskelige faktorer, skal man bruge hjælp. Dokumentation af systemet i brug.
+
+
+Vi går ud fra, at kravene til \textbf{Usability} er de samme som i foregående opgaver. Det er kun dokumentation, der er nævnt i denne opgave. Kravene fra sidst, var at det skulle kunne bruges af en normal person med en 9. klasses eksamen. Der må ikke være brug for hjælp. Dog må man godt forklare hvad spillet går ud på.
+
+Til dokumentation forventes der \textbf{Designsekvensdiagrammer}, der viser den dynamiske tilgang til programmet.
+\subsection{Reliability}
+Hyppigheden af fejl, kan det nemt gendannes og forudsigelighed.
+
+
+For at formindske hyppigheden af fejl, har vi løbende brugt User Test, for at fange semantiske fejl. Herudover har IOOuterActive stillet en skabelon til\textbf{Junit} tests, der gerne skulle fange fejl i vores \texttt{Field} klasser. Derudover er der ikke nogle målbare krav til \textbf{Reliability}.
+\subsection{Performance}
+Responstider, informationer i systemts gennemløb, præcision, tilgængelighed af systemet og hvor mange ressourcer må det bruge.
+
+
+Vi går ud fra tilgængeligheden er det samme som i de andre opgaver. Her var kravet, at programmet skulle kunne køre på maskinerne i \textbf{DTU}'s databarer.
+\subsection{Supportability}
+Ændringer, vedligeholdelse, internationalisering og konfigurationsmuligheder.
+
+
+Her anbefales det at vi så vidt muligt overholder \textbf{GRASP} patterns og samtidig benytter os af \textbf{FURPS+}. Dette skulle gerne gøre programmet nemmer i forhold til alle punkter i \textbf{Supportability}.
+\subsubsection*{Her kommer de underfaktorer, som +'et repræsenterer}
+\subsection{Implementation}
+Ressource begrænsninger, sprog, værktøjer og hardware
+
+
+Her er igen ikke nogle direkte krav. Vi går ud fra, at afleveringsproceduren er den samme som i foregående opgaver. Det vil betyde at projektet skal afleveres som et \textbf{Eclipse} projekt
+\subsection{Interface}
+Begrænsninger fremkommet af at skulle interagere med grænseflader fra eksterne systemer.
+
+
+Den eneste begrænsning vi har er på den udleverede \textbf{GUI}, da vi ikke selv har udviklet denne. Vi kan derfor benytte os af allerede implementerede funktioner i denne.
+\subsection{Operations}
+Sporing og kontrollering af ændringer i softwaren.
+
+
+Det er ikke noget vi skal tage stilling til i dette projekt.
+\subsection{Packaging}
+Hvordan skal programmet leveres (Fysisk eller fil)? Hvor mange installationer er der.
+
+
+Igen går vi ud fra tidligere opgaver, hvor vi skulle aflevere programmet elektronisk, som et pakket \textbf{Eclipse} projekt også indeholdende vores rapport. Vi skal ikke installere det for kunden.
+\subsection{Legal}
+Licensering med videre.
+
+
+Det er ikke noget vi er gjort opmærksom på af IOOuterActive. Det eneste vi kan nævne i forhold til retsmæssige stridigheder er, at vi skal tillade brugen af vores materiale, hvis dette ønskes benyttet til f.eks. undervisningssituationer.

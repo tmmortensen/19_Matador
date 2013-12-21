@@ -1,0 +1,27 @@
+\section{Design Sekvens Diagram}
+I modsætning til de tidligere projekter, hvor der blev udarbejdet sekvensdiagram over hele det samlede systems virkemåde, er der til dette projekt alene lavet sekvensdiagram til en enkelt metode – landOnField i Fleet – som krævet i opgavebeskrivelsen. Dette skyldes, at systemet nu er så omfattende, at det dels vil være enormt tidskrævende at udvikle et designesekvensdiagram for hele systemet, og dels vil være så stort, at det næppe vil skabe andet end forvirring, og dermed give meget lidt værdi ift. omkostningerne ved udarbejdelsen.
+
+
+Diagrammet over landOnField metoden i Fleet giver til gengæld et rigtig fint indblik i systemets generelle virkemåde, og er samtidigt ikke større end at det kan overskue af de fleste.
+
+
+Det er værd at bemærke, at vi vælger en notationsform, hvor der ikke indtegnes retur-pile, med mindre der returneres en værdi af betydning. Dette fordi der ikke benyttes asynkrone kald i systemet, og det derfor bør være klart hvordan sekvensen foregår, selv uden returpile – således vurderer vi, at det giver bedre mening at udelade de ”tomme” returpile, idet det giver et simplere diagram, der er nemmere at overskue, uden at det forstyrrer meningen i figuren.
+
+Desuden har vi tilladt os at slå de 4 identiske (i hvert fald i forhold til sekvensen) Fleet felter på fields-pladserne 18-21 sammen til en enkelt ”instans” på figuren – det giver mening fordi de alene bliver tilgået i en løkke, som behandler alle fire objekter ens.
+
+
+I korte træk foregår sekvensen således:
+\begin{enumerate}
+\item Der undersøges om feltet er ejet af en spiller. Er det ikke det, sættes isOnBuyableField-”flaget” i spillerens objekt, som bevirker at spilleren senere får mulighed for at købet feltet. Metoden returnerer herefter. Er feltet ejet af en spiller laves yderligere et tjek – nemlig om feltet er ejet af den spiller som er landet på feltet – er det det, returnerer metoden. Er det ikke det, iværksættes koden til at beregne leje og overføre lejen til feltets ejer.
+\item  For at beregne lejen, skal der tælles hvor mange andre Fleet felter ejeren af dette felt har. Dette sker ved at hente de andre felter fra GameBoard, og sammenligne ejeren af disse, med ejeren af dette felt. For hvert felt der matcher, tælles én op.
+\item Når antallet af felter kendes, kan lejen findes. I koden sker det med en switch-sætning, men ift. sekvensen er den egentlige implementering ligegyldig – det vigtige er blot, at der findes et beløb for leje ud fra antallet af ejede Fleet felter.
+\item Når lejen er udregnet, overføres beløbet fra spilleren som landede på feltet, til spilleren som ejer feltet. Overførslen sker med transferTo-metoden i Player, som samtidigt tjekker om spilleren har nok penge til at betale. Har han det, overføres beløbet, og metoden returnerer. Har han ikke det, overføres alt hvad spilleren har, og spilleren erklæres konkurs. Her er det værd at bemærke, at det faktisk er den samme metode der bruges til at lægge penge til og trække penge fra på en konto, så i praksis udføres tjekket for, om spillerens kontobalance kommer under 0 også ved modtageren af beløbet – men det er udeladt på diagrammet, idet det under normale omstændigheder altid vil gå godt, og dermed resultere i den sekvens som er illustreret. Et alternativt udfald her vil kræve uhensigtsmæssige ændringer i koden, eller deciderede platformsfejl, og vil i praksis kun være en teoretisk mulighed.
+\end{enumerate}
+Dette ses i figur \vref{fig:dsd}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{DSD.pdf}
+\caption[<Text for the list of figures>]{Design Sekvens Diagram}
+\label{fig:dsd}
+\end{figure}
+\newpage

@@ -1,0 +1,22 @@
+\section{GRASP (General Responsibilty Assignment Software Patterns)}
+Vi vil i dette afsnit beskrive de forskellige GRASP patterns, som vi har benyttet i vores program.
+\subsection{Controller}
+Vi har for overskueligeheden, og funktionaliteten i vores program, lavet en controller, \textit{Game}, der styrer alt hvad der sker. Alle kald og informationer der går på tværs af programmet går igennem vores kontroller uden at den egentlig har noget med nogen af signalerne at gøre udover at bestemme hvad der skal ske i de forskellige tilfælde. Man kan vel næsten sige at controlleren er vores lyskryds hvor en masse veje mødes og bliver omdirigeret.  
+\subsection{Creater}
+I vores program har vi gjort brug af Creatorer. Eksempelvis kan vi se på vores klasse diagram at der laves et object af en klassen \textit{Field} i \textit{Ownable}. På den måde kan vi have adgang til data fra Field uden at skulle tilgå klassen. Det er også rigtig godt for vores ønske om høj binding og lav kobling. 
+\subsection{Expert}
+I vores kode har der blandt andet været brug for en expert til at holde styr på vores felter på spillepladen. Derfor har vi lagret alle informationer, såsom hvad en grund koster at købe eller hvad den koster at lande på når en anden ejer den, i \textit{gameBoard} klassen. Det gør samtidigt at vi hurtigt kan komme til informationerne fra andre klasser da vi kun skal gå et sted hen for at hente informationerne. 
+Man kan bruge et eksempel fra den virkelige verden. Forestil dig at du skal slå 20 dyr op. Hvis du skal slå op i en bog for hvert dyr kan det tage sin tid, i forhold til hvis du kun skal have fat i en bog.
+\subsection{High Cohesion (Høj binding)}
+Høj binding er noget man altid stræber efter i et system. Det har vi også gjort som man kan se på vores \textit{Account} og \textit{Player} klasser. De kender til hindanden uden at de kan gøre andet end at give kommandoer. Det vil sige at Player for eksempel kan bede om data om en spiller fra \textit{Account}, og modsat kan \textit{Account} modtage data fra \textit{Player} om en spiller. 
+\subsection{Indirection}
+Indirection er noget der bliver brugt i vores kode. Faktisk er vores controller \textit{Game} en indirection da den lever op til det krav at den formidler information imellem to parter der ikke kender hinanden.
+\subsection{Low Coupling (Lav kobling)}
+Et godt eksempel på lav kobling i vores program er imellem vores \textit{Field} og \textit{GameBoard} klasser. Her er det kun \textit{GameBoard} der kender til \textit{Field}. Generelt i vores klassediagram kan man se at der ikke er nogen returnerende pile, hvilket antyder lav kobling.
+\subsection{Polymorphism}
+Polymorfi bruger vi til vores \textit{Field}, \textit{Ownable}, \textit{Game}, \textit{Fleet}, \textit{LabourCamp}, og \textit{Territory klasser}. Polymorfi er et andet ord for nedarving til flere klasser. Vi nedarver fra Field, for at gøre vores program det mindre, hurtigere og mere overskueligt. Havde vi ikke brugt det, var vi kommet ud i en situation hvor vi ville skulle have lavet en masse ekstra kald for at hente alle data fra andre klasser.
+\subsection{Protected Variations}
+Vi bruger meget \textit{Protected Variations} i vores kode da det sørger for at vi ikke ved en fejl kommer til at ændre en variabel et sted hvor det ikke er intentionen. Det kan bl. a. ses i vores kode i \textit{Ownable} klassen hvor "price" er protected netop for at undgå dette. 
+\subsection{Pure Fabrication}
+Vores Field klasse kunne anses for at være \textit{Pure Fabrication}. Egentlig \textit{kan man godt} gøre det uden en Field klasse, det ville bare ødelægge alle former for lav kobling man ellers arbejder hårdt for at opnå i et system.
+\newpage

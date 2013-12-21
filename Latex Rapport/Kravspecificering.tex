@@ -1,0 +1,69 @@
+\section{Kravspecificering og Use cases}
+I dette afsnit vil vi beskrive vores kravspecificering og vores Use cases, som vi har udarbejdet til denne rapport.
+\subsection{Kravspecificering}
+I dette afsnit har vi taget udgangspunkt i kundens vision. Vi har læst den igennen, og stillet spørgsmålstegn, ved de ting, der kunne være tvivl om. Kunden er dog blevet til kravspecificering i forløbet, og derfor var der få tvivlsspørgsmål.
+\begin{enumerate}
+\item Hvad skal der ske, hvis en spiller ikke kan betale det han skal?
+\item Skal man betale, hvis man lander på et felt, der er ejet af en bankerot spiller?
+\item Skal man have mulighed for at købe eet felt, der tidliger var ejet af en spiller, der nu er gået bankerot?
+\end{enumerate}
+Vores kontakt i firmaet, som er vores projektleder, har besvaret disse punkter på følgende måde
+\begin{enumerate}
+\item Spilleren der ikke kan betale, må betale det han har, og går herefter bankerot.
+\item Feltet er ikke længere ejet af nogen, og derfor skal der heller ikke betales.
+\item Da feltet ikke længere ejes, skal man kunne købe det.
+\end{enumerate}
+\newpage
+\subsection{Fully Dressed Use Case}
+Vi har i dette afsnit beskrevet vores use case med en fully dressed use case for Fleet.
+\subsubsection*{Use Case}
+Fleet
+\subsubsection*{Scope}
+Spil
+\subsubsection*{Level}
+Bruger Konsekvens
+\subsubsection*{Primary actor}
+Spiller
+\subsubsection*{Stakeholders and Interests}
+Spiller: Vil købe felt
+\subsubsection*{Preconditions}
+Eclipse er installeret på maskinen.
+\\
+Programmet er kørende.
+\subsubsection*{Main Success Scenarie:}
+\begin{enumerate}
+\item[1] Spiller starter spillet
+\item[2] Spiller indtaster Navn
+\item[3] Spiller Ruller med terningerne
+\item[4] Spiller lander på Fleet
+\item[5] Spiller køber Fleet
+\item[6] System checker pengebeholdning
+\item[7] System trækker penge
+\item[8] System giver turen til næste spiller
+\end{enumerate}
+\subsubsection*{Extensions Alternative scenarier:}
+*a - til hvert et tidspunkt
+\begin{enumerate}
+\item Spiller lukker spillet ved at taste "q"
+\end{enumerate}
+5a. Spiller skal betale penge
+\begin{enumerate}
+\item  Spiller betaler regning
+\end{enumerate}
+5b.
+\begin{enumerate}
+\item  Spiller kan ikke betale
+\item  System giver turen videre
+\end{enumerate}
+\subsubsection*{Specielle Krav:}
+\begin{itemize}
+\item Skal kunne køre på en Windows maskine med Java EE på DTU's computere
+\item Skal kunne spilles af en almindelig bruger
+\end{itemize}
+\subsection{Refuge Brief}
+Når en spiller lander på refuge, skal spilleren (afhængigt af om de lander på Walled City eller Monastery) modtage hhv. 5000 eller 500.  
+\subsection{Fleet Test Brief}
+En udvikler sætter testen igang. Når testen er igang tester den hvor meget man skal betale ud fra flere scenarier.
+\subsection{Refuge Test Brief}
+Denne test, tester om man faktisk får penge når man lander på feltet. Den tester også om hvorvidt der returneres forventede beløb.
+\newpage

@@ -1,0 +1,14 @@
+\section{Systemsekvens Diagram}
+Et \textbf{SSD} er til for at få en indsigt i, hvordan et program ser ud. I dette diagram kan det ses, hvordan systemet kom til at se ud baseret på krav fra kunden.
+
+I diagrammet ses det, at så snart et spil er startet, bliver nogen forskellige ting oprettet (ligesom i et bræt spil i virkeligheden). Der uddeles nogen penge til hver spiller og mængden af spillere. 
+Spillet kørers så, som det ses i \vref{fig:ssd}. landOnField er tilføjet for at man kan se at det har en konsekvens at lande på et felt. Vi har for overblikket skyld ikke lavet returveje fra systemet på samtlige typer af felter, da det hurtigt kunne blive uoverskueligt for kunden. 
+
+Alt hvad der står i loop'en sker om og om igen indtil spillet er forbi ved at alle på nær 1 spiller er gået falit. Når en spiller er tilbage erklæres han vinder og spillet kan lukkes.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.6\textwidth]{SSD.pdf}
+\caption[<Text for the list of figures>]{Systemsekvens Diagram}
+\label{fig:ssd} 
+\end{figure}
+\newpage

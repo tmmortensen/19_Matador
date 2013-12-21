@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[T1]{fontenc} %Better support for european accented chars
+\usepackage[utf8]{inputenc} %Enables danish chars and other good stuff
+\usepackage{lmodern} 
+\usepackage{amssymb}
+\usepackage{csquotes} % qoute in danish
+\usepackage[danish]{babel}
+\usepackage{pstricks-add}
+\usepackage{lastpage} %Package for getting the number of the last page.
+\usepackage{graphicx} %Allows insertion of graphics
+\usepackage{amsmath} %Gives better math support.
+\usepackage{amsfonts} %Gives additional fonts.
+\usepackage{amssymb} %Adds additional symbols.
+
+%Pakker der bruges for at lave klikbare links i pdf filer
+\usepackage{varioref} %Gives the \vref{lbl} command that make nice references that includes page numbers.
+\usepackage[pdftex, colorlinks=false, pdfauthor={\authorText}, pdftitle={\titleText}]{hyperref} %Makes references clickables in the pdf file. colorlinks can be set to true for colored links.
+\usepackage{memhfixc} %Solves problems with hyperref in Memoir, to be loaded after hyperref.
+
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{url} % Nice url look
+\usepackage[backend=bibtex,style=alphabetic]{biblatex} %Bibliography package.
+%\usepackage{anysize}
+%\marginsize{3cm}{3cm}{1.5cm}{4cm} % venstre, højre, top, bund.
+\lstset{literate=%
+{æ}{{\ae}}1
+{å}{{\aa}}1
+{ø}{{\o}}1
+{Æ}{{\AE}}1
+{Å}{{\AA}}1
+{Ø}{{\O}}1
+}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.5,0,0.3}
+\definecolor{myblue}{rgb}{0,0.4,0.9}
+\pagestyle{plain}
+
+\bibliography{19_del3} %Choose the bibliography to load, file to be called name.bib.
+
+\begin{document}
+\section*{Projektopgave efterår 2013 - jan 2014}
+\section*{02312-14 Indledende programmering og 02313 Udviklingsmetoder til IT-Systemer}
+Projektnavn: \textcolor{red}{del3}
+Gruppe nr: \textcolor{red}{19}
+Afleveringsfrist: \textcolor{red}{mandag den 02/12 2013 Kl. 5:00}
+\\\\
+Denne rapport er afleveret via Campusnet (der skrives ikke under)
+\\\\
+Denne rapport indeholder \textcolor{red}{77} sider incl. denne side
+\\\\
+Studie nr, Efternavn, Fornavne
+\\\\
+\textcolor{red}{s110795, Mortensen, Thomas Martin}
+\\
+Kontakt person (Projektleder)
+\\\\
+\includegraphics[scale=0.5]{ThomasM.jpg}
+\\\\
+\textcolor{red}{s113577, Johansen, Chris Dons}
+\\\\
+\includegraphics[scale=0.5]{ChrisJ.jpg}
+\\\\
+\textcolor{red}{s123897, Ahlgreen, Thomas Kamper}
+\\\\
+\includegraphics[scale=0.5]{ThomasA.jpg}
+\newpage
+\section*{Timeregnskab}
+\begin{tabular}{|c|c|c|c|c|c|c|r|} \hline
+ Dato & Deltager & Design & Implementering & Test & Dok. & Andet & I alt \\ \hline
+&&&&&&& \\ \hline
+ 15/11-13 & Thomas Mortensen & 2& & & & & 2\\ \hline
+ 15/11-13 & Chris Johansen & 2& & & & &2 \\ \hline
+ 15/11-13 & Thomas Ahlgreen & 2& & & & & 2\\ \hline
+ &&&&&&& \\ \hline
+ 22/11-13 & Thomas Mortensen & & 2,5& & & &2,5 \\ \hline
+ 22/11-13 & Chris Johansen & &2,5 & & & &2,5 \\ \hline
+ 22/11-13 & Thomas Ahlgren & & 2,5& & & &2,5 \\ \hline
+ &&&&&&& \\ \hline
+ 29/11-13 & Thomas Mortensen & &2,5 & & & &2,5 \\ \hline
+ 29/11-13 & Chris Johansen & &2,5 & & & & 2,5 \\ \hline
+ 29/11-13 & Thomas Ahlgren & &2,5 & & & & 2,5 \\ \hline
+ &&&&&&& \\ \hline
+ 2/12-13 & Thomas Mortensen & & &1 &6 & &7 \\ \hline
+ 2/12-13 & Chris Johansen & & &1 &6 & &7 \\ \hline
+ 2/12-13 & Thomas Ahlgren & & &1 &6 & &7 \\ \hline
+ &&&&&&& \\ \hline
+ diverse & Thomas Mortensen & & & &4 & & \\ \hline
+ diverse & Chris Johansen & & & & &2 & \\ \hline
+ diverse & Thomas Ahlgren & & & & & & \\ \hline
+ &&&&&&& 48\\ \hline
+\end{tabular}
+\newpage
+\tableofcontents
+\newpage
+\section{Indledning}
+Spilfirmaet IOOuterActive har givet os endnu en opgave.
+
+Kundens vision er en udvidelse af vores allerede udviklede programmer fra \cite{19del1} og \cite{19del2}
+
+Denne gang ønsker kunden at lave flere forskellige typer felter. Disse felter skal implementeres på en "rigtig" spilleplade, hvor man kan gå i ring. Samtidig ønskes der mulighed for 2-6 spillere. Spillerens konto skal sættes med et fast beløb fra start, og spillet skal slutte, når en spiller er gået bankerot.
+
+
+Projektet forventes at have elementer fra både \textbf{FURPS+} og \textbf{GRASP}. Herudover er der lavet specifikke krav til hvilke artefakter, der skal ingå i krav, analyse, kode, test, og designdokumentation.
+\\
+
+OBS: alle gruppemedlemmer er lige ansvarlige for alle dele af vores dokumentation
+\input{Kravspecificering.tex}
+\input{FURPS.tex}
+\input{Domaenemodel.tex}
+\input{BCEmodel.tex}
+\input{SystemsekvensDiagram.tex}
+\input{Kode.tex}
+\input{Test.tex}
+\input{GRASP.tex}
+\input{Designsekvens-diagram.tex}
+\input{Design-klassediagram.tex}
+\section{Kildeliste}
+Her vil vi oplyse om hvilke kilder, der er brugt til rapporten.
+Vi vil både oplyse om hvilke bøger, hjemmesider og software vi har brugt.
+\printbibliography %Print the bibliography set under \bibliography.
+\section{Anvendte værktøjer}
+\begin{itemize}
+\item \textbf{Eclipse - kepler}. Brugt som vores værktøj til at kode java i.
+\item \textbf{UMLet}. Foretrukket værktøj til \textbf{UML} diagrammer.
+\item \textbf{Dropbox}. Brugt til at dele filer imellem os. 
+\item \textbf{TexMaker}. Brugt for at skabe en flot rapport skrevet i \LaTeX
+\end{itemize}
+\newpage
+\section{Bilag}
+\subsection{Kode}
+Her vil hele vores kode til programmet være repræsenteret som bilag.
+\subsubsection{TUI - Boundary}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{TUI.java}
+\subsubsection{Graphic - Boundary}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Graphic.java}
+\subsubsection{Main - Controller}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true ,numbers = left,keywordstyle = \bfseries\color{mymauve}]{Main.java}
+\subsubsection{Game - Controller}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Game.java}
+\subsubsection{Player - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Player.java}
+\subsubsection{Account - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Account.java}
+\subsubsection{Gameboard - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Gameboard.java}
+\subsubsection{Field - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Field.java}
+\subsubsection{Ownable - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Ownable.java}
+\subsubsection{Fleet - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Fleet.java}
+\subsubsection{LaborCamp - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{LaborCamp.java}
+\subsubsection{Refuge - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Refuge.java}
+\subsubsection{Tax - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Tax.java}
+\subsubsection{Territory - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Territory.java}
+\subsubsection{DieCup - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{DieCup.java}
+\subsubsection{Die - Entity}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false,breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{Die.java}
+\subsubsection{DieCupTestEntity - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{DieCupTestEntity.java}
+\subsubsection{FleetTest - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{FleetTest.java}
+\subsubsection{LaborCampTest - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{LaborCampTest.java}
+\subsubsection{RefugeTest - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{RefugeTest.java}
+\subsubsection{TaxTest - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{TaxTest.java}
+\subsubsection{TerritoryTest - TestTools}
+\lstinputlisting[language = Java, tabsize = 2,stringstyle=\color{myblue},commentstyle=\color{mygreen},showstringspaces = false, breaklines=true, numbers = left,keywordstyle = \bfseries\color{mymauve}]{TerritoryTest.java}
+\end{document}
