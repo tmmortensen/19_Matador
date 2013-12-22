@@ -29,31 +29,46 @@ public class GameBoard {
 	 * Creates all the fields according to the game rules.
 	 */
 	public void createFields(Scanner scanner) {
-		fields[1] = new Street("Tribe Encampment", 100, 1000);
-		fields[2] = new Street("Crater", 300, 1500);
-		fields[3] = new Street("Mountain", 500, 2000);
-		fields[4] = new Street("Cold Dessert", 700, 3000);
-		fields[5] = new Street("Black Cave", 1000, 4000);
-		fields[6] = new Street("The Werewall", 1300, 4300);
-		fields[7] = new Street("Mountain Village", 1600, 4750);
-		fields[8] = new Street("South Citadel", 2000, 5000);
-		fields[9] = new Street("Palace ates", 2600, 5500);
-		fields[10] = new Street("Tower", 3200, 6000);
-		fields[11] = new Street("Castle", 4000, 8000);
-
-		fields[12] = new Refuge("Walled city", 5000);
-		fields[13] = new Refuge("Monastry", 500);
-
-		fields[14] = new Brewery("Huts in the mountain", 100, 2500, this);
-		fields[15] = new Brewery("The pit", 100, 2500, this);
-
-		fields[16] = new Tax("Goldmine", 2000);
-		fields[17] = new Tax("Caravan", 4000, 10, this, scanner);
-
-		fields[18] = new Shipping("Second Sail", 4000, this);
-		fields[19] = new Shipping("Sea Grover", 4000, this);
-		fields[20] = new Shipping("The Buccaneers", 4000, this);
-		fields[21] = new Shipping("Privateer armade", 4000, this);
+		fields[0] = new Refuge("Start", 0);
+		fields[1] = new Street("Rødovrevej", 60, 1200);
+		fields[2] = new TryYourLuck("Try Your Luck");
+		fields[3] = new Street("Hvidovrevej", 60, 1200);
+		fields[4] = new Tax("Pay tax", 4000);
+		fields[5] = new Shipping("H. H.", 4000, this);
+		fields[6] = new Street("Roskildevej", 100, 2000);
+		fields[7] = new TryYourLuck("Try Your Luck");
+		fields[8] = new Street("Valby langgade", 100, 2000);
+		fields[9] = new Street("Allégade", 120, 2400);
+		// fields[10] = new Jail("Jail");
+		fields[11] = new Street("Frederiksberg Allé", 140, 2800);
+		fields[12] = new Brewery("Tuborg", 150, 3000, this);
+		fields[13] = new Street("Bülowsvej", 140, 2800);
+		fields[14] = new Street("Gl. Kongevej", 140, 3200);
+		fields[15] = new Shipping("Mols-Linien", 4000, this);
+		fields[16] = new Shipping("Bernstoffsvej", 3600, this);
+		fields[17] = new TryYourLuck("Try Your Luck");
+		fields[18] = new Street("Hellerupvej", 180, 3600);
+		fields[19] = new Street("Strandvejen", 180, 4000);
+		fields[20] = new Refuge("Parking", 0);
+		fields[21] = new Street("Trianglen", 220, 4400);
+		fields[22] = new TryYourLuck("Try Your Luck");
+		fields[23] = new Street("Østerbrogade", 220, 4400);
+		fields[24] = new Street("Grønningen", 240, 4800);
+		fields[25] = new Shipping("GR", 4000, this);
+		fields[26] = new Street("Bredgade", 260, 5200);
+		fields[27] = new Street("Kgs. Nytorv", 260, 5200);
+		fields[28] = new Brewery("Carlsberg", 150, 3000, this);
+		fields[29] = new Street("Østergade", 280, 5600);
+		// fields[30] = new GoToJail("Go to Jail");
+		fields[31] = new Street("Amagertorv", 300, 6000);
+		fields[32] = new Street("Vimmelskaftet", 300, 6000);
+		fields[33] = new TryYourLuck("Try Your Luck");
+		fields[34] = new Street("Nygade", 320, 6400);
+		fields[35] = new Shipping("Rødby", 4000, this);
+		fields[36] = new TryYourLuck("Try Your Luck");
+		fields[37] = new Street("Frederiksberg Gade", 350, 7000);
+		fields[38] = new Tax("Pay tax", 2000);
+		fields[39] = new Street("Rådhus Pladsen", 400, 8000);
 	}
 
 	/**
