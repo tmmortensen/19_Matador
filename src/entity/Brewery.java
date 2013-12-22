@@ -6,7 +6,7 @@ package entity;
  * @author DTU 02312 Gruppe 19
  *
  */
-public class LaborCamp extends Ownable {
+public class Brewery extends Ownable {
 	private final int[] LABOR_CAMP_FIELDS = { 14, 15 };
 
 	private GameBoard gameBoard;
@@ -19,7 +19,7 @@ public class LaborCamp extends Ownable {
 	 * @param baseRent The baseRent to multiply with dice and number of LaborCamps owned
 	 * @param gameBoard The gameboard that this field is created in.
 	 */
-	public LaborCamp(String name, int baseRent, int price, GameBoard gameBoard) {
+	public Brewery(String name, int baseRent, int price, GameBoard gameBoard) {
 		super(name, price);
 		this.gameBoard = gameBoard;
 		this.baseRent = baseRent;

@@ -8,7 +8,7 @@ import org.junit.Test;
 import entity.Field;
 import entity.Ownable;
 import entity.Player;
-import entity.Territory;
+import entity.Street;
 
 public class TerritoryTest {
 	private Player player;
@@ -20,8 +20,8 @@ public class TerritoryTest {
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And");
 		this.owner = new Player(1000, "Andersine");
-		this.ter200 = new Territory("Territory +200", 200, 200);
-		this.ter0 = new Territory("Territory 0", 0, 0);
+		this.ter200 = new Street("Territory +200", 200, 200);
+		this.ter0 = new Street("Territory 0", 0, 0);
 		((Ownable)ter200).setOwner(owner); //Cast to ownable to be able to set owner
 		((Ownable)ter0).setOwner(owner); //Cast to ownable to be able to set owner
 	}
@@ -38,8 +38,8 @@ public class TerritoryTest {
 		Assert.assertNotNull(this.player);
 		Assert.assertNotNull(this.ter200);
 		Assert.assertNotNull(this.ter0);
-		Assert.assertTrue(this.ter200 instanceof Territory);
-		Assert.assertTrue(this.ter0 instanceof Territory);
+		Assert.assertTrue(this.ter200 instanceof Street);
+		Assert.assertTrue(this.ter0 instanceof Street);
 	}
 
 	@Test

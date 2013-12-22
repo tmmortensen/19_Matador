@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entity.Fleet;
+import entity.Shipping;
 import entity.GameBoard;
 import entity.Player;
 
@@ -20,10 +20,10 @@ public class FleetTest {
 		this.player = new Player(5000, "Anders And");
 		this.owner = new Player(1000, "Andersine");
 		
-		this.gameBoard.setField(new Fleet("Fleet1", 0, gameBoard), 18);
-		this.gameBoard.setField(new Fleet("Fleet2", 0, gameBoard), 19);
-		this.gameBoard.setField(new Fleet("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Fleet("Fleet4", 0, gameBoard), 21);
+		this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 18);
+		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
+		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 		
 		this.owner.setLocation(18);
 		this.gameBoard.setOwner(owner);
@@ -35,9 +35,9 @@ public class FleetTest {
 	public void tearDown() throws Exception {
 		this.player = new Player(5000, "Anders And");
 		this.owner = new Player(1000, "Andersine");
-		this.gameBoard.setField(new Fleet("Fleet2", 0, gameBoard), 19);
-		this.gameBoard.setField(new Fleet("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Fleet("Fleet4", 0, gameBoard), 21);
+		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
+		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 	}
 
 	@Test

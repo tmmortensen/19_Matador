@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entity.LaborCamp;
+import entity.Brewery;
 import entity.GameBoard;
 import entity.Player;
 
@@ -20,8 +20,8 @@ public class LaborCampTest {
 		this.player = new Player(5000, "Anders And");
 		this.owner = new Player(1000, "Andersine");
 		
-		this.gameBoard.setField(new LaborCamp("LaborCamp1", 100, 0, gameBoard), 14);
-		this.gameBoard.setField(new LaborCamp("LaborCamp2", 100, 0, gameBoard), 15);
+		this.gameBoard.setField(new Brewery("LaborCamp1", 100, 0, gameBoard), 14);
+		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard), 15);
 		this.gameBoard.shakeDieCup();
 		
 		this.owner.setLocation(14);
@@ -34,7 +34,7 @@ public class LaborCampTest {
 	public void tearDown() throws Exception {
 		this.player = new Player(5000, "Anders And");
 		this.owner = new Player(1000, "Andersine");
-		this.gameBoard.setField(new LaborCamp("LaborCamp2", 100, 0, gameBoard), 15);
+		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard), 15);
 	}
 
 	@Test

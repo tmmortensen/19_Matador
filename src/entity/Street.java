@@ -6,7 +6,7 @@ package entity;
  * @author DTU 02312 Gruppe 19
  *
  */
-public class Territory extends Ownable {
+public class Street extends Ownable {
 	private int rent;
 
 	/**
@@ -16,7 +16,7 @@ public class Territory extends Ownable {
 	 * @param rent The rent a player should pay if landing on this field.
 	 * @param price The price of this field.
 	 */
-	public Territory(String name, int rent, int price) {
+	public Street(String name, int rent, int price) {
 		super(name, price);
 		this.rent = rent;
 	}

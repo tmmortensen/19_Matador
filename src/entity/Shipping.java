@@ -6,7 +6,7 @@ package entity;
  * @author DTU 02312 Gruppe 19
  *
  */
-public class Fleet extends Ownable {
+public class Shipping extends Ownable {
 	private final int[] FLEET_FIELDS = { 18, 19, 20, 21 };
 
 	private final int RENT_1 = 500;
@@ -23,7 +23,7 @@ public class Fleet extends Ownable {
 	 * @param price The price of the field.
 	 * @param gameBoard The gameboard that this field is created in.
 	 */
-	public Fleet(String name, int price, GameBoard gameBoard) {
+	public Shipping(String name, int price, GameBoard gameBoard) {
 		super(name, price);
 		this.gameBoard = gameBoard;
 	}

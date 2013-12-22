@@ -29,31 +29,31 @@ public class GameBoard {
 	 * Creates all the fields according to the game rules.
 	 */
 	public void createFields(Scanner scanner) {
-		fields[1] = new Territory("Tribe Encampment", 100, 1000);
-		fields[2] = new Territory("Crater", 300, 1500);
-		fields[3] = new Territory("Mountain", 500, 2000);
-		fields[4] = new Territory("Cold Dessert", 700, 3000);
-		fields[5] = new Territory("Black Cave", 1000, 4000);
-		fields[6] = new Territory("The Werewall", 1300, 4300);
-		fields[7] = new Territory("Mountain Village", 1600, 4750);
-		fields[8] = new Territory("South Citadel", 2000, 5000);
-		fields[9] = new Territory("Palace ates", 2600, 5500);
-		fields[10] = new Territory("Tower", 3200, 6000);
-		fields[11] = new Territory("Castle", 4000, 8000);
+		fields[1] = new Street("Tribe Encampment", 100, 1000);
+		fields[2] = new Street("Crater", 300, 1500);
+		fields[3] = new Street("Mountain", 500, 2000);
+		fields[4] = new Street("Cold Dessert", 700, 3000);
+		fields[5] = new Street("Black Cave", 1000, 4000);
+		fields[6] = new Street("The Werewall", 1300, 4300);
+		fields[7] = new Street("Mountain Village", 1600, 4750);
+		fields[8] = new Street("South Citadel", 2000, 5000);
+		fields[9] = new Street("Palace ates", 2600, 5500);
+		fields[10] = new Street("Tower", 3200, 6000);
+		fields[11] = new Street("Castle", 4000, 8000);
 
 		fields[12] = new Refuge("Walled city", 5000);
 		fields[13] = new Refuge("Monastry", 500);
 
-		fields[14] = new LaborCamp("Huts in the mountain", 100, 2500, this);
-		fields[15] = new LaborCamp("The pit", 100, 2500, this);
+		fields[14] = new Brewery("Huts in the mountain", 100, 2500, this);
+		fields[15] = new Brewery("The pit", 100, 2500, this);
 
 		fields[16] = new Tax("Goldmine", 2000);
 		fields[17] = new Tax("Caravan", 4000, 10, this, scanner);
 
-		fields[18] = new Fleet("Second Sail", 4000, this);
-		fields[19] = new Fleet("Sea Grover", 4000, this);
-		fields[20] = new Fleet("The Buccaneers", 4000, this);
-		fields[21] = new Fleet("Privateer armade", 4000, this);
+		fields[18] = new Shipping("Second Sail", 4000, this);
+		fields[19] = new Shipping("Sea Grover", 4000, this);
+		fields[20] = new Shipping("The Buccaneers", 4000, this);
+		fields[21] = new Shipping("Privateer armade", 4000, this);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class GameBoard {
 	 * @param field
 	 *            Field object to insert.
 	 * @param number
-	 *            Place number to instert field on.
+	 *            Place number to insert field on.
 	 */
 	public void setField(Field field, int number) {
 		fields[number] = field;

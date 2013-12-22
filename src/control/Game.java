@@ -9,9 +9,9 @@ import entity.Player;
 
 /**
  * This is controller class in the game.
- *
+ * 
  * @author DTU 02312 Gruppe 19
- *
+ * 
  */
 public class Game {
 	private final int POINTS_TO_START_WITH = 30000;
@@ -29,7 +29,7 @@ public class Game {
 		scanner = new Scanner(System.in);
 		gameBoard = new GameBoard(22);
 		gameBoard.createFields(scanner);
-		setupGuiFields();
+		// setupGuiFields();
 	}
 
 	/**
@@ -58,12 +58,14 @@ public class Game {
 
 			gameBoard.shakeDieCup();
 			players[activePlayer].moveFieldsForward(gameBoard.getDieCupSum());
-			Graphic.moveCar(players[activePlayer].getName(), players[activePlayer].getLocation());
+			Graphic.moveCar(players[activePlayer].getName(),
+					players[activePlayer].getLocation());
 			Graphic.setDice(gameBoard.getDieValue1(), gameBoard.getDieValue2());
-			TUI.printFieldName(players[activePlayer].getLocation(), gameBoard.getName(players[activePlayer].getLocation()));
+			TUI.printFieldName(players[activePlayer].getLocation(),
+					gameBoard.getName(players[activePlayer].getLocation()));
 			gameBoard.landOnField(players[activePlayer]);
 
-			if(players[activePlayer].isOnBuyableField()) {
+			if (players[activePlayer].isOnBuyableField()) {
 				fieldBuyOption(players[activePlayer]);
 			}
 
@@ -105,12 +107,13 @@ public class Game {
 			TUI.printNameRequest(i);
 
 			userInput = TUI.getUserInput(scanner);
-			if("".equals(userInput)) {
-				userInput = "Player" + (i+1);
+			if ("".equals(userInput)) {
+				userInput = "Player" + (i + 1);
 			}
 
 			players[i] = new Player(POINTS_TO_START_WITH, userInput);
-			Graphic.addPlayer(players[i].getName(), players[i].getAccountValue(), i);
+			Graphic.addPlayer(players[i].getName(),
+					players[i].getAccountValue(), i);
 		}
 	}
 
@@ -139,7 +142,8 @@ public class Game {
 	}
 
 	private void fieldBuyOption(Player player) {
-		TUI.printBuyOption(gameBoard.getName(player.getLocation()), gameBoard.getPrice(player.getLocation()));
+		TUI.printBuyOption(gameBoard.getName(player.getLocation()),
+				gameBoard.getPrice(player.getLocation()));
 		boolean wantToBuy = TUI.getYesNo(scanner);
 
 		if (wantToBuy) {
@@ -153,32 +157,33 @@ public class Game {
 
 	private void removeGuiOwner(int activePlayer) {
 		int i;
-		for(i = 0; i<=21; i++) {
-			if(gameBoard.getOwner(i) == players[activePlayer]) {
+		for (i = 0; i <= 21; i++) {
+			if (gameBoard.getOwner(i) == players[activePlayer]) {
 				Graphic.removeOwner(i);
 			}
 		}
 	}
 
-	private void setupGuiFields() {
-		int i;
-
-		for(i = 1; i<=21; i++) {
-			Graphic.createField(gameBoard.getName(i), "", i);
-		}
-
-		// Remove unused fields from GUI
-		for (i = 22; i < 41; i++) {
-			Graphic.createField("", "", i);
-		}
-	}
+	// private void setupGuiFields() {
+	// int i;
+	//
+	// for (i = 1; i <= 21; i++) {
+	// Graphic.createField(gameBoard.getName(i), "", i);
+	// }
+	//
+	// // Remove unused fields from GUI
+	// for (i = 22; i < 41; i++) {
+	// Graphic.createField("", "", i);
+	// }
+	// }
 
 	private void statusTasks() {
 		int i;
 		TUI.printScoreIntro();
-		for(i=0; i<players.length; i++) {
+		for (i = 0; i < players.length; i++) {
 			TUI.printStatus(players[i].getName(), players[i].getAccountValue());
-			Graphic.updatePlayer(players[i].getName(), players[i].getAccountValue());
+			Graphic.updatePlayer(players[i].getName(),
+					players[i].getAccountValue());
 		}
 	}
 
@@ -190,7 +195,8 @@ public class Game {
 	}
 
 	private void loseTasks(int activePlayer) {
-		TUI.printLoser(players[activePlayer].getName(), players[activePlayer].getAccountValue());
+		TUI.printLoser(players[activePlayer].getName(),
+				players[activePlayer].getAccountValue());
 		removeGuiOwner(activePlayer);
 		Graphic.removePlayer(players[activePlayer].getName());
 		gameBoard.clearFieldOwners(players[activePlayer]);
