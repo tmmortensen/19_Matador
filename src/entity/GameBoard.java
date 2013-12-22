@@ -2,16 +2,20 @@ package entity;
 
 import java.util.Scanner;
 
+import TryYourLuck.Pile;
+import boundaryToMatador.GUI;
+
 /**
  * Class to create a game board. This class takes in a lot of fields and makes
  * it a board.
- *
+ * 
  * @author DTU 02312 Gruppe 19
- *
+ * 
  */
 public class GameBoard {
 	private DieCup dieCup;
 	Field[] fields;
+	private static Pile pileOfCards = new Pile();
 
 	/**
 	 * Constructor that makes an array for fields and a DieCup
@@ -53,36 +57,41 @@ public class GameBoard {
 	}
 
 	/**
-	 * Method that calls the landOnField method on the fieldNumber that the player is on.
-	 *
-	 * @param player The player that landed on a field.
+	 * Method that calls the landOnField method on the fieldNumber that the
+	 * player is on.
+	 * 
+	 * @param player
+	 *            The player that landed on a field.
 	 */
 	public void landOnField(Player player) {
 		fields[player.getLocation()].landOnField(player);
 	}
 
 	/**
-	 * Method that sets the owner to null in all the fields owned by a given player.
-	 *
-	 * @param player The player to remove.
+	 * Method that sets the owner to null in all the fields owned by a given
+	 * player.
+	 * 
+	 * @param player
+	 *            The player to remove.
 	 */
 	public void clearFieldOwners(Player player) {
 		int i;
-		for(i = 0; i<=21; i++) {
-			if(getOwner(i) == player) {
-				((Ownable)fields[i]).owner = null;
+		for (i = 0; i <= 21; i++) {
+			if (getOwner(i) == player) {
+				((Ownable) fields[i]).owner = null;
 			}
 		}
 	}
 
 	/**
 	 * Gets the owner of a field.
-	 *
-	 * @param fieldNumber The number of the field to get owner for.
+	 * 
+	 * @param fieldNumber
+	 *            The number of the field to get owner for.
 	 * @return The owner of the field.
 	 */
 	public Player getOwner(int fieldNumber) {
-		if(getOwnableField(fieldNumber) != null) {
+		if (getOwnableField(fieldNumber) != null) {
 			return getOwnableField(fieldNumber).owner;
 		}
 
@@ -91,7 +100,7 @@ public class GameBoard {
 
 	/**
 	 * Method to set a given player as owner of the field he is on.
-	 *
+	 * 
 	 * @param player
 	 */
 	public void setOwner(Player player) {
@@ -100,8 +109,9 @@ public class GameBoard {
 
 	/**
 	 * Gets the price of a field.
-	 *
-	 * @param fieldNumber The number of the field to get price for.
+	 * 
+	 * @param fieldNumber
+	 *            The number of the field to get price for.
 	 * @return The price of the field.
 	 */
 	public int getPrice(int fieldNumber) {
@@ -110,8 +120,9 @@ public class GameBoard {
 
 	/**
 	 * Gets the name of a field.
-	 *
-	 * @param fieldNumber The number of the field to get name for.
+	 * 
+	 * @param fieldNumber
+	 *            The number of the field to get name for.
 	 * @return The name of the field.
 	 */
 	public String getName(int fieldNumber) {
@@ -127,7 +138,7 @@ public class GameBoard {
 
 	/**
 	 * Gets the sum of the values of the Dice in the DieCup.
-	 *
+	 * 
 	 * @return The sum of the Dice.
 	 */
 	public int getDieCupSum() {
@@ -136,7 +147,7 @@ public class GameBoard {
 
 	/**
 	 * Gets the value of Die1.
-	 *
+	 * 
 	 * @return The value of Die1.
 	 */
 	public int getDieValue1() {
@@ -145,18 +156,20 @@ public class GameBoard {
 
 	/**
 	 * Gets the value of Die2.
-	 *
+	 * 
 	 * @return The value of Die2.
 	 */
 	public int getDieValue2() {
 		return dieCup.getValueDie2();
 	}
-	
+
 	/**
 	 * Method to set a field.
 	 * 
-	 * @param field Field object to insert.
-	 * @param number Place number to instert field on.
+	 * @param field
+	 *            Field object to insert.
+	 * @param number
+	 *            Place number to instert field on.
 	 */
 	public void setField(Field field, int number) {
 		fields[number] = field;
@@ -165,7 +178,7 @@ public class GameBoard {
 	/**
 	 * A method to generate a nice string containing the value of all the
 	 * fields. Also contains value of the DieCup.
-	 *
+	 * 
 	 * @return All the field values as a string.
 	 */
 	public String toString() {
@@ -183,9 +196,26 @@ public class GameBoard {
 
 	private Ownable getOwnableField(int fieldNumber) {
 		if (fields[fieldNumber] instanceof Ownable) {
-			return (Ownable)fields[fieldNumber];
+			return (Ownable) fields[fieldNumber];
 		}
 
 		return null;
+	}
+
+	public static void drawCard(int currentPlayer, Player[] players) {
+		pileOfCards.nextCard();
+		pileOfCards.effect(currentPlayer, players);
+		GUI.showMessage(GameBoard.pileOfCards.ShowCardText());
+	}
+
+	public int getCardNumber() {
+		return pileOfCards.getCardNumber(true);
+	}
+
+	public String getCardType() {
+		String variable = ""
+				+ GameBoard.pileOfCards.getCardType(GameBoard.pileOfCards
+						.getCardNumber(false));
+		return variable;
 	}
 }
