@@ -27,12 +27,10 @@ public abstract class Cards {
 	/**
 	 * Beregner kortets efekt
 	 * 
-	 * @param currentPlayer
-	 *            Den spiller der har trukket kortet
-	 * @param players
+	 * @param player
 	 *            Spillerarrayet
 	 */
-	public abstract void calcEffekt(int currentPlayer, Player[] players);
+	public abstract void calcEffekt(Player player);
 
 	/**
 	 * Henter korttypen

@@ -89,13 +89,11 @@ public class Pile {
 	/**
 	 * Beregner effekten af kortet
 	 * 
-	 * @param currentPlayer
-	 *            Spillerens nummer
-	 * @param players
+	 * @param player
 	 *            Spillerarrayet
 	 */
-	public void effect(int currentPlayer, Player[] players) {
-		shuffledPile[cardNumber].calcEffekt(currentPlayer, players);
+	public void effect(Player player) {
+		shuffledPile[cardNumber].calcEffekt(player);
 	}
 
 	/**

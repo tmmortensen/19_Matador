@@ -33,25 +33,24 @@ public class NoneMoneyCards extends Cards {
 	/**
 	 * Overskrevet fra Cards, til at beregne hvad der skal ske hvis et bestemt kort bliver trukket
 	 */
-	public void calcEffekt(int currentPlayer, Player[] players) {
+	public void calcEffekt(Player players) {
 
 		switch (cardType) {
 		case MOVETO:
-			players[currentPlayer].setLocation(position);
+			players.setLocation(position);
 			break;
 		case CHANGEPOSITION:
 			int changedPosition;
-			changedPosition = players[currentPlayer].getLocation() + position;
+			changedPosition = players.getLocation() + position;
 			if (changedPosition == 41)
 				changedPosition = 1;
 			if (changedPosition < 0)
 				changedPosition = 40 + changedPosition;
-			players[currentPlayer].setLocation(changedPosition);
+			players.setLocation(changedPosition);
 			break;
 		case GOTOJAIL:
-			players[currentPlayer].setLocation(11);
-			GUI.setCar(players[currentPlayer].getLocation(),
-					players[currentPlayer].getName());
+			players.setLocation(11);
+			GUI.setCar(players.getLocation(), players.getName());
 			// players[currentPlayer].jailTransfer();
 			break;
 		default:

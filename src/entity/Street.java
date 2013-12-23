@@ -2,19 +2,22 @@ package entity;
 
 /**
  * Class to make a Territory-field.
- *
+ * 
  * @author DTU 02312 Gruppe 19
- *
+ * 
  */
 public class Street extends Ownable {
 	private int rent;
 
 	/**
 	 * Constructor that takes all inputs needed for the class.
-	 *
-	 * @param name The name of this field.
-	 * @param rent The rent a player should pay if landing on this field.
-	 * @param price The price of this field.
+	 * 
+	 * @param name
+	 *            The name of this field.
+	 * @param rent
+	 *            The rent a player should pay if landing on this field.
+	 * @param price
+	 *            The price of this field.
 	 */
 	public Street(String name, int rent, int price) {
 		super(name, price);
@@ -23,7 +26,7 @@ public class Street extends Ownable {
 
 	/**
 	 * Method to calculate rent for this field.
-	 *
+	 * 
 	 * @return The rent for this field.
 	 */
 	public int getRent() {

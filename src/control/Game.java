@@ -27,7 +27,7 @@ public class Game {
 	 */
 	public Game() {
 		scanner = new Scanner(System.in);
-		gameBoard = new GameBoard(22);
+		gameBoard = new GameBoard(41);
 		gameBoard.createFields(scanner);
 		// setupGuiFields();
 	}

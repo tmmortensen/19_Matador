@@ -32,10 +32,10 @@ public class MoneyCards extends Cards {
 	/**
 	 * Overskrevet fra Cards
 	 */
-	public void calcEffekt(int currentPlayer, Player[] players) {
+	public void calcEffekt(Player players) {
 
 		if (cardType == Card.WITHDRAWCARD) {
-			players[currentPlayer].addToAccount(effect);
+			players.addToAccount(effect);
 		}
 	}
 

@@ -1,6 +1,7 @@
 package entity;
 
-public abstract class TryYourLuck extends Field {
+public class TryYourLuck extends Field {
+	protected Player player;
 
 	public TryYourLuck(String name) {
 		super(name);
@@ -8,7 +9,7 @@ public abstract class TryYourLuck extends Field {
 
 	@Override
 	public void landOnField(Player player) {
-		GameBoard.drawCard(currentPlayer, players);
+		GameBoard.drawCard(player);
 	}
 
 }
