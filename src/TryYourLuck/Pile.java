@@ -93,7 +93,7 @@ public class Pile {
 	 *            Spillerarrayet
 	 */
 	public void effect(Player player) {
-		shuffledPile[cardNumber].calcEffekt(player);
+		shuffledPile[cardNumber].calcEffect(player);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package TryYourLuck;
 
-import boundaryToMatador.GUI;
+import boundary.Graphic;
 import entity.Player;
 
 /**
@@ -33,7 +33,7 @@ public class NoneMoneyCards extends Cards {
 	/**
 	 * Overskrevet fra Cards, til at beregne hvad der skal ske hvis et bestemt kort bliver trukket
 	 */
-	public void calcEffekt(Player players) {
+	public void calcEffect(Player players) {
 
 		switch (cardType) {
 		case MOVETO:
@@ -50,7 +50,7 @@ public class NoneMoneyCards extends Cards {
 			break;
 		case GOTOJAIL:
 			players.setLocation(11);
-			GUI.setCar(players.getLocation(), players.getName());
+			Graphic.moveCar(cardText, position);
 			// players[currentPlayer].jailTransfer();
 			break;
 		default:

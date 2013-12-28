@@ -30,7 +30,7 @@ public abstract class Cards {
 	 * @param player
 	 *            Spillerarrayet
 	 */
-	public abstract void calcEffekt(Player player);
+	public abstract void calcEffect(Player player);
 
 	/**
 	 * Henter korttypen
