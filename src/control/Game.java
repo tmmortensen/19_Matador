@@ -164,6 +164,15 @@ public class Game {
 		}
 	}
 
+	private void checkLuckyCard(int activePlayer) {
+		if (gameBoard.getCardNumber() != -1) {
+			String cardType = gameBoard.getCardType();
+			if (cardType.equals("MOVETO") || cardType.equals("CHANGEPOSITION")) {
+				gameBoard.landOnField(players[activePlayer]);
+			}
+		}
+	}
+
 	// private void setupGuiFields() {
 	// int i;
 	//

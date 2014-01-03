@@ -5,6 +5,7 @@ public class TryYourLuck extends Field {
 
 	public TryYourLuck(String name) {
 		super(name);
+		// landOnField(player);
 	}
 
 	@Override

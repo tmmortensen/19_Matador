@@ -42,10 +42,10 @@ public class NoneMoneyCards extends Cards {
 		case CHANGEPOSITION:
 			int changedPosition;
 			changedPosition = players.getLocation() + position;
-			if (changedPosition == 41)
+			if (changedPosition == 40)
 				changedPosition = 1;
 			if (changedPosition < 0)
-				changedPosition = 40 + changedPosition;
+				changedPosition = 39 + changedPosition;
 			players.setLocation(changedPosition);
 			break;
 		case GOTOJAIL:

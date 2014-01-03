@@ -29,29 +29,29 @@ public class GameBoard {
 	 * Creates all the fields according to the game rules.
 	 */
 	public void createFields(Scanner scanner) {
-		fields[1] = new Refuge("Start", 0);
+		fields[1] = new Refuge("Start", 200);
 		fields[2] = new Street("Rødovrevej", 60, 1200);
-		fields[3] = new TryYourLuck("Try Your Luck");
+		fields[3] = new TryYourLuck("Prøv Lykken");
 		fields[4] = new Street("Hvidovrevej", 60, 1200);
 		fields[5] = new Tax("Pay tax", 4000);
 		fields[6] = new Shipping("H. H.", 4000, this);
 		fields[7] = new Street("Roskildevej", 100, 2000);
-		fields[8] = new TryYourLuck("Try Your Luck");
-		fields[9] = new Street("Valby langgade", 100, 2000);
+		fields[8] = new TryYourLuck("Prøv Lykken");
+		fields[9] = new Street("Valby Langgade", 100, 2000);
 		fields[10] = new Street("Allégade", 120, 2400);
-		fields[11] = new Refuge("Jail", 0);
+		fields[11] = new Refuge("Fængsel", 0);
 		fields[12] = new Street("Frederiksberg Allé", 140, 2800);
 		fields[13] = new Brewery("Tuborg", 150, 3000, this);
 		fields[14] = new Street("Bülowsvej", 140, 2800);
 		fields[15] = new Street("Gl. Kongevej", 140, 3200);
 		fields[16] = new Shipping("Mols-Linien", 4000, this);
 		fields[17] = new Shipping("Bernstoffsvej", 3600, this);
-		fields[18] = new TryYourLuck("Try Your Luck");
+		fields[18] = new TryYourLuck("Prøv Lykken");
 		fields[19] = new Street("Hellerupvej", 180, 3600);
 		fields[20] = new Street("Strandvejen", 180, 4000);
 		fields[21] = new Refuge("Parking", 0);
 		fields[22] = new Street("Trianglen", 220, 4400);
-		fields[23] = new TryYourLuck("Try Your Luck");
+		fields[23] = new TryYourLuck("Prøv Lykken");
 		fields[24] = new Street("Østerbrogade", 220, 4400);
 		fields[25] = new Street("Grønningen", 240, 4800);
 		fields[26] = new Shipping("GR", 4000, this);
@@ -62,12 +62,12 @@ public class GameBoard {
 		fields[31] = new Refuge("Go to Jail", 0);
 		fields[32] = new Street("Amagertorv", 300, 6000);
 		fields[33] = new Street("Vimmelskaftet", 300, 6000);
-		fields[34] = new TryYourLuck("Try Your Luck");
+		fields[34] = new TryYourLuck("Prøv Lykken");
 		fields[35] = new Street("Nygade", 320, 6400);
 		fields[36] = new Shipping("Rødby", 4000, this);
-		fields[37] = new TryYourLuck("Try Your Luck");
+		fields[37] = new TryYourLuck("Prøv Lykken");
 		fields[38] = new Street("Frederiksberg Gade", 350, 7000);
-		fields[39] = new Tax("Pay tax", 2000);
+		fields[39] = new Tax("Betal skat", 2000);
 		fields[40] = new Street("Rådhus Pladsen", 400, 8000);
 	}
 
