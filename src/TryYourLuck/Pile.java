@@ -21,25 +21,23 @@ public class Pile {
 	 */
 	public Pile() {
 		pile[0] = new MoneyCards(
-				"Try your luck\nHappy birthday! You are getting 2000 kr.",
-				Card.DEPOSITCARD, 2000);
-		pile[1] = new NoneMoneyCards("Try your luck\nMove to start",
-				Card.MOVETO, 1);
+				"Prøv Lykken\nTillykke med fødselsdagen! Du modtager Kr. 2000,-",
+				Card.DEPOSITCARD, +2000);
+		pile[1] = new NoneMoneyCards("Prøv Lykken\nRyk til Start", Card.MOVETO,
+				1);
 		pile[2] = new MoneyCards(
-				"Try your luck\nYou are driving too fast, you are fined for 1500 kr.",
-				Card.WITHDRAWCARD, 1500);
-		pile[3] = new NoneMoneyCards("Try your luck\nMove to Rådhuspladsen",
+				"Prøv Lykken\nDu kørte for hurtigt, modtag en bøde på Kr. 1500,-",
+				Card.WITHDRAWCARD, -1500);
+		pile[3] = new NoneMoneyCards("Prøv Lykken\nRyk til Rådhuspladsen",
 				Card.MOVETO, 40);
 		pile[4] = new MoneyCards(
-				"Try your luck\nYou are getting money back from tax. You recieve 3000 kr.",
-				Card.DEPOSITCARD, 3000);
-		pile[5] = new NoneMoneyCards(
-				"Try your luck\nMove 4 fieldnumbers forward",
-				Card.CHANGEPOSITION, 4);
-		pile[6] = new NoneMoneyCards("Try your luck\nGo to Jail!",
+				"Prøv Lykken\nDu har fået penge tilbage i skat. Modtag Kr. 3000,-",
+				Card.DEPOSITCARD, +3000);
+		pile[5] = new NoneMoneyCards("Prøv lykken\nFlyt 4 felter frem",
+				Card.CHANGEPOSITION, +4);
+		pile[6] = new NoneMoneyCards("Prøv lykken\nGå i Fængsel!",
 				Card.GOTOJAIL, 0);
-		pile[7] = new NoneMoneyCards(
-				"Try your luck\nMove 4 fieldnumbers backward",
+		pile[7] = new NoneMoneyCards("Prøv Lykken\nFlyt 4 felter baglæns",
 				Card.CHANGEPOSITION, -4);
 		shufflePile();
 	}

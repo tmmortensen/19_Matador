@@ -91,7 +91,7 @@ public class GameBoard {
 	 */
 	public void clearFieldOwners(Player player) {
 		int i;
-		for (i = 0; i <= 21; i++) {
+		for (i = 0; i <= 41; i++) {
 			if (getOwner(i) == player) {
 				((Ownable) fields[i]).owner = null;
 			}

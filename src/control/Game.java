@@ -157,7 +157,7 @@ public class Game {
 
 	private void removeGuiOwner(int activePlayer) {
 		int i;
-		for (i = 0; i <= 21; i++) {
+		for (i = 0; i <= 41; i++) {
 			if (gameBoard.getOwner(i) == players[activePlayer]) {
 				Graphic.removeOwner(i);
 			}
