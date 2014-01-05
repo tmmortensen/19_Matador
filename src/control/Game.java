@@ -1,9 +1,6 @@
 package control;
 
-import java.util.Scanner;
-
 import boundary.Graphic;
-import boundary.TUI;
 import entity.GameBoard;
 import entity.Player;
 
@@ -16,7 +13,6 @@ import entity.Player;
 public class Game {
 	private final int POINTS_TO_START_WITH = 30000;
 
-	private Scanner scanner;
 	private GameBoard gameBoard;
 	private Player[] players;
 
@@ -26,10 +22,8 @@ public class Game {
 	 * Game constructor. Creates new instances of the required classes.
 	 */
 	public Game() {
-		scanner = new Scanner(System.in);
 		gameBoard = new GameBoard(41);
-		gameBoard.createFields(scanner);
-		// setupGuiFields();
+		gameBoard.createFields();
 	}
 
 	/**
@@ -37,39 +31,18 @@ public class Game {
 	 */
 	public void startGame() {
 		int activePlayer = 0;
-		String userInput;
 
-		TUI.printRules();
-		numberOfPlayers = TUI.getNumberOfPlayers(scanner);
+		numberOfPlayers = Graphic.getNumberOfPlayers();
 		players = new Player[numberOfPlayers];
 
 		createPlayers();
 
 		// Start of the actual game-turns
 		while (true) {
-			// Write whos turn it is and wait for input
-			TUI.printTurn(players[activePlayer].getName());
-			userInput = TUI.getUserInput(scanner);
-
-			// Exit game if user inputs "q"
-			if ("q".equals(userInput)) {
-				cleanUp();
-			}
-
+			Graphic.getOk(players[activePlayer].getName());
 			gameBoard.shakeDieCup();
 			players[activePlayer].moveFieldsForward(gameBoard.getDieCupSum());
-			Graphic.moveCar(players[activePlayer].getName(),
-					players[activePlayer].getLocation());
-			Graphic.setDice(gameBoard.getDieValue1(), gameBoard.getDieValue2());
-			TUI.printFieldName(players[activePlayer].getLocation(),
-					gameBoard.getName(players[activePlayer].getLocation()));
 			gameBoard.landOnField(players[activePlayer]);
-
-			if (players[activePlayer].isOnBuyableField()) {
-				fieldBuyOption(players[activePlayer]);
-			}
-
-			statusTasks();
 
 			if (players[activePlayer].isBankrupt()) {
 				loseTasks(activePlayer);
@@ -104,16 +77,12 @@ public class Game {
 
 		// Ask for all player names and save them in the player objects.
 		for (i = 0; i < numberOfPlayers; i++) {
-			TUI.printNameRequest(i);
-
-			userInput = TUI.getUserInput(scanner);
+			userInput = Graphic.getPlayerName();
 			if ("".equals(userInput)) {
 				userInput = "Player" + (i + 1);
 			}
 
-			players[i] = new Player(POINTS_TO_START_WITH, userInput);
-			Graphic.addPlayer(players[i].getName(),
-					players[i].getAccountValue(), i);
+			players[i] = new Player(POINTS_TO_START_WITH, userInput, i);
 		}
 	}
 
@@ -141,72 +110,12 @@ public class Game {
 		return 0;
 	}
 
-	private void fieldBuyOption(Player player) {
-		TUI.printBuyOption(gameBoard.getName(player.getLocation()),
-				gameBoard.getPrice(player.getLocation()));
-		boolean wantToBuy = TUI.getYesNo(scanner);
-
-		if (wantToBuy) {
-			player.addToAccount(-1 * gameBoard.getPrice(player.getLocation()));
-			gameBoard.setOwner(player);
-			Graphic.setOwner(player.getLocation(), player.getName());
-		}
-
-		player.setIsOnBuyableField(false);
-	}
-
-	private void removeGuiOwner(int activePlayer) {
-		int i;
-		for (i = 0; i <= 41; i++) {
-			if (gameBoard.getOwner(i) == players[activePlayer]) {
-				Graphic.removeOwner(i);
-			}
-		}
-	}
-
-	private void checkLuckyCard(int activePlayer) {
-		if (gameBoard.getCardNumber() != -1) {
-			String cardType = gameBoard.getCardType();
-			if (cardType.equals("MOVETO") || cardType.equals("CHANGEPOSITION")) {
-				gameBoard.landOnField(players[activePlayer]);
-			}
-		}
-	}
-
-	// private void setupGuiFields() {
-	// int i;
-	//
-	// for (i = 1; i <= 21; i++) {
-	// Graphic.createField(gameBoard.getName(i), "", i);
-	// }
-	//
-	// // Remove unused fields from GUI
-	// for (i = 22; i < 41; i++) {
-	// Graphic.createField("", "", i);
-	// }
-	// }
-
-	private void statusTasks() {
-		int i;
-		TUI.printScoreIntro();
-		for (i = 0; i < players.length; i++) {
-			TUI.printStatus(players[i].getName(), players[i].getAccountValue());
-			Graphic.updatePlayer(players[i].getName(),
-					players[i].getAccountValue());
-		}
-	}
-
 	private void winTasks(int activePlayer) {
-		TUI.printWinner(players[activePlayer].getName(),
-				players[activePlayer].getAccountValue());
-		TUI.getUserInput(scanner);
+		Graphic.announceWinner(players[activePlayer].getName());
 		cleanUp();
 	}
 
 	private void loseTasks(int activePlayer) {
-		TUI.printLoser(players[activePlayer].getName(),
-				players[activePlayer].getAccountValue());
-		removeGuiOwner(activePlayer);
 		Graphic.removePlayer(players[activePlayer].getName());
 		gameBoard.clearFieldOwners(players[activePlayer]);
 
@@ -217,7 +126,6 @@ public class Game {
 
 	private void cleanUp() {
 		Graphic.close();
-		scanner.close();
 		System.exit(0);
 	}
 }

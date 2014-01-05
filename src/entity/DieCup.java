@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic;
+
 /**
  * Class to create a diecup. This class will take in 2 dice.
  *
@@ -23,6 +25,7 @@ public class DieCup {
     public void shakeDieCup() {
         die1.roll();
         die2.roll();
+        Graphic.setDice(die1.getValue(), die2.getValue());
     }
 
     /**
@@ -57,7 +60,7 @@ public class DieCup {
      *
      * @return True if facevalues of die1 and die2 are the same, otherwise False.
      */
-    public boolean getEns() {
+    public boolean getIdentical() {
         if (die1.getValue() == die2.getValue()) {
             return true;
         }

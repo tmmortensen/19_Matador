@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic;
+
 /**
  * Class to create a player. This class can be used for storing a name and
  * account for a player.
@@ -11,28 +13,18 @@ public class Player {
 	private String name;
 	private Account account;
 	private boolean isBankrupt;
-	private boolean isOnBuyableField;
 	private int location;
 
 	/**
 	 * Constructor that initiates name to empty and account to an initial score.
 	 */
-	public Player(int initialScore, String name) {
+	public Player(int initialScore, String name, int playerNumber) {
 		this.name = name;
 		account = new Account(initialScore);
 		isBankrupt = false;
-		isOnBuyableField = false;
 		location = 1;
-	}
-
-	/**
-	 * Saves the given name.
-	 * 
-	 * @param input
-	 *            The name to save.
-	 */
-	public void setName(String input) {
-		name = input;
+		
+		Graphic.addPlayer(name, getAccountValue(), playerNumber);
 	}
 
 	/**
@@ -63,27 +55,6 @@ public class Player {
 	}
 
 	/**
-	 * Method to set the boolean for whether the player is on a field that can
-	 * be bought.
-	 * 
-	 * @param isOnBuyableField
-	 *            What the value should be set to.
-	 */
-	public void setIsOnBuyableField(boolean isOnBuyableField) {
-		this.isOnBuyableField = isOnBuyableField;
-	}
-
-	/**
-	 * Method to get the boolean for whether the player is on a field that can
-	 * be bought.
-	 * 
-	 * @return True if player is on a field that can be bought, otherwise false.
-	 */
-	public boolean isOnBuyableField() {
-		return isOnBuyableField;
-	}
-
-	/**
 	 * Method to set the players current location (field number).
 	 * 
 	 * @param location
@@ -91,6 +62,7 @@ public class Player {
 	 */
 	public void setLocation(int location) {
 		this.location = location;
+		Graphic.moveCar(name, location);
 	}
 
 	/**
@@ -110,10 +82,16 @@ public class Player {
 	 *            The number of fields to move forward.
 	 */
 	public void moveFieldsForward(int fields) {
-		location = location + fields;
-		if (location > 21) {
-			location = location - 21;
+	    int newLocation = location + fields;
+	    
+		if (newLocation > 40) {
+			newLocation = newLocation - 40;
 		}
+		else if(newLocation < 1) {
+			newLocation = newLocation + 40;
+		}
+		
+		setLocation(newLocation);
 	}
 
 	/**
@@ -139,6 +117,8 @@ public class Player {
 			isBankrupt = true;
 			account.setAccountValue(0);
 		}
+		
+		Graphic.updatePlayer(name, getAccountValue());
 	}
 
 	/**
@@ -161,6 +141,8 @@ public class Player {
 			account.setAccountValue(0);
 			isBankrupt = true;
 		}
+		
+		Graphic.updatePlayer(name, getAccountValue());
 	}
 
 	/**

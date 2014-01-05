@@ -40,17 +40,10 @@ public class NoneMoneyCards extends Cards {
 			players.setLocation(position);
 			break;
 		case CHANGEPOSITION:
-			int changedPosition;
-			changedPosition = players.getLocation() + position;
-			if (changedPosition == 40)
-				changedPosition = 1;
-			if (changedPosition < 0)
-				changedPosition = 39 + changedPosition;
-			players.setLocation(changedPosition);
+			players.moveFieldsForward(position);
 			break;
 		case GOTOJAIL:
 			players.setLocation(11);
-			Graphic.moveCar(cardText, position);
 			// players[currentPlayer].jailTransfer();
 			break;
 		default:

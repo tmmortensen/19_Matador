@@ -11,6 +11,45 @@ import boundaryToMatador.GUI;
  *
  */
 public class Graphic {
+	public static int getNumberOfPlayers() {
+		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
+	}
+	
+	public static String getPlayerName() {
+		return GUI.getUserString("Indtast navn");
+	}
+	
+	public static void getOk(String name) {
+		GUI.getUserButtonPressed("Det er " + name + "'s tur. Tryk for at slå...", "Slå");
+	}
+	
+	public static void announceWinner(String name) {
+		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
+	}
+	
+	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount) {
+		String msg = "Vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
+		String input = GUI.getUserButtonPressed(msg, "Ja", "Nej");
+		
+		if("Ja".equals(input)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static String getSelection() {
+		String input = GUI.getUserSelection("Vælg en mulighed", "Køb feltet", "Giv turen videre");
+		if("Køb feltet".equals(input)) {
+			return "buy";
+		}
+		if("Giv turen videre".equals(input)) {
+			return "donothing";
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Method to set the value of the dice on the GUI.
 	 *

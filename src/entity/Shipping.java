@@ -7,7 +7,7 @@ package entity;
  * 
  */
 public class Shipping extends Ownable {
-	private final int[] FLEET_FIELDS = { 18, 19, 20, 21 };
+	private final int[] FLEET_FIELDS = { 6, 16, 26, 36 };
 
 	private final int RENT_1 = 500;
 	private final int RENT_2 = 1000;

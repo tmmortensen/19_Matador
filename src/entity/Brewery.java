@@ -7,7 +7,7 @@ package entity;
  * 
  */
 public class Brewery extends Ownable {
-	private final int[] BREWERY_FIELDS = { 14, 15 };
+	private final int[] BREWERY_FIELDS = { 13, 29 };
 
 	private GameBoard gameBoard;
 	private int baseRent;

@@ -1,8 +1,6 @@
 package entity;
 
-import java.util.Scanner;
-
-import boundary.TUI;
+import boundary.Graphic;
 
 /**
  * Class to make a Tax-field.
@@ -14,7 +12,6 @@ public class Tax extends Field {
 	private int taxAmount;
 	private int taxRate;
 	private GameBoard gameBoard;
-	private Scanner scanner;
 
 	/**
 	 * 1 of 2 constructors. Used for fields that has only fixed amount of tax.
@@ -46,13 +43,11 @@ public class Tax extends Field {
 	 * @param scanner
 	 *            A scanner to use for console input.
 	 */
-	public Tax(String name, int taxAmount, int taxRate, GameBoard gameBoard,
-			Scanner scanner) {
+	public Tax(String name, int taxAmount, int taxRate, GameBoard gameBoard) {
 		super(name);
 		this.taxAmount = taxAmount;
 		this.taxRate = taxRate;
 		this.gameBoard = gameBoard;
-		this.scanner = scanner;
 	}
 
 	/**
@@ -65,8 +60,7 @@ public class Tax extends Field {
 
 		if (taxRate != -1) {
 			int taxFromPct = get10PctTax(player);
-			TUI.printTaxPctChoice(taxRate, taxFromPct, taxAmount);
-			boolean payPct = TUI.getYesNo(scanner);
+			boolean payPct = Graphic.taxPctChoice(taxRate, taxFromPct, taxAmount);
 
 			if (payPct) {
 				taxToPay = get10PctTax(player);

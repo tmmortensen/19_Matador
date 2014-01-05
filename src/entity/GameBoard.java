@@ -1,8 +1,7 @@
 package entity;
 
-import java.util.Scanner;
-
 import TryYourLuck.Pile;
+import boundary.Graphic;
 import boundaryToMatador.GUI;
 
 /**
@@ -28,12 +27,12 @@ public class GameBoard {
 	/**
 	 * Creates all the fields according to the game rules.
 	 */
-	public void createFields(Scanner scanner) {
+	public void createFields() {
 		fields[1] = new Refuge("Start", 200);
 		fields[2] = new Street("Rødovrevej", 60, 1200);
 		fields[3] = new TryYourLuck("Prøv Lykken");
 		fields[4] = new Street("Hvidovrevej", 60, 1200);
-		fields[5] = new Tax("Pay tax", 4000);
+		fields[5] = new Tax("Pay tax", 4000, 10, this);
 		fields[6] = new Shipping("H. H.", 4000, this);
 		fields[7] = new Street("Roskildevej", 100, 2000);
 		fields[8] = new TryYourLuck("Prøv Lykken");
@@ -45,7 +44,7 @@ public class GameBoard {
 		fields[14] = new Street("Bülowsvej", 140, 2800);
 		fields[15] = new Street("Gl. Kongevej", 140, 3200);
 		fields[16] = new Shipping("Mols-Linien", 4000, this);
-		fields[17] = new Shipping("Bernstoffsvej", 3600, this);
+		fields[17] = new Street("Bernstoffsvej", 160, 3600);
 		fields[18] = new TryYourLuck("Prøv Lykken");
 		fields[19] = new Street("Hellerupvej", 180, 3600);
 		fields[20] = new Street("Strandvejen", 180, 4000);
@@ -59,7 +58,7 @@ public class GameBoard {
 		fields[28] = new Street("Kgs. Nytorv", 260, 5200);
 		fields[29] = new Brewery("Carlsberg", 150, 3000, this);
 		fields[30] = new Street("Østergade", 280, 5600);
-		fields[31] = new Refuge("Go to Jail", 0);
+		fields[31] = new GoToJail("Gå i fængsel");
 		fields[32] = new Street("Amagertorv", 300, 6000);
 		fields[33] = new Street("Vimmelskaftet", 300, 6000);
 		fields[34] = new TryYourLuck("Prøv Lykken");
@@ -91,9 +90,10 @@ public class GameBoard {
 	 */
 	public void clearFieldOwners(Player player) {
 		int i;
-		for (i = 0; i <= 41; i++) {
+		for (i = 0; i <= 40; i++) {
 			if (getOwner(i) == player) {
 				((Ownable) fields[i]).owner = null;
+				Graphic.removeOwner(i);
 			}
 		}
 	}

@@ -1,30 +1,14 @@
 package entity;
 
-import control.Game;
-
-/**
- * Fængslet, afvikler fængselslogikken
- * 
- * @author Gruppe 16
- * 
- */
 public class Jail extends Field {
+	GameBoard gameBoard;
 
-	/**
-	 * Videresender navnet på feltet
-	 * 
-	 * @param name
-	 *            Feltets navn
-	 */
-	public Jail(String name) {
+	public Jail(String name, GameBoard gameBoard) {
 		super(name);
+		this.gameBoard = gameBoard;  
 	}
 
-	@Override
-	/**
-	 * Overrider Field
-	 */
-	public void landOnField(Player players) {
+	public void landOnField(Player player) {
 		// "true" hvis spilleren er i fængsel
 		if (players.inJail()) {
 			// "true" hvis spilleren slår to ens

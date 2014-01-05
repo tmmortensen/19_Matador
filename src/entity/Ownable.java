@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic;
+
 /**
  * Class that contains all the methods and values relevant for ownable fields.
  *
@@ -53,6 +55,12 @@ public abstract class Ownable extends Field {
 	}
 
 	private void buyFieldOption(Player player) {
-		player.setIsOnBuyableField(true);
+		String input = Graphic.getSelection();
+		
+		if ("buy".equals(input)) {
+			player.addToAccount(-1 * price);
+			setOwner(player);
+			Graphic.setOwner(player.getLocation(), player.getName());
+		}
 	}
 }
