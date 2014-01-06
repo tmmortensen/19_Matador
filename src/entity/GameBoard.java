@@ -176,6 +176,12 @@ public class GameBoard {
 		fields[number] = field;
 	}
 
+	public void drawCard(Player player) {
+		pileOfCards.nextCard();
+		Graphic.showCardMessage(pileOfCards.ShowCardText(), player.getName());
+		pileOfCards.effect(player);
+	}
+	
 	/**
 	 * A method to generate a nice string containing the value of all the
 	 * fields. Also contains value of the DieCup.
@@ -201,11 +207,5 @@ public class GameBoard {
 		}
 
 		return null;
-	}
-
-	public void drawCard(Player player) {
-		pileOfCards.nextCard();
-		Graphic.showCardMessage(pileOfCards.ShowCardText(), player.getName());
-		pileOfCards.effect(player);
 	}
 }

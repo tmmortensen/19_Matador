@@ -192,6 +192,7 @@ public class Player {
 		return "Name = " + name + ", Account = " + account;
 	}
 	
+	
 	private void checkIdentical(boolean isIdentical) {
 		if(isIdentical) {
 			numberOfIdentical++;

@@ -37,7 +37,7 @@ public class Shipping extends Ownable {
 	 * @return The rent for this field.
 	 */
 	public int getRent() {
-		int numberOfFleetsOwned = getFleetsOwned();
+		int numberOfFleetsOwned = getShippingsOwned();
 
 		switch (numberOfFleetsOwned) {
 		case 1:
@@ -53,15 +53,15 @@ public class Shipping extends Ownable {
 		}
 	}
 
-	private int getFleetsOwned() {
-		int i, numberOfFleetsOwned = 0;
+	private int getShippingsOwned() {
+		int i, numberOfShippingsOwned = 0;
 
 		for (i = 0; i < FLEET_FIELDS.length; i++) {
 			if (owner == gameBoard.getOwner(FLEET_FIELDS[i])) {
-				numberOfFleetsOwned++;
+				numberOfShippingsOwned++;
 			}
 		}
 
-		return numberOfFleetsOwned;
+		return numberOfShippingsOwned;
 	}
 }

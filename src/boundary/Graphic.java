@@ -137,20 +137,7 @@ public class Graphic {
 	public static void goToJailMessage(String name) {
 		GUI.showMessage(name + ", gå i fængsel!");
 	}
-
-	/**
-	 * Method to setup all the parameters of a field on the GUI at the
-	 * same time.
-	 *
-	 * @param title The title to set.
-	 * @param subTitle The subtitle to set.
-	 * @param fieldNumber The number of the field to change.
-	 */
-	public static void createField(String title, String subTitle, int fieldNumber) {
-		GUI.setTitleText(fieldNumber, title);
-		GUI.setSubText(fieldNumber, subTitle);
-		GUI.setDescriptionText(fieldNumber, title);
-	}
+	
 
 	private static Color getColor(int playerNumber) {
 		switch(playerNumber) {

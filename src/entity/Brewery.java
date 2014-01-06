@@ -36,19 +36,19 @@ public class Brewery extends Ownable {
 	 */
 	public int getRent() {
 		gameBoard.shakeDieCup();
-		return baseRent * gameBoard.getDieCupSum() * getLaborCampsOwned();
+		return baseRent * gameBoard.getDieCupSum() * getBrewerysOwned();
 	}
 
-	private int getLaborCampsOwned() {
-		int i, numberOfLaborCampsOwned = 0;
+	private int getBrewerysOwned() {
+		int i, numberOfBrewerysOwned = 0;
 
 		for (i = 0; i < BREWERY_FIELDS.length; i++) {
 			if (owner == gameBoard.getOwner(BREWERY_FIELDS[i])) {
-				numberOfLaborCampsOwned++;
+				numberOfBrewerysOwned++;
 			}
 		}
 
-		return numberOfLaborCampsOwned;
+		return numberOfBrewerysOwned;
 	}
 
 }
