@@ -41,7 +41,7 @@ public class Game {
 		while (true) {
 			Graphic.getOk(players[activePlayer].getName());
 			gameBoard.shakeDieCup();
-			players[activePlayer].moveFieldsForward(gameBoard.getDieCupSum());
+			players[activePlayer].actOnDice(gameBoard.getDieCupSum(), gameBoard.getDieCupIdentical());
 			gameBoard.landOnField(players[activePlayer]);
 
 			if (players[activePlayer].isBankrupt()) {
@@ -49,7 +49,9 @@ public class Game {
 			}
 
 			// Switch turn to the next player
-			activePlayer = getNextPlayerAlive(activePlayer);
+			if(!players[activePlayer].getsExtraTurn()) {
+				activePlayer = getNextPlayerAlive(activePlayer);
+			}
 		}
 	}
 

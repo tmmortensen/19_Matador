@@ -159,23 +159,9 @@ public class GameBoard {
 	public int getDieCupSum() {
 		return dieCup.getSum();
 	}
-
-	/**
-	 * Gets the value of Die1.
-	 * 
-	 * @return The value of Die1.
-	 */
-	public int getDieValue1() {
-		return dieCup.getValueDie1();
-	}
-
-	/**
-	 * Gets the value of Die2.
-	 * 
-	 * @return The value of Die2.
-	 */
-	public int getDieValue2() {
-		return dieCup.getValueDie2();
+	
+	public boolean getDieCupIdentical() {
+		return dieCup.getIdentical();
 	}
 
 	/**

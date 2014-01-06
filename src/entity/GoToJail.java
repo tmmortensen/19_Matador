@@ -23,6 +23,6 @@ public class GoToJail extends Field {
 	 * Overrider fra Field
 	 */
 	public void landOnField(Player player) {
-		player.setLocation(11);
+		player.goToJail();
 	}
 }

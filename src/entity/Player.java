@@ -13,16 +13,24 @@ public class Player {
 	private String name;
 	private Account account;
 	private boolean isBankrupt;
+	private boolean isInJail;
+	private boolean getsExtraTurn;
 	private int location;
+	private int numberOfIdentical;
+	private int turnsInJail;
 
 	/**
-	 * Constructor that initiates name to empty and account to an initial score.
+	 * Constructor that initiates name to empty and set account to an initial score.
 	 */
 	public Player(int initialScore, String name, int playerNumber) {
 		this.name = name;
 		account = new Account(initialScore);
 		isBankrupt = false;
+		isInJail = false;
+		getsExtraTurn = false;
 		location = 1;
+		numberOfIdentical = 0;
+		turnsInJail = 0;
 		
 		Graphic.addPlayer(name, getAccountValue(), playerNumber);
 	}
@@ -53,7 +61,34 @@ public class Player {
 	public boolean isBankrupt() {
 		return isBankrupt;
 	}
+	
+	public boolean isInJail() {
+		return isInJail;
+	}
+	
+	public boolean getsExtraTurn() {
+		return getsExtraTurn;
+	}
+	
+	public void goToJail() {
+		isInJail = true;
+		setLocation(11);
+		turnsInJail = 0;
+	}
 
+	public void actOnDice(int sum, boolean isIdentical) {
+		getsExtraTurn = false;
+		
+		if(isInJail) {
+			actInJail(sum, isIdentical);
+		}
+		else {
+			moveFieldsForward(sum);
+			checkIdentical(isIdentical);
+		}
+		
+	}
+	
 	/**
 	 * Method to set the players current location (field number).
 	 * 
@@ -153,5 +188,39 @@ public class Player {
 	 */
 	public String toString() {
 		return "Name = " + name + ", Account = " + account;
+	}
+	
+	private void checkIdentical(boolean isIdentical) {
+		if(isIdentical) {
+			numberOfIdentical++;
+			
+			if(numberOfIdentical >= 3) {
+				numberOfIdentical = 0;
+				goToJail();
+			}
+			else {
+				getsExtraTurn = true;
+			}
+		}
+		else {
+			numberOfIdentical = 0;
+		}
+	}
+	
+	private void actInJail(int sum, boolean isIdentical) {
+		if(isIdentical) {
+			isInJail = false;
+			moveFieldsForward(sum);
+			checkIdentical(isIdentical);
+		}
+		else {
+			turnsInJail++;
+			
+			if(turnsInJail >= 3) {
+				addToAccount(-1000);
+				isInJail = false;
+				moveFieldsForward(sum);
+			}
+		}
 	}
 }
