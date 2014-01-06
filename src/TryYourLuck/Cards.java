@@ -42,7 +42,6 @@ public abstract class Cards {
 	}
 
 	public String getCardText() {
-		return "" + cardText;
+		return cardText;
 	}
-
 }

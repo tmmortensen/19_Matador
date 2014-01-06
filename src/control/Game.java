@@ -48,7 +48,7 @@ public class Game {
 				loseTasks(activePlayer);
 			}
 
-			// Switch turn to the next player
+			// Switch turn to the next player if he didn't get an extra turn
 			if(!players[activePlayer].getsExtraTurn()) {
 				activePlayer = getNextPlayerAlive(activePlayer);
 			}
@@ -81,7 +81,7 @@ public class Game {
 		for (i = 0; i < numberOfPlayers; i++) {
 			userInput = Graphic.getPlayerName();
 			if ("".equals(userInput)) {
-				userInput = "Player" + (i + 1);
+				userInput = "Spiller" + (i + 1);
 			}
 
 			players[i] = new Player(POINTS_TO_START_WITH, userInput, i);

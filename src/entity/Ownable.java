@@ -55,7 +55,7 @@ public abstract class Ownable extends Field {
 	}
 
 	private void buyFieldOption(Player player) {
-		String input = Graphic.getSelection();
+		String input = Graphic.getSelection(player.getName());
 		
 		if ("buy".equals(input)) {
 			player.addToAccount(-1 * price);

@@ -1,16 +1,15 @@
 package entity;
 
 public class TryYourLuck extends Field {
-	protected Player player;
-
-	public TryYourLuck(String name) {
+	GameBoard gameBoard;
+	
+	public TryYourLuck(String name, GameBoard gameBoard) {
 		super(name);
-		// landOnField(player);
+		this.gameBoard = gameBoard;
 	}
 
-	@Override
 	public void landOnField(Player player) {
-		GameBoard.drawCard(player);
+		gameBoard.drawCard(player);
 	}
 
 }

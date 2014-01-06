@@ -38,8 +38,8 @@ public class Graphic {
 		return false;
 	}
 	
-	public static String getSelection() {
-		String input = GUI.getUserSelection("Vælg en mulighed", "Køb feltet", "Giv turen videre");
+	public static String getSelection(String name) {
+		String input = GUI.getUserSelection(name + ", vælg en mulighed", "Køb feltet", "Giv turen videre");
 		if("Køb feltet".equals(input)) {
 			return "buy";
 		}
@@ -124,6 +124,10 @@ public class Graphic {
 	 */
 	public static void removePlayer(String name) {
 		GUI.removeAllCars(name);
+	}
+	
+	public static void showCardMessage(String message, String name) {
+		GUI.showMessage(name + ", " + message);
 	}
 
 	/**

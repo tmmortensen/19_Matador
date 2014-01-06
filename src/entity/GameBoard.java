@@ -2,7 +2,6 @@ package entity;
 
 import TryYourLuck.Pile;
 import boundary.Graphic;
-import boundaryToMatador.GUI;
 
 /**
  * Class to create a game board. This class takes in a lot of fields and makes
@@ -13,8 +12,8 @@ import boundaryToMatador.GUI;
  */
 public class GameBoard {
 	private DieCup dieCup;
-	Field[] fields;
-	private static Pile pileOfCards = new Pile();
+	private Field[] fields;
+	private Pile pileOfCards;
 
 	/**
 	 * Constructor that makes an array for fields and a DieCup
@@ -22,6 +21,7 @@ public class GameBoard {
 	public GameBoard(int numberOfFields) {
 		dieCup = new DieCup();
 		fields = new Field[numberOfFields];
+		pileOfCards = new Pile();
 	}
 
 	/**
@@ -30,12 +30,12 @@ public class GameBoard {
 	public void createFields() {
 		fields[1] = new Refuge("Start", 200);
 		fields[2] = new Street("Rødovrevej", 60, 1200);
-		fields[3] = new TryYourLuck("Prøv Lykken");
+		fields[3] = new TryYourLuck("Prøv Lykken", this);
 		fields[4] = new Street("Hvidovrevej", 60, 1200);
 		fields[5] = new Tax("Pay tax", 4000, 10, this);
 		fields[6] = new Shipping("H. H.", 4000, this);
 		fields[7] = new Street("Roskildevej", 100, 2000);
-		fields[8] = new TryYourLuck("Prøv Lykken");
+		fields[8] = new TryYourLuck("Prøv Lykken", this);
 		fields[9] = new Street("Valby Langgade", 100, 2000);
 		fields[10] = new Street("Allégade", 120, 2400);
 		fields[11] = new Refuge("Fængsel", 0);
@@ -45,12 +45,12 @@ public class GameBoard {
 		fields[15] = new Street("Gl. Kongevej", 140, 3200);
 		fields[16] = new Shipping("Mols-Linien", 4000, this);
 		fields[17] = new Street("Bernstoffsvej", 160, 3600);
-		fields[18] = new TryYourLuck("Prøv Lykken");
+		fields[18] = new TryYourLuck("Prøv Lykken", this);
 		fields[19] = new Street("Hellerupvej", 180, 3600);
 		fields[20] = new Street("Strandvejen", 180, 4000);
 		fields[21] = new Refuge("Parking", 0);
 		fields[22] = new Street("Trianglen", 220, 4400);
-		fields[23] = new TryYourLuck("Prøv Lykken");
+		fields[23] = new TryYourLuck("Prøv Lykken", this);
 		fields[24] = new Street("Østerbrogade", 220, 4400);
 		fields[25] = new Street("Grønningen", 240, 4800);
 		fields[26] = new Shipping("GR", 4000, this);
@@ -61,10 +61,10 @@ public class GameBoard {
 		fields[31] = new GoToJail("Gå i fængsel");
 		fields[32] = new Street("Amagertorv", 300, 6000);
 		fields[33] = new Street("Vimmelskaftet", 300, 6000);
-		fields[34] = new TryYourLuck("Prøv Lykken");
+		fields[34] = new TryYourLuck("Prøv Lykken", this);
 		fields[35] = new Street("Nygade", 320, 6400);
 		fields[36] = new Shipping("Rødby", 4000, this);
-		fields[37] = new TryYourLuck("Prøv Lykken");
+		fields[37] = new TryYourLuck("Prøv Lykken", this);
 		fields[38] = new Street("Frederiksberg Gade", 350, 7000);
 		fields[39] = new Tax("Betal skat", 2000);
 		fields[40] = new Street("Rådhus Pladsen", 400, 8000);
@@ -203,20 +203,9 @@ public class GameBoard {
 		return null;
 	}
 
-	public static void drawCard(Player player) {
+	public void drawCard(Player player) {
 		pileOfCards.nextCard();
+		Graphic.showCardMessage(pileOfCards.ShowCardText(), player.getName());
 		pileOfCards.effect(player);
-		GUI.showMessage(GameBoard.pileOfCards.ShowCardText());
-	}
-
-	public int getCardNumber() {
-		return pileOfCards.getCardNumber(true);
-	}
-
-	public String getCardType() {
-		String variable = ""
-				+ GameBoard.pileOfCards.getCardType(GameBoard.pileOfCards
-						.getCardNumber(false));
-		return variable;
 	}
 }
