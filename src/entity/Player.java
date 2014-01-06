@@ -71,6 +71,7 @@ public class Player {
 	}
 	
 	public void goToJail() {
+		Graphic.goToJailMessage(name);
 		isInJail = true;
 		setLocation(11);
 		turnsInJail = 0;
@@ -121,6 +122,7 @@ public class Player {
 	    
 		if (newLocation > 40) {
 			newLocation = newLocation - 40;
+			addCrossStartBonus();
 		}
 		else if(newLocation < 1) {
 			newLocation = newLocation + 40;
@@ -222,5 +224,9 @@ public class Player {
 				moveFieldsForward(sum);
 			}
 		}
+	}
+	
+	private void addCrossStartBonus() {
+		addToAccount(4000);
 	}
 }

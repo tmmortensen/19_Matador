@@ -27,8 +27,8 @@ public class Graphic {
 		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
 	}
 	
-	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount) {
-		String msg = "Vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
+	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount, String name) {
+		String msg = name + ", vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
 		String input = GUI.getUserButtonPressed(msg, "Ja", "Nej");
 		
 		if("Ja".equals(input)) {
@@ -128,6 +128,14 @@ public class Graphic {
 	
 	public static void showCardMessage(String message, String name) {
 		GUI.showMessage(name + ", " + message);
+	}
+	
+	public static void printLoser(String name) {
+		GUI.showMessage("Beklager, " + name + ", du er bankerot.");
+	}
+	
+	public static void goToJailMessage(String name) {
+		GUI.showMessage(name + ", gå i fængsel!");
 	}
 
 	/**

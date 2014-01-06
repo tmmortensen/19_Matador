@@ -60,7 +60,7 @@ public class Tax extends Field {
 
 		if (taxRate != -1) {
 			int taxFromPct = get10PctTax(player);
-			boolean payPct = Graphic.taxPctChoice(taxRate, taxFromPct, taxAmount);
+			boolean payPct = Graphic.taxPctChoice(taxRate, taxFromPct, taxAmount, player.getName());
 
 			if (payPct) {
 				taxToPay = get10PctTax(player);

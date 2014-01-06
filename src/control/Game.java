@@ -118,6 +118,7 @@ public class Game {
 	}
 
 	private void loseTasks(int activePlayer) {
+		Graphic.printLoser(players[activePlayer].getName());
 		Graphic.removePlayer(players[activePlayer].getName());
 		gameBoard.clearFieldOwners(players[activePlayer]);
 
