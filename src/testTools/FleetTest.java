@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entity.Shipping;
 import entity.GameBoard;
 import entity.Player;
+import entity.Shipping;
 
 public class FleetTest {
 	private Player player;
@@ -17,24 +17,24 @@ public class FleetTest {
 	@Before
 	public void setUp() throws Exception {
 		this.gameBoard = new GameBoard(22);
-		this.player = new Player(5000, "Anders And");
-		this.owner = new Player(1000, "Andersine");
-		
-		this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 18);
-		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
+		this.player = new Player(5000, "Anders And", 0);
+		this.owner = new Player(1000, "Andersine", 0);
+
+		this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
+		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
 		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
 		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
-		
-		this.owner.setLocation(18);
+
+		this.owner.setLocation(6);
 		this.gameBoard.setOwner(owner);
-		
-		this.player.setLocation(18);
+
+		this.player.setLocation(6);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.player = new Player(5000, "Anders And");
-		this.owner = new Player(1000, "Andersine");
+		this.player = new Player(5000, "Anders And", 0);
+		this.owner = new Player(1000, "Andersine", 0);
 		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
 		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
 		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
@@ -69,7 +69,7 @@ public class FleetTest {
 		// Perform the action to be tested
 		this.owner.setLocation(19);
 		this.gameBoard.setOwner(owner);
-		
+
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 1000;
 		actual = this.player.getAccountValue();
@@ -87,7 +87,7 @@ public class FleetTest {
 		this.gameBoard.setOwner(owner);
 		this.owner.setLocation(20);
 		this.gameBoard.setOwner(owner);
-		
+
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 2000;
 		actual = this.player.getAccountValue();
@@ -107,7 +107,7 @@ public class FleetTest {
 		this.gameBoard.setOwner(owner);
 		this.owner.setLocation(21);
 		this.gameBoard.setOwner(owner);
-		
+
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 4000;
 		actual = this.player.getAccountValue();

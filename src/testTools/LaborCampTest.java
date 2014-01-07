@@ -17,24 +17,27 @@ public class LaborCampTest {
 	@Before
 	public void setUp() throws Exception {
 		this.gameBoard = new GameBoard(16);
-		this.player = new Player(5000, "Anders And");
-		this.owner = new Player(1000, "Andersine");
-		
-		this.gameBoard.setField(new Brewery("LaborCamp1", 100, 0, gameBoard), 14);
-		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard), 15);
+		this.player = new Player(5000, "Anders And", 1);
+		this.owner = new Player(1000, "Andersine", 2);
+
+		this.gameBoard.setField(new Brewery("LaborCamp1", 100, 0, gameBoard),
+				14);
+		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard),
+				15);
 		this.gameBoard.shakeDieCup();
-		
+
 		this.owner.setLocation(14);
 		this.gameBoard.setOwner(owner);
-		
+
 		this.player.setLocation(14);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.player = new Player(5000, "Anders And");
-		this.owner = new Player(1000, "Andersine");
-		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard), 15);
+		this.player = new Player(5000, "Anders And", 1);
+		this.owner = new Player(1000, "Andersine", 2);
+		this.gameBoard.setField(new Brewery("LaborCamp2", 100, 0, gameBoard),
+				15);
 	}
 
 	@Test
@@ -66,7 +69,7 @@ public class LaborCampTest {
 		// Perform the action to be tested
 		this.owner.setLocation(15);
 		this.gameBoard.setOwner(owner);
-		
+
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - (2 * 100 * this.gameBoard.getDieCupSum());
 		actual = this.player.getAccountValue();

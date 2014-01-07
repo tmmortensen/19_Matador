@@ -16,14 +16,14 @@ public class TaxTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.player = new Player(1000, "Anders And");
+		this.player = new Player(1000, "Anders And", 1);
 		this.tax200 = new Tax("Helle +200", 200);
 		this.tax0 = new Tax("Helle 0", 0);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.player = new Player(1000, "Anders And");
+		this.player = new Player(1000, "Anders And", 1);
 		// The fields are unaltered
 	}
 
