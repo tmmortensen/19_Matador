@@ -84,9 +84,9 @@ public class Player {
 		}
 		else {
 			moveFieldsForward(sum);
-			checkIdentical(isIdentical);
 		}
 		
+		checkIdentical(isIdentical);
 	}
 	
 	/**
@@ -227,7 +227,6 @@ public class Player {
 		if(isIdentical) {
 			isInJail = false;
 			moveFieldsForward(sum);
-			checkIdentical(isIdentical);
 		}
 		else {
 			turnsInJail++;

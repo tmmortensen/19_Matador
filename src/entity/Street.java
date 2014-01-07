@@ -7,9 +7,9 @@ package entity;
  * 
  */
 public class Street extends Ownable {
-	private int baseRent;
-	private GameBoard gameBoard; 
-	private int[] associatedFields;
+	private int constructPrice;
+	private int[] associatedFields, rents;
+	private GameBoard gameBoard;
 
 	/**
 	 * Constructor that takes all inputs needed for the class.
@@ -21,21 +21,12 @@ public class Street extends Ownable {
 	 * @param price
 	 *            The price of this field.
 	 */
-	public Street(String name, int baseRent, int price, GameBoard gameBoard, int associatedField) {
+	public Street(String name, int price, int constructPrice, int[] associatedFields, int[] rents, GameBoard gameBoard) {
 		super(name, price);
-		this.baseRent = baseRent;
+		this.constructPrice = constructPrice;
+		this.associatedFields = associatedFields;
+		this.rents = rents;
 		this.gameBoard = gameBoard;
-		associatedFields = new int[1];
-		associatedFields[0] = associatedField;
-	}
-	
-	public Street(String name, int baseRent, int price, GameBoard gameBoard, int associatedField0, int associatedField1) {
-		super(name, price);
-		this.baseRent = baseRent;
-		this.gameBoard = gameBoard;
-		associatedFields = new int[2];
-		associatedFields[0] = associatedField0;
-		associatedFields[1] = associatedField1;
 	}
 
 	/**
@@ -44,7 +35,7 @@ public class Street extends Ownable {
 	 * @return The rent for this field.
 	 */
 	public int getRent() {
-		int rent = baseRent;
+		int rent = rents[0];
 		
 		if(ownsAllAssociatedFields()) {
 			rent = rent * 2;
