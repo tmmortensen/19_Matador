@@ -10,14 +10,12 @@ import boundary.Graphic;
  * 
  */
 public class Player {
+	private final int CROSS_START_BONUS = 4000;
+	
 	private String name;
 	private Account account;
-	private boolean isBankrupt;
-	private boolean isInJail;
-	private boolean getsExtraTurn;
-	private int location;
-	private int numberOfIdentical;
-	private int turnsInJail;
+	private boolean isBankrupt, isInJail, getsExtraTurn, landedOnNewField;
+	private int location, numberOfIdentical, turnsInJail;
 
 	/**
 	 * Constructor that initiates name to empty and set account to an initial score.
@@ -28,6 +26,7 @@ public class Player {
 		isBankrupt = false;
 		isInJail = false;
 		getsExtraTurn = false;
+		landedOnNewField = false;
 		location = 1;
 		numberOfIdentical = 0;
 		turnsInJail = 0;
@@ -96,8 +95,15 @@ public class Player {
 	 * @param location
 	 *            The location to set the player to.
 	 */
-	public void setLocation(int location) {
-		this.location = location;
+	public void setLocation(int newLocation) {
+		if((newLocation+20) < location && !isInJail) {
+			// Add the cross start bonus.
+			// If the new locationnumber is lower than the old one, play must have crossed start or moved backwards
+			// An offset of 20 is added to the comparison, to avoid small backwards moves (from Chance cards) from giving bonus.
+			addToAccount(CROSS_START_BONUS);
+		}
+		
+		location = newLocation;
 		Graphic.moveCar(name, location);
 	}
 
@@ -110,6 +116,14 @@ public class Player {
 		return location;
 	}
 
+	public void setLandedOnNewField(boolean landedOnNewField) {
+		this.landedOnNewField = landedOnNewField;
+	}
+	
+	public boolean getLandedOnNewField() {
+		return landedOnNewField;
+	}
+	
 	/**
 	 * Method to move a player forward on the board. Takes the players current
 	 * location and adds a given number of fields.
@@ -122,7 +136,6 @@ public class Player {
 	    
 		if (newLocation > 40) {
 			newLocation = newLocation - 40;
-			addCrossStartBonus();
 		}
 		else if(newLocation < 1) {
 			newLocation = newLocation + 40;
@@ -225,9 +238,5 @@ public class Player {
 				moveFieldsForward(sum);
 			}
 		}
-	}
-	
-	private void addCrossStartBonus() {
-		addToAccount(4000);
 	}
 }

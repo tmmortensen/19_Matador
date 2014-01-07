@@ -28,7 +28,7 @@ public class GameBoard {
 	 * Creates all the fields according to the game rules.
 	 */
 	public void createFields() {
-		fields[1] = new Refuge("Start", 200);
+		fields[1] = new Refuge("Start", 0);
 		fields[2] = new Street("Rødovrevej", 60, 1200, this, 4);
 		fields[3] = new TryYourLuck("Prøv Lykken", this);
 		fields[4] = new Street("Hvidovrevej", 60, 1200, this, 2);
@@ -180,6 +180,11 @@ public class GameBoard {
 		pileOfCards.nextCard();
 		Graphic.showCardMessage(pileOfCards.ShowCardText(), player.getName());
 		pileOfCards.effect(player);
+		
+		if(player.getLandedOnNewField()) {
+			landOnField(player);
+			player.setLandedOnNewField(false);
+		}
 	}
 	
 	/**
