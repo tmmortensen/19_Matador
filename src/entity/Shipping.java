@@ -1,13 +1,13 @@
 package entity;
 
 /**
- * Class to make a Fleet-field.
+ * Class to make a Shipping-field.
  * 
  * @author DTU 02312 Gruppe 19
  * 
  */
 public class Shipping extends Ownable {
-	private final int[] FLEET_FIELDS = { 6, 16, 26, 36 };
+	private final int[] SHIPPING_FIELDS = { 6, 16, 26, 36 };
 
 	private final int RENT_1 = 500;
 	private final int RENT_2 = 1000;
@@ -37,9 +37,9 @@ public class Shipping extends Ownable {
 	 * @return The rent for this field.
 	 */
 	public int getRent() {
-		int numberOfFleetsOwned = getShippingsOwned();
+		int numberOfShippingsOwned = getShippingsOwned();
 
-		switch (numberOfFleetsOwned) {
+		switch (numberOfShippingsOwned) {
 		case 1:
 			return RENT_1;
 		case 2:
@@ -56,8 +56,8 @@ public class Shipping extends Ownable {
 	private int getShippingsOwned() {
 		int i, numberOfShippingsOwned = 0;
 
-		for (i = 0; i < FLEET_FIELDS.length; i++) {
-			if (owner == gameBoard.getOwner(FLEET_FIELDS[i])) {
+		for (i = 0; i < SHIPPING_FIELDS.length; i++) {
+			if (owner == gameBoard.getOwner(SHIPPING_FIELDS[i])) {
 				numberOfShippingsOwned++;
 			}
 		}

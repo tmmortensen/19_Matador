@@ -1,6 +1,5 @@
 package TryYourLuck;
 
-import boundary.Graphic;
 import entity.Player;
 
 /**
@@ -33,18 +32,17 @@ public class NoneMoneyCards extends Cards {
 	/**
 	 * Overskrevet fra Cards, til at beregne hvad der skal ske hvis et bestemt kort bliver trukket
 	 */
-	public void calcEffect(Player players) {
+	public void calcEffect(Player player) {
 
 		switch (cardType) {
 		case MOVETO:
-			players.setLocation(position);
+			player.setLocation(position);
 			break;
 		case CHANGEPOSITION:
-			players.moveFieldsForward(position);
+			player.moveFieldsForward(position);
 			break;
 		case GOTOJAIL:
-			players.setLocation(11);
-			// players[currentPlayer].jailTransfer();
+			player.goToJail();
 			break;
 		default:
 			// gør ingenting, men sikrer at spillet ikke bryder ned hvis der
