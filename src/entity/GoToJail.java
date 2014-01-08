@@ -14,8 +14,8 @@ public class GoToJail extends Field {
 	 * @param name
 	 *            Feltets navn
 	 */
-	public GoToJail(String name) {
-		super(name);
+	public GoToJail(String name, GameBoard gameBoard) {
+		super(name, gameBoard);
 	}
 
 	@Override

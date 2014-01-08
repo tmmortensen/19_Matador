@@ -1,6 +1,7 @@
 package entity;
 
 import boundary.Graphic;
+import boundary.Graphic.Actions;
 
 /**
  * Class to make a Tax-field.
@@ -11,24 +12,9 @@ import boundary.Graphic;
 public class Tax extends Field {
 	private int taxAmount;
 	private int taxRate;
-	private GameBoard gameBoard;
-
+	
 	/**
-	 * 1 of 2 constructors. Used for fields that has only fixed amount of tax.
-	 * 
-	 * @param name
-	 *            The name of this field.
-	 * @param taxAmount
-	 *            The amount of tax to pay.
-	 */
-	public Tax(String name, int taxAmount) {
-		super(name);
-		this.taxAmount = taxAmount;
-		taxRate = -1;
-	}
-
-	/**
-	 * 2 of 2 constructors. Used for fields that has both fixed amount and
+	 * Constructor. Used for fields that has both fixed amount and
 	 * percentage of assets as tax. Takes more arguments, to be able to get
 	 * other fields, and to be able to ask user for fixed or percentage.
 	 * 
@@ -44,10 +30,9 @@ public class Tax extends Field {
 	 *            A scanner to use for console input.
 	 */
 	public Tax(String name, int taxAmount, int taxRate, GameBoard gameBoard) {
-		super(name);
+		super(name, gameBoard);
 		this.taxAmount = taxAmount;
 		this.taxRate = taxRate;
-		this.gameBoard = gameBoard;
 	}
 
 	/**
@@ -58,6 +43,10 @@ public class Tax extends Field {
 	public void landOnField(Player player) {
 		int taxToPay;
 
+		Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
+		performStdActions(action, player);
+		//TODO: Måske en pænere visning af skattespørgsmål ifm. menu'en?
+		
 		if (taxRate != -1) {
 			int taxFromPct = get10PctTax(player);
 			boolean payPct = Graphic.taxPctChoice(taxRate, taxFromPct, taxAmount, player.getName());

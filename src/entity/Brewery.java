@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic.Actions;
+
 /**
  * Class to make a LaborCamp field.
  * 
@@ -9,7 +11,6 @@ package entity;
 public class Brewery extends Ownable {
 	private final int[] BREWERY_FIELDS = { 13, 29 };
 
-	private GameBoard gameBoard;
 	private int baseRent;
 
 	/**
@@ -24,8 +25,7 @@ public class Brewery extends Ownable {
 	 *            The gameboard that this field is created in.
 	 */
 	public Brewery(String name, int baseRent, int price, GameBoard gameBoard) {
-		super(name, price);
-		this.gameBoard = gameBoard;
+		super(name, price, gameBoard);
 		this.baseRent = baseRent;
 	}
 
@@ -39,6 +39,18 @@ public class Brewery extends Ownable {
 		return baseRent * gameBoard.getDieCupSum() * getBrewerysOwned();
 	}
 
+	protected boolean isBuildable() {
+		return false;
+	}
+	
+	protected void performAction(Actions action, Player player) {
+		performStdActions(action, player);
+		
+		if(action == Actions.BUY_FIELD) {
+			buyField(player);
+		}
+	}
+	
 	private int getBrewerysOwned() {
 		int i, numberOfBrewerysOwned = 0;
 

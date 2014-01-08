@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic.Actions;
+
 /**
  * Class to make a Territory-field.
  * 
@@ -7,9 +9,8 @@ package entity;
  * 
  */
 public class Street extends Ownable {
-	private int constructPrice;
+	private int constructPrice, numberOfHouses;
 	private int[] associatedFields, rents;
-	private GameBoard gameBoard;
 
 	/**
 	 * Constructor that takes all inputs needed for the class.
@@ -22,11 +23,11 @@ public class Street extends Ownable {
 	 *            The price of this field.
 	 */
 	public Street(String name, int price, int constructPrice, int[] associatedFields, int[] rents, GameBoard gameBoard) {
-		super(name, price);
+		super(name, price, gameBoard);
 		this.constructPrice = constructPrice;
 		this.associatedFields = associatedFields;
 		this.rents = rents;
-		this.gameBoard = gameBoard;
+		numberOfHouses = 0;
 	}
 
 	/**
@@ -41,7 +42,24 @@ public class Street extends Ownable {
 			rent = rent * 2;
 		}
 		
+		//TODO: Beregn pris med huse..
+		
 		return rent;
+	}
+	
+	protected boolean isBuildable() {
+		return ownsAllAssociatedFields();
+	}
+
+	protected void performAction(Actions action, Player player) {
+		performStdActions(action, player);
+		
+		if (action == Actions.BUY_FIELD) {
+			buyField(player);
+		}
+		else if(action == Actions.BUY_HOUSE) {
+			buyHouse(player);
+		}
 	}
 	
 	private boolean ownsAllAssociatedFields() {
@@ -54,5 +72,9 @@ public class Street extends Ownable {
 		}
 		
 		return true;
+	}
+	
+	private void buyHouse(Player player) {
+		//TODO: Buy houses
 	}
 }

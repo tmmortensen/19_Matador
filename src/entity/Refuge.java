@@ -1,5 +1,8 @@
 package entity;
 
+import boundary.Graphic;
+import boundary.Graphic.Actions;
+
 /**
  * Class to make a Refuge-field.
  * 
@@ -17,8 +20,8 @@ public class Refuge extends Field {
 	 * @param bonus
 	 *            How much the field should give as bonus.
 	 */
-	public Refuge(String name, int bonus) {
-		super(name);
+	public Refuge(String name, int bonus, GameBoard gameBoard) {
+		super(name, gameBoard);
 		this.bonus = bonus;
 	}
 
@@ -28,5 +31,7 @@ public class Refuge extends Field {
 	 */
 	public void landOnField(Player player) {
 		player.addToAccount(bonus);
+		Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
+		performStdActions(action, player);
 	}
 }

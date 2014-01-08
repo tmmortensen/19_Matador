@@ -1,6 +1,7 @@
 package entity;
 
 import boundary.Graphic;
+import boundary.Graphic.Actions;
 
 /**
  * Class that contains all the methods and values relevant for ownable fields.
@@ -10,6 +11,7 @@ import boundary.Graphic;
  */
 public abstract class Ownable extends Field {
 	protected int price;
+	protected boolean isPledged;
 	protected Player owner;
 
 	/**
@@ -18,9 +20,10 @@ public abstract class Ownable extends Field {
 	 * @param name Name of the field.
 	 * @param price Price of the field.
 	 */
-	public Ownable(String name, int price) {
-		super(name);
+	public Ownable(String name, int price, GameBoard gameBoard) {
+		super(name, gameBoard);
 		this.price = price;
+		isPledged = false;
 		owner = null;
 	}
 
@@ -29,11 +32,28 @@ public abstract class Ownable extends Field {
 	 * This implementation is used by all the own able fields that inherits from this class.
 	 */
 	public void landOnField(Player player) {
-		if (owner == null) {
-			buyFieldOption(player);
+		int rent = 0;
+		int buyPrice = 0;
+		boolean isBuildable = false;
+		Actions action;
+		
+		// Calculate rent if field is owned by someone else
+		if(owner != null && owner != player) {
+			rent = getRent();
 		}
-		else if(owner != player) {
-			int rent = getRent();
+		// Get the option to buy if field is not owned
+		else if (owner == null) {
+			buyPrice = price;
+		}
+		else if (owner == player) {
+			isBuildable = isBuildable();
+		}
+		
+		action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, isBuildable);
+		performAction(action, player);
+		
+		// Transfer the rent
+		if(rent != 0) {
 			player.transferTo(owner, rent);
 		}
 	}
@@ -45,6 +65,10 @@ public abstract class Ownable extends Field {
 	 */
 	public abstract int getRent();
 	
+	protected abstract void performAction(Actions action, Player player);
+	
+	protected abstract boolean isBuildable();
+	
 	/**
 	 * Method to set owner of the field.
 	 * 
@@ -53,14 +77,10 @@ public abstract class Ownable extends Field {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
-
-	private void buyFieldOption(Player player) {
-		String input = Graphic.getSelection(player.getName());
-		
-		if ("buy".equals(input)) {
-			player.addToAccount(-1 * price);
-			setOwner(player);
-			Graphic.setOwner(player.getLocation(), player.getName());
-		}
+	
+	protected void buyField(Player player) {
+		player.addToAccount(-1 * price);
+		setOwner(player);
+		Graphic.setOwner(player.getLocation(), player.getName());
 	}
 }

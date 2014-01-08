@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic.Actions;
+
 /**
  * Class to create a field. This class can be used to contain the score of a
  * field and a value for extra turn.
@@ -9,6 +11,7 @@ package entity;
  */
 public abstract class Field {
 	protected String name;
+	protected GameBoard gameBoard;
 
 	/**
 	 * Constructor to set field name.
@@ -16,8 +19,9 @@ public abstract class Field {
 	 * @param name
 	 *            Name of field.
 	 */
-	public Field(String name) {
+	public Field(String name, GameBoard gameBoard) {
 		this.name = name;
+		this.gameBoard = gameBoard;
 	}
 
 	/**
@@ -29,6 +33,34 @@ public abstract class Field {
 		return name;
 	}
 
+	protected void performStdActions(Actions action, Player player) {
+		switch(action) {
+			case SELL_FIELD:
+				sellField(player);
+				break;
+			case MORTAGE_FIELD:
+				mortageField(player);
+				break;
+			case SELL_HOUSE:
+				sellHouse(player);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	private void sellField(Player player) {
+		//TODO: Sell house
+	}
+	
+	private void mortageField(Player player) {
+		//TODO: Mortage field
+	}
+	
+	private void sellHouse(Player player) {
+		//TODO: Sell house 
+	}
+	
 	/**
 	 * Method to take care of everything that should happen, when a player lands
 	 * on this field. Has different implementations for different types of

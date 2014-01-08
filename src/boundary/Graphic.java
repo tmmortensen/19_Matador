@@ -11,6 +11,47 @@ import boundaryToMatador.GUI;
  *
  */
 public class Graphic {
+	public static enum Actions {
+		BUY_FIELD, SELL_FIELD, MORTAGE_FIELD, BUY_HOUSE, SELL_HOUSE, END;
+	}
+
+	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild) {
+		String message = playerName + ", du landede på '" + fieldName + "'";
+		String[] options = { "Sælg en grund", "Pantsæt en grund", "Sælg et hus", "Slut turen" };
+		
+		if(rent != 0) {
+			message = message + ". Du skal betale " + rent + " i leje.";
+		}
+		
+		if(buyPrice != 0) {
+			options = addOption(options, "Køb grunden");
+		}
+		
+		if(canBuild) {
+			options = addOption(options, "Køb et hus");
+		}
+		
+		String input = GUI.getUserSelection(playerName + ", du landede på '" + fieldName + "', vælg en mulighed", options);
+		
+		if("Køb grunden".equals(input)) {
+			return Actions.BUY_FIELD;
+		}
+		else if("Sælg en grund".equals(input)) {
+			return Actions.SELL_FIELD;
+		}
+		else if("Pantsæt en grund".equals(input)) {
+			return Actions.MORTAGE_FIELD;
+		}
+		else if("Køb et hus".equals(input)) {
+			return Actions.BUY_HOUSE;
+		}
+		else if("Sælg et hus".equals(input)) {
+			return Actions.SELL_HOUSE;
+		}
+		
+		return Actions.END;
+	}
+	
 	public static int getNumberOfPlayers() {
 		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
 	}
@@ -154,5 +195,17 @@ public class Graphic {
 		default:
 			return Color.BLACK;
 		}
+	}
+
+	private static String[] addOption(String[] options, String newOption) {
+		int i;
+		String[] output = new String[options.length+1];
+		
+		output[0] = newOption;
+		for(i = 1; i<options.length+1; i++) {
+			output[i] = options[i-1];
+		}
+		
+		return output;
 	}
 }

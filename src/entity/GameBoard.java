@@ -30,7 +30,7 @@ public class GameBoard {
 	public void createFields() {
 		// Syntax for Streets:
 		// Name, Price, ContructPrice, AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel, this)
-		fields[1] = new Refuge("Start", 0);
+		fields[1] = new Refuge("Start", 0, this);
 		fields[2] = new Street("Rødovrevej", 1200, 1000, new int[] { 2, 4 }, new int[] { 40, 200, 600, 1800, 3200, 5000 }, this);
 		fields[3] = new TryYourLuck("Prøv Lykken", this);
 		fields[4] = new Street("Hvidovrevej", 1200, 1000, new int[] { 2, 4 }, new int[] { 80, 400, 1200, 3600, 6400, 9000 }, this);
@@ -40,7 +40,7 @@ public class GameBoard {
 		fields[8] = new TryYourLuck("Prøv Lykken", this);
 		fields[9] = new Street("Valby Langgade", 2000, 1000, new int[] { 7, 9, 10 }, new int[] { 120, 600, 1800, 5400, 8000, 11000 }, this);
 		fields[10] = new Street("Allégade", 2400, 1000, new int[] { 7, 9, 10 }, new int[] { 160, 800, 2000, 6000, 9000, 12000 }, this);
-		fields[11] = new Refuge("Fængsel", 0);
+		fields[11] = new Refuge("Fængsel", 0, this);
 		fields[12] = new Street("Frederiksberg Allé", 2800, 2000, new int[] { 12, 14, 15 }, new int[] { 200, 1000, 3000, 9000, 12500, 15000 }, this);
 		fields[13] = new Brewery("Tuborg", 150, 3000, this);
 		fields[14] = new Street("Bülowsvej", 2800, 2000, new int[] { 12, 14, 15 }, new int[] { 200, 1000, 3000, 9000, 12500, 15000 }, this);
@@ -50,7 +50,7 @@ public class GameBoard {
 		fields[18] = new TryYourLuck("Prøv Lykken", this);
 		fields[19] = new Street("Hellerupvej", 3600, 2000, new int[] { 17, 19, 20 }, new int[] { 280, 1400, 4000, 11000, 15000, 19000 }, this);
 		fields[20] = new Street("Strandvejen", 4000, 2000, new int[] { 17, 19, 20 }, new int[] { 320, 1600, 4400, 12000, 16000, 20000 }, this);
-		fields[21] = new Refuge("Parking", 0);
+		fields[21] = new Refuge("Parking", 0, this);
 		fields[22] = new Street("Trianglen", 4400, 3000, new int[] { 22, 24, 25 }, new int[] { 360, 1800, 5000, 14000, 17500, 21000 }, this);
 		fields[23] = new TryYourLuck("Prøv Lykken", this);
 		fields[24] = new Street("Østerbrogade", 4400, 3000, new int[] { 22, 24, 25 }, new int[] { 360, 1800, 5000, 14000, 17500, 21000 }, this);
@@ -60,7 +60,7 @@ public class GameBoard {
 		fields[28] = new Street("Kgs. Nytorv", 5200, 3000, new int[] { 27, 29, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
 		fields[29] = new Brewery("Carlsberg", 150, 3000, this);
 		fields[30] = new Street("Østergade", 5600, 3000, new int[] { 27, 29, 30 }, new int[] { 480, 2400, 7200, 17000, 20500, 24000 }, this);
-		fields[31] = new GoToJail("Gå i fængsel");
+		fields[31] = new GoToJail("Gå i fængsel", this);
 		fields[32] = new Street("Amagertorv", 6000, 4000, new int[] { 32, 33, 35 }, new int[] { 520, 2600, 7800, 18000, 22000, 25500 }, this);
 		fields[33] = new Street("Vimmelskaftet", 6000, 4000, new int[] { 32, 33, 35 }, new int[] { 520, 2600, 7800, 18000, 22000, 25500 }, this);
 		fields[34] = new TryYourLuck("Prøv Lykken", this);
@@ -68,7 +68,7 @@ public class GameBoard {
 		fields[36] = new Shipping("Rødby", 4000, this);
 		fields[37] = new TryYourLuck("Prøv Lykken", this);
 		fields[38] = new Street("Frederiksberg Gade", 7000, 4000, new int[] { 38, 40 }, new int[] { 700, 3500, 10000, 22000, 26000, 30000 }, this);
-		fields[39] = new Tax("Betal skat", 2000);
+		fields[39] = new Tax("Betal skat", 2000, -1, this);
 		fields[40] = new Street("Rådhus Pladsen", 8000, 4000, new int[] { 38, 40 }, new int[] { 1000, 4000, 12000, 28000, 34000, 40000 }, this);
 	}
 
@@ -178,15 +178,16 @@ public class GameBoard {
 		fields[number] = field;
 	}
 
-	public void drawCard(Player player) {
+	public void nextCard() {
 		pileOfCards.nextCard();
-		Graphic.showCardMessage(pileOfCards.ShowCardText(), player.getName());
+	}
+	
+	public String getCardText() {
+		return pileOfCards.ShowCardText();
+	}
+	
+	public void cardEffect(Player player) {
 		pileOfCards.effect(player);
-		
-		if(player.getLandedOnNewField()) {
-			landOnField(player);
-			player.setLandedOnNewField(false);
-		}
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic.Actions;
+
 /**
  * Class to make a Shipping-field.
  * 
@@ -14,8 +16,6 @@ public class Shipping extends Ownable {
 	private final int RENT_3 = 2000;
 	private final int RENT_4 = 4000;
 
-	private GameBoard gameBoard;
-
 	/**
 	 * Constructor that takes all inputs needed for the class.
 	 * 
@@ -27,8 +27,7 @@ public class Shipping extends Ownable {
 	 *            The gameboard that this field is created in.
 	 */
 	public Shipping(String name, int price, GameBoard gameBoard) {
-		super(name, price);
-		this.gameBoard = gameBoard;
+		super(name, price, gameBoard);
 	}
 
 	/**
@@ -53,6 +52,18 @@ public class Shipping extends Ownable {
 		}
 	}
 
+	protected boolean isBuildable() {
+		return false;
+	}
+	
+	protected void performAction(Actions action, Player player) {
+		performStdActions(action, player);
+		
+		if(action == Actions.BUY_FIELD) {
+			buyField(player);
+		}
+	}
+	
 	private int getShippingsOwned() {
 		int i, numberOfShippingsOwned = 0;
 
