@@ -17,8 +17,8 @@ public class RefugeTest {
 	@Before
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And", 1);
-		this.refuge200 = new Refuge("Helle +200", 200);
-		this.refuge0 = new Refuge("Helle 0", 0);
+		//this.refuge200 = new Refuge("Helle +200", 200);
+		//this.refuge0 = new Refuge("Helle 0", 0);
 	}
 
 	@After
