@@ -161,7 +161,7 @@ public class GameBoard {
 	public int getDieCupSum() {
 		return dieCup.getSum();
 	}
-	
+
 	public boolean getDieCupIdentical() {
 		return dieCup.getIdentical();
 	}
@@ -188,7 +188,7 @@ public class GameBoard {
 			player.setLandedOnNewField(false);
 		}
 	}
-	
+
 	/**
 	 * A method to generate a nice string containing the value of all the
 	 * fields. Also contains value of the DieCup.
