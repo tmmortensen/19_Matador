@@ -37,8 +37,8 @@ public abstract class Ownable extends Field {
 		boolean isBuildable = false;
 		Actions action;
 		
-		// Calculate rent if field is owned by someone else
-		if(owner != null && owner != player) {
+		// Calculate rent if field is owned by someone else, and not pleged
+		if(owner != null && owner != player && !isPledged) {
 			rent = getRent();
 		}
 		// Get the option to buy if field is not owned
@@ -78,9 +78,47 @@ public abstract class Ownable extends Field {
 		this.owner = owner;
 	}
 	
+	public void sellField(int thisFieldNumber) {
+		owner.addToAccount(price);
+		
+		if(isPledged) {
+			unpledgeField();
+		}
+		
+		owner = null;
+		Graphic.removeOwner(thisFieldNumber);
+	}
+	
+	public void pledgeField() {
+		this.isPledged = true;
+		owner.addToAccount(price/2);
+		//TODO: Måske skal der ske noget på GUI'en, for at vise at et felt er pantsat?
+	}
+	
+	public void unpledgeField() {
+		this.isPledged = false;
+		owner.addToAccount(-(price/2 + getPledgeIntrest()));
+	}
+	
 	protected void buyField(Player player) {
 		player.addToAccount(-1 * price);
 		setOwner(player);
 		Graphic.setOwner(player.getLocation(), player.getName());
+	}
+	
+	private int getPledgeIntrest() {
+		//Calc the intrest with all decimals
+		double unrounded = (price/2) * 10 / 100;
+		
+		//Add 99.99, to go to the next 100's
+		unrounded = unrounded + 99.99;
+		
+		//Divide by 100 and save as int - Java will throw away all decimals
+		int rounded = (int)(unrounded / 100);
+		
+		//Multiply by 100 to get correct number of 00's
+		rounded = rounded * 100;
+		
+		return rounded;
 	}
 }

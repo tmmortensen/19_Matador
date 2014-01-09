@@ -12,12 +12,12 @@ import boundaryToMatador.GUI;
  */
 public class Graphic {
 	public static enum Actions {
-		BUY_FIELD, SELL_FIELD, MORTAGE_FIELD, BUY_HOUSE, SELL_HOUSE, END;
+		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END;
 	}
 
 	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild) {
 		String message = playerName + ", du landede på '" + fieldName + "'";
-		String[] options = { "Sælg en grund", "Pantsæt en grund", "Sælg et hus", "Slut turen" };
+		String[] options = { "Sælg en grund", "Pantsæt en grund", "Ophæv pantsætning af en grund", "Sælg et hus", "Slut turen" };
 		
 		if(rent != 0) {
 			message = message + ". Du skal betale " + rent + " i leje.";
@@ -30,24 +30,27 @@ public class Graphic {
 		if(canBuild) {
 			options = addOption(options, "Køb et hus");
 		}
-		
-		//TODO: Overvej om man måske kan lave det så "Sælg grund"-punktet kun er der hvis man ejer en grund...?
+
+		//TODO: Overvej om man måske kan lave det så "Sælg grund" og "Pantsæt grund"-punkterne mm. kun er der hvis man ejer en grund...?
 		
 		String input = GUI.getUserSelection(playerName + ", du landede på '" + fieldName + "', vælg en mulighed", options);
 		
 		if("Køb grunden".equals(input)) {
 			return Actions.BUY_FIELD;
 		}
-		else if("Sælg en grund".equals(input)) {
+		if("Sælg en grund".equals(input)) {
 			return Actions.SELL_FIELD;
 		}
-		else if("Pantsæt en grund".equals(input)) {
-			return Actions.MORTAGE_FIELD;
+		if("Pantsæt en grund".equals(input)) {
+			return Actions.PLEDGE_FIELD;
 		}
-		else if("Køb et hus".equals(input)) {
+		if("Ophæv pantsætning af en grund".equals(input)) {
+			return Actions.UNPLEDGE_FIELD;
+		}
+		if("Køb et hus".equals(input)) {
 			return Actions.BUY_HOUSE;
 		}
-		else if("Sælg et hus".equals(input)) {
+		if("Sælg et hus".equals(input)) {
 			return Actions.SELL_HOUSE;
 		}
 		
@@ -59,7 +62,7 @@ public class Graphic {
 			return GUI.getUserSelection("Vælg en af dine grunde.", fieldsOwned);
 		}
 		
-		GUI.showMessage("Du ejer ingen felter...");
+		GUI.showMessage("Du har ingen grunde hvor denne handling kan udføres...");
 		
 		return null;
 	}

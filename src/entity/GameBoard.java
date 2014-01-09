@@ -95,6 +95,7 @@ public class GameBoard {
 		for (i = 0; i <= 40; i++) {
 			if (getOwner(i) == player) {
 				((Ownable) fields[i]).owner = null;
+				((Ownable) fields[i]).isPledged = false;
 				Graphic.removeOwner(i);
 			}
 		}
@@ -179,19 +180,29 @@ public class GameBoard {
 	}
 
 	public void sellField(Player player) {
-		int selectedFieldNumber = getFieldSelected(player);
+		int selectedField = getFieldSelected(player, fieldsOwnedByPlayer(player));
 		
-		if(selectedFieldNumber == 0) {
-			return;
+		if(selectedField != 0) {
+			getOwnableField(selectedField).sellField(selectedField);
 		}
-		
-		Ownable selectedField = getOwnableField(selectedFieldNumber);
-		
-		selectedField.setOwner(null);
-		Graphic.removeOwner(selectedFieldNumber);
-		player.addToAccount(selectedField.price);
 	}
 		
+	public void pledgeField(Player player) {
+		int selectedField = getFieldSelected(player, fieldsNotPledgedByPlayer(player));
+		
+		if(selectedField != 0) {
+			getOwnableField(selectedField).pledgeField();
+		}
+	}
+	
+	public void unpledgeField(Player player) {
+		int selectedField = getFieldSelected(player, fieldsPledgedByPlayer(player));
+		
+		if(selectedField != 0) {
+			getOwnableField(selectedField).unpledgeField();
+		}
+	}
+	
 	public void nextCard() {
 		pileOfCards.nextCard();
 	}
@@ -223,6 +234,7 @@ public class GameBoard {
 		return output + dieCup;
 	}
 
+	
 	private Ownable getOwnableField(int fieldNumber) {
 		if (fields[fieldNumber] instanceof Ownable) {
 			return (Ownable) fields[fieldNumber];
@@ -243,20 +255,42 @@ public class GameBoard {
 			}
 		}
 		
-		//Make new array with correct size and move items
-		String[] ownedFieldsTrimmed = new String[size];
-		for(i=0; i<size; i++) {
-			ownedFieldsTrimmed[i] = ownedFields[i];
-		}
-		
-		return ownedFieldsTrimmed;
+		return trimArray(ownedFields, size);
 	}
 	
-	private int getFieldSelected(Player player) {
+	private String[] fieldsNotPledgedByPlayer(Player player) {
+		int i, size = 0;
+		
+		String[] notPledgedFields = new String[41];
+		for(i=1; i<41; i++) {
+			if(getOwner(i) == player && !getOwnableField(i).isPledged) {
+				notPledgedFields[size] = fields[i].getName();
+				size++;
+			}
+		}
+		
+		return trimArray(notPledgedFields, size);
+	}
+	
+	private String[] fieldsPledgedByPlayer(Player player) {
+		int i, size = 0;
+		
+		String[] notPledgedFields = new String[41];
+		for(i=1; i<41; i++) {
+			if(getOwner(i) == player && getOwnableField(i).isPledged) {
+				notPledgedFields[size] = fields[i].getName();
+				size++;
+			}
+		}
+		
+		return trimArray(notPledgedFields, size);
+	}
+	
+	private int getFieldSelected(Player player, String[] fieldsToSelectFrom) {
 		int i;
 		
 		//Let user select a field he owns
-		String selectedField = Graphic.selectOwnedField(fieldsOwnedByPlayer(player));
+		String selectedField = Graphic.selectOwnedField(fieldsToSelectFrom);
 		
 		//Find out the number of the field selected
 		for(i = 1; i<fields.length; i++) {
@@ -266,5 +300,16 @@ public class GameBoard {
 		}
 		
 		return 0;
+	}
+
+	private String[] trimArray(String[] input, int size) {
+		int i;
+		
+		String[] trimmed = new String[size];
+		for(i=0; i<size; i++) {
+			trimmed[i] = input[i];
+		}
+		
+		return trimmed;
 	}
 }

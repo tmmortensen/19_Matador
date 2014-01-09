@@ -36,30 +36,20 @@ public abstract class Field {
 	protected void performStdActions(Actions action, Player player) {
 		switch(action) {
 			case SELL_FIELD:
-				sellField(player);
+				gameBoard.sellField(player);
 				break;
-			case MORTAGE_FIELD:
-				mortageField(player);
+			case PLEDGE_FIELD:
+				gameBoard.pledgeField(player);
+				break;
+			case UNPLEDGE_FIELD:
+				gameBoard.unpledgeField(player);
 				break;
 			case SELL_HOUSE:
-				sellHouse(player);
+				//TODO: Sell house 
 				break;
 			default:
 				break;
 		}
-	}
-	
-	private void sellField(Player player) {
-		//TODO: Sell field
-		gameBoard.sellField(player);
-	}
-	
-	private void mortageField(Player player) {
-		//TODO: Mortage field
-	}
-	
-	private void sellHouse(Player player) {
-		//TODO: Sell house 
 	}
 	
 	/**
