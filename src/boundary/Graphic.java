@@ -31,6 +31,8 @@ public class Graphic {
 			options = addOption(options, "Køb et hus");
 		}
 		
+		//TODO: Overvej om man måske kan lave det så "Sælg grund"-punktet kun er der hvis man ejer en grund...?
+		
 		String input = GUI.getUserSelection(playerName + ", du landede på '" + fieldName + "', vælg en mulighed", options);
 		
 		if("Køb grunden".equals(input)) {
@@ -50,6 +52,16 @@ public class Graphic {
 		}
 		
 		return Actions.END;
+	}
+	
+	public static String selectOwnedField(String[] fieldsOwned) {
+		if(fieldsOwned.length > 0) {
+			return GUI.getUserSelection("Vælg en af dine grunde.", fieldsOwned);
+		}
+		
+		GUI.showMessage("Du ejer ingen felter...");
+		
+		return null;
 	}
 	
 	public static int getNumberOfPlayers() {

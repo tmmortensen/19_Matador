@@ -50,7 +50,8 @@ public abstract class Field {
 	}
 	
 	private void sellField(Player player) {
-		//TODO: Sell house
+		//TODO: Sell field
+		gameBoard.sellField(player);
 	}
 	
 	private void mortageField(Player player) {

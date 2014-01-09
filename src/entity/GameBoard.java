@@ -178,6 +178,20 @@ public class GameBoard {
 		fields[number] = field;
 	}
 
+	public void sellField(Player player) {
+		int selectedFieldNumber = getFieldSelected(player);
+		
+		if(selectedFieldNumber == 0) {
+			return;
+		}
+		
+		Ownable selectedField = getOwnableField(selectedFieldNumber);
+		
+		selectedField.setOwner(null);
+		Graphic.removeOwner(selectedFieldNumber);
+		player.addToAccount(selectedField.price);
+	}
+		
 	public void nextCard() {
 		pileOfCards.nextCard();
 	}
@@ -215,5 +229,42 @@ public class GameBoard {
 		}
 
 		return null;
+	}
+	
+	private String[] fieldsOwnedByPlayer(Player player) {
+		int i, size = 0;
+		
+		//Find names of fields the player owns
+		String[] ownedFields = new String[41];
+		for(i=1; i<41; i++) {
+			if(getOwner(i) == player) {
+				ownedFields[size] = fields[i].getName();
+				size++;
+			}
+		}
+		
+		//Make new array with correct size and move items
+		String[] ownedFieldsTrimmed = new String[size];
+		for(i=0; i<size; i++) {
+			ownedFieldsTrimmed[i] = ownedFields[i];
+		}
+		
+		return ownedFieldsTrimmed;
+	}
+	
+	private int getFieldSelected(Player player) {
+		int i;
+		
+		//Let user select a field he owns
+		String selectedField = Graphic.selectOwnedField(fieldsOwnedByPlayer(player));
+		
+		//Find out the number of the field selected
+		for(i = 1; i<fields.length; i++) {
+			if(fields[i].getName().equals(selectedField)) {
+				return i;
+			}
+		}
+		
+		return 0;
 	}
 }

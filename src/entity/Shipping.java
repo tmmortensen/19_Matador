@@ -11,6 +11,7 @@ import boundary.Graphic.Actions;
 public class Shipping extends Ownable {
 	private final int[] SHIPPING_FIELDS = { 6, 16, 26, 36 };
 
+	//TODO: Lav til array
 	private final int RENT_1 = 500;
 	private final int RENT_2 = 1000;
 	private final int RENT_3 = 2000;
