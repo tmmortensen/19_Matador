@@ -45,7 +45,7 @@ public abstract class Field {
 				gameBoard.unpledgeField(player);
 				break;
 			case SELL_HOUSE:
-				//TODO: Sell house 
+				gameBoard.sellHouse(player);
 				break;
 			default:
 				break;

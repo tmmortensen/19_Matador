@@ -69,8 +69,8 @@ public class Graphic {
 	
 	public static void updateHouses(int fieldNumber, int houseCount) {
 		if(houseCount < 5) {
-			GUI.setHouses(fieldNumber, houseCount);
 			GUI.setHotel(fieldNumber, false);
+			GUI.setHouses(fieldNumber, houseCount);
 		}
 		else {
 			GUI.setHouses(fieldNumber, 0);

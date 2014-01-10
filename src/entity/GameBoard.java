@@ -59,7 +59,7 @@ public class GameBoard {
 		fields[27] = new Street("Bredgade", 5200, 3000, new int[] { 27, 28, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
 		fields[28] = new Street("Kgs. Nytorv", 5200, 3000, new int[] { 27, 28, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
 		fields[29] = new Brewery("Carlsberg", 150, 3000, this);
-		fields[30] = new Street("Østergade", 5600, 3000, new int[] { 27, 29, 30 }, new int[] { 480, 2400, 7200, 17000, 20500, 24000 }, this);
+		fields[30] = new Street("Østergade", 5600, 3000, new int[] { 27, 28, 30 }, new int[] { 480, 2400, 7200, 17000, 20500, 24000 }, this);
 		fields[31] = new GoToJail("Gå i fængsel", this);
 		fields[32] = new Street("Amagertorv", 6000, 4000, new int[] { 32, 33, 35 }, new int[] { 520, 2600, 7800, 18000, 22000, 25500 }, this);
 		fields[33] = new Street("Vimmelskaftet", 6000, 4000, new int[] { 32, 33, 35 }, new int[] { 520, 2600, 7800, 18000, 22000, 25500 }, this);
@@ -185,7 +185,7 @@ public class GameBoard {
 	}
 	
 	public void sellField(Player player) {
-		int selectedField = getFieldSelected(player, fieldsOwnedByPlayer(player));
+		int selectedField = getFieldSelected(player, fieldsSellableByPlayer(player));
 		
 		if(selectedField != 0) {
 			getOwnableField(selectedField).sellField(selectedField);
@@ -193,7 +193,7 @@ public class GameBoard {
 	}
 		
 	public void pledgeField(Player player) {
-		int selectedField = getFieldSelected(player, fieldsNotPledgedByPlayer(player));
+		int selectedField = getFieldSelected(player, fieldsPledgeableByPlayer(player));
 		
 		if(selectedField != 0) {
 			getOwnableField(selectedField).pledgeField();
@@ -205,6 +205,14 @@ public class GameBoard {
 		
 		if(selectedField != 0) {
 			getOwnableField(selectedField).unpledgeField();
+		}
+	}
+	
+	public void sellHouse(Player player) {
+		int selectedField = getFieldSelected(player, fieldsWithHousesByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Street)fields[selectedField]).sellHouse(selectedField);
 		}
 	}
 	
@@ -248,33 +256,33 @@ public class GameBoard {
 		return null;
 	}
 	
-	private String[] fieldsOwnedByPlayer(Player player) {
+	private String[] fieldsSellableByPlayer(Player player) {
 		int i, size = 0;
 		
 		//Find names of fields the player owns
-		String[] ownedFields = new String[41];
+		String[] sellableFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player) {
-				ownedFields[size] = fields[i].getName();
+			if(getOwner(i) == player && !fieldsHasHouses(i)) {
+				sellableFields[size] = fields[i].getName();
 				size++;
 			}
 		}
 		
-		return trimArray(ownedFields, size);
+		return trimArray(sellableFields, size);
 	}
 	
-	private String[] fieldsNotPledgedByPlayer(Player player) {
+	private String[] fieldsPledgeableByPlayer(Player player) {
 		int i, size = 0;
 		
-		String[] notPledgedFields = new String[41];
+		String[] pledgeableFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player && !getOwnableField(i).isPledged) {
-				notPledgedFields[size] = fields[i].getName();
+			if(getOwner(i) == player && !getOwnableField(i).isPledged && !fieldsHasHouses(i)) {
+				pledgeableFields[size] = fields[i].getName();
 				size++;
 			}
 		}
 		
-		return trimArray(notPledgedFields, size);
+		return trimArray(pledgeableFields, size);
 	}
 	
 	private String[] fieldsPledgedByPlayer(Player player) {
@@ -289,6 +297,21 @@ public class GameBoard {
 		}
 		
 		return trimArray(notPledgedFields, size);
+	}
+	
+	private String[] fieldsWithHousesByPlayer(Player player) {
+		int i, size = 0;
+		
+		//Find names of fields the player owns
+		String[] houseFields = new String[41];
+		for(i=1; i<41; i++) {
+			if(getOwner(i) == player && fieldHasHouses(i)) {
+				houseFields[size] = fields[i].getName();
+				size++;
+			}
+		}
+		
+		return trimArray(houseFields, size);
 	}
 	
 	private int getFieldSelected(Player player, String[] fieldsToSelectFrom) {
@@ -316,5 +339,27 @@ public class GameBoard {
 		}
 		
 		return trimmed;
+	}
+
+	private boolean fieldsHasHouses(int fieldNumber) {
+		if(fields[fieldNumber] instanceof Street) {
+			Street streetToTest = (Street)fields[fieldNumber];
+			if(streetToTest.associatedFieldsHasAnyHouses()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean fieldHasHouses(int fieldNumber) {
+		if(fields[fieldNumber] instanceof Street) {
+			Street streetToTest = (Street)fields[fieldNumber];
+			if(streetToTest.hasSellableHouses()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

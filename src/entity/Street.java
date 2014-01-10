@@ -50,8 +50,16 @@ public class Street extends Ownable {
 		}
 	}
 	
+	public boolean hasSellableHouses() {
+		return numberOfHouses > 0 && !associatedFieldsHasTooManyHouses();
+	}
+	
 	protected boolean isBuildable() {
-		return ownsAllAssociatedFields() && associatedFieldsHasHouses();
+		if(numberOfHouses >= 5) {
+			return false;
+		}
+		
+		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
 	}
 
 	protected void performAction(Actions action, Player player) {
@@ -61,7 +69,7 @@ public class Street extends Ownable {
 			buyField(player);
 		}
 		else if(action == Actions.BUY_HOUSE) {
-			buyHouse(player);
+			buyHouse();
 		}
 	}
 	
@@ -77,7 +85,7 @@ public class Street extends Ownable {
 		return true;
 	}
 	
-	private boolean associatedFieldsHasHouses() {
+	private boolean associatedFieldsHasEnoughHouses() {
 		int i;
 		
 		for(i = 0; i < associatedFields.length; i++) {
@@ -90,13 +98,43 @@ public class Street extends Ownable {
 		return true;
 	}
 	
-	private void buyHouse(Player player) {
-		//TODO: Check at der ikke bliver mere end 5 huse..
-		if(isBuildable()) {
-			player.addToAccount(-constructPrice);
-			numberOfHouses++;
+	private boolean associatedFieldsHasTooManyHouses() {
+		int i;
+		
+		for(i = 0; i < associatedFields.length; i++) {
+			Street streetToTest = (Street)gameBoard.getField(associatedFields[i]);
+			if(streetToTest.numberOfHouses > this.numberOfHouses) {
+				return true;
+			}
 		}
 		
-		Graphic.updateHouses(player.getLocation(), numberOfHouses);
+		return false;
+	}
+	
+	public boolean associatedFieldsHasAnyHouses() {
+		int i;
+		
+		for(i = 0; i < associatedFields.length; i++) {
+			Street streetToTest = (Street)gameBoard.getField(associatedFields[i]);
+			if(streetToTest.numberOfHouses > 0) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void buyHouse() {
+		owner.addToAccount(-constructPrice);
+		numberOfHouses++;
+		
+		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
+	}
+	
+	public void sellHouse(int thisFieldNumber) {
+		owner.addToAccount(constructPrice/2);
+		numberOfHouses--;
+		
+		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
 	}
 }

@@ -79,8 +79,6 @@ public abstract class Ownable extends Field {
 	}
 	
 	public void sellField(int thisFieldNumber) {
-		//TODO: Man må ikke kunne sælge et felt hvis der er huse på det..
-		
 		owner.addToAccount(price);
 		
 		if(isPledged) {
