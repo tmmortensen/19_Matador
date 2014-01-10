@@ -1,5 +1,6 @@
 package entity;
 
+import boundary.Graphic;
 import boundary.Graphic.Actions;
 
 /**
@@ -36,19 +37,21 @@ public class Street extends Ownable {
 	 * @return The rent for this field.
 	 */
 	public int getRent() {
-		int rent = rents[0];
-		
-		if(ownsAllAssociatedFields()) {
-			rent = rent * 2;
+		if(numberOfHouses > 0) {
+			return rents[numberOfHouses];
 		}
-		
-		//TODO: Beregn pris med huse..
-		
-		return rent;
+		else if(ownsAllAssociatedFields()) {
+			//Base rent x2
+			return rents[0] * 2;
+		}
+		else {
+			//Just base rent
+			return rents[0];
+		}
 	}
 	
 	protected boolean isBuildable() {
-		return ownsAllAssociatedFields();
+		return ownsAllAssociatedFields() && associatedFieldsHasHouses();
 	}
 
 	protected void performAction(Actions action, Player player) {
@@ -74,7 +77,26 @@ public class Street extends Ownable {
 		return true;
 	}
 	
+	private boolean associatedFieldsHasHouses() {
+		int i;
+		
+		for(i = 0; i < associatedFields.length; i++) {
+			Street streetToTest = (Street)gameBoard.getField(associatedFields[i]);
+			if(streetToTest.numberOfHouses < this.numberOfHouses) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	private void buyHouse(Player player) {
-		//TODO: Buy houses
+		//TODO: Check at der ikke bliver mere end 5 huse..
+		if(isBuildable()) {
+			player.addToAccount(-constructPrice);
+			numberOfHouses++;
+		}
+		
+		Graphic.updateHouses(player.getLocation(), numberOfHouses);
 	}
 }

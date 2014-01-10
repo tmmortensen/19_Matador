@@ -30,8 +30,10 @@ public class Refuge extends Field {
 	 * on this field. Adds the bonus to the player given.
 	 */
 	public void landOnField(Player player) {
-		player.addToAccount(bonus);
-		Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
-		performStdActions(action, player);
+		if(!player.isInJail()) {
+			player.addToAccount(bonus);
+			Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
+			performStdActions(action, player);
+		}
 	}
 }

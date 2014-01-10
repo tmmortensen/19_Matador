@@ -29,7 +29,7 @@ public class GameBoard {
 	 */
 	public void createFields() {
 		// Syntax for Streets:
-		// Name, Price, ContructPrice, AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel, this)
+		// Name, Price, ContructPrice, AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel), this
 		fields[1] = new Refuge("Start", 0, this);
 		fields[2] = new Street("Rødovrevej", 1200, 1000, new int[] { 2, 4 }, new int[] { 40, 200, 600, 1800, 3200, 5000 }, this);
 		fields[3] = new TryYourLuck("Prøv Lykken", this);
@@ -56,8 +56,8 @@ public class GameBoard {
 		fields[24] = new Street("Østerbrogade", 4400, 3000, new int[] { 22, 24, 25 }, new int[] { 360, 1800, 5000, 14000, 17500, 21000 }, this);
 		fields[25] = new Street("Grønningen", 4800, 3000, new int[] { 22, 24, 25 }, new int[] { 400, 2000, 6000, 15000, 18500, 22000 }, this);
 		fields[26] = new Shipping("GR", 4000, this);
-		fields[27] = new Street("Bredgade", 5200, 3000, new int[] { 27, 29, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
-		fields[28] = new Street("Kgs. Nytorv", 5200, 3000, new int[] { 27, 29, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
+		fields[27] = new Street("Bredgade", 5200, 3000, new int[] { 27, 28, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
+		fields[28] = new Street("Kgs. Nytorv", 5200, 3000, new int[] { 27, 28, 30 }, new int[] { 440, 2200, 6600, 16000, 19500, 23000 }, this);
 		fields[29] = new Brewery("Carlsberg", 150, 3000, this);
 		fields[30] = new Street("Østergade", 5600, 3000, new int[] { 27, 29, 30 }, new int[] { 480, 2400, 7200, 17000, 20500, 24000 }, this);
 		fields[31] = new GoToJail("Gå i fængsel", this);
@@ -97,6 +97,7 @@ public class GameBoard {
 				((Ownable) fields[i]).owner = null;
 				((Ownable) fields[i]).isPledged = false;
 				Graphic.removeOwner(i);
+				Graphic.updateHouses(i, 0);
 			}
 		}
 	}
@@ -179,6 +180,10 @@ public class GameBoard {
 		fields[number] = field;
 	}
 
+	public Field getField(int fieldNumber) {
+		return fields[fieldNumber];
+	}
+	
 	public void sellField(Player player) {
 		int selectedField = getFieldSelected(player, fieldsOwnedByPlayer(player));
 		

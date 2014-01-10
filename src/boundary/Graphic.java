@@ -67,6 +67,17 @@ public class Graphic {
 		return null;
 	}
 	
+	public static void updateHouses(int fieldNumber, int houseCount) {
+		if(houseCount < 5) {
+			GUI.setHouses(fieldNumber, houseCount);
+			GUI.setHotel(fieldNumber, false);
+		}
+		else {
+			GUI.setHouses(fieldNumber, 0);
+			GUI.setHotel(fieldNumber, true);
+		}
+	}
+	
 	public static int getNumberOfPlayers() {
 		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
 	}
@@ -113,6 +124,7 @@ public class Graphic {
 	 * @param die2 Value of die2.
 	 */
 	public static void setDice(int die1, int die2) {
+		//TODO: Lav det så terningerne ikke kan lande bagved vores beskeder..
 		GUI.setDice(die1, die2);
 	}
 
