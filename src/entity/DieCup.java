@@ -25,7 +25,7 @@ public class DieCup {
 	public void shakeDieCup() {
 		die1.roll();
 		die2.roll();
-		Graphic.setDice(die1.getValue(), die2.getValue(), null);
+		Graphic.setDice(die1.getValue(), die2.getValue());
 	}
 
 	/**

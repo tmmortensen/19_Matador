@@ -15,7 +15,7 @@ public class Graphic {
 	private static int[] xLow = { 2, 3 };
 	private static int[] xHigh = { 2, 3, 4, 5, 6 };
 	private static int x1, x2, y1, y2;
-	private static int[] yRange = { 2, 3, 4, 5, 6, 7, 8, 9 };
+	private static int[] yRange = { 3, 4, 5, 6, 7, 8, 9 };
 
 	public static enum Actions {
 		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END_PCT, END;
@@ -147,13 +147,13 @@ public class Graphic {
 	 *            Value of die2.
 	 */
 
-	public static void setDice(int die1, int die2, Random random) {
+	public static void setDice(int die1, int die2) {
 		// Algorithm to make sure dice doesn't disturb cars or text in the game
-		random = new Random();
+		Random random = new Random();
 		y1 = yRange[random.nextInt(yRange.length)];
 		y2 = yRange[random.nextInt(yRange.length)];
 
-		if (y1 >= 2 && y1 <= 3) {
+		if (y1 == 3) {
 			x1 = xHigh[random.nextInt(xHigh.length)];
 		}
 		if (y1 >= 4 && y1 <= 6) {
@@ -162,7 +162,7 @@ public class Graphic {
 		if (y1 >= 7 && y1 <= 9) {
 			x1 = xHigh[random.nextInt(xHigh.length)];
 		}
-		if (y2 >= 2 && y2 <= 3) {
+		if (y2 == 3) {
 			x2 = xHigh[random.nextInt(xHigh.length)];
 		}
 		if (y2 >= 4 && y2 <= 6) {
