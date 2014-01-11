@@ -2,6 +2,7 @@ package entity;
 
 import boundary.Graphic;
 import boundary.Graphic.Actions;
+import TryYourLuck.Cards.Card;
 
 public class TryYourLuck extends Field {
 	
@@ -10,15 +11,26 @@ public class TryYourLuck extends Field {
 	}
 
 	public void landOnField(Player player) {
-		gameBoard.nextCard();
-		//TODO: Måske en pænere visning af beskeden fra kortet ifm. menu'en...?
-		Graphic.showCardMessage(gameBoard.getCardText(), player.getName());
-		Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
-		performStdActions(action, player);
-		gameBoard.cardEffect(player);
+		Actions action = null;
 		
-		if(player.getLandedOnNewField()) {
-			player.setLandedOnNewField(false);
+		while(action != Actions.END) {
+			action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, true, null);
+			performStdActions(action, player);
+		}
+		
+		gameBoard.nextCard();
+		
+		if(gameBoard.getCardType() == Card.DEPOSITCARD || gameBoard.getCardType() == Card.WITHDRAWCARD) {
+			action = null;
+			while(action != Actions.END) {
+				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, gameBoard.getCardText());
+				performStdActions(action, player);
+			}
+			gameBoard.cardEffect(player);
+		}
+		else {
+			Graphic.showCard(player.getName(), gameBoard.getCardText());
+			gameBoard.cardEffect(player);
 			gameBoard.landOnField(player);
 		}
 	}

@@ -12,28 +12,40 @@ import boundaryToMatador.GUI;
  */
 public class Graphic {
 	public static enum Actions {
-		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END;
+		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END_PCT, END;
 	}
 
-	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild) {
-		String message = playerName + ", du landede på '" + fieldName + "'";
+	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild, boolean taxOption, boolean drawCard, String cardMessage) {
+		String message = playerName + ", du landede på '" + fieldName + "'. ";
 		String[] options = { "Sælg en grund", "Pantsæt en grund", "Ophæv pantsætning af en grund", "Sælg et hus", "Slut turen" };
 		
 		if(rent != 0) {
-			message = message + ". Du skal betale " + rent + " i leje.";
+			message = message + " Du skal betale " + rent + " i leje. ";
 		}
 		
 		if(buyPrice != 0) {
+			message = message + " Du kan købe grunden for " + buyPrice + ".";
 			options = addOption(options, "Køb grunden");
 		}
 		
 		if(canBuild) {
 			options = addOption(options, "Køb et hus");
 		}
-
-		//TODO: Overvej om man måske kan lave det så "Sælg grund" og "Pantsæt grund"-punkterne mm. kun er der hvis man ejer en grund...?
 		
-		String input = GUI.getUserSelection(playerName + ", du landede på '" + fieldName + "', vælg en mulighed", options);
+		if(cardMessage != null) {
+			message = message + "\n" + cardMessage;
+		}
+		
+		if(drawCard) {
+			replaceOption(options, "Slut turen", "Træk et kort");
+		}
+		
+		if(taxOption) {
+			options = replaceOption(options, "Slut turen", "Slut turen, og betal fast beløb");
+			options = addOption(options, "Slut turen, og betal procentvis skat");
+		}
+		
+		String input = GUI.getUserSelection(message + "\nVælg en mulighed: ", options);
 		
 		if("Køb grunden".equals(input)) {
 			return Actions.BUY_FIELD;
@@ -53,6 +65,9 @@ public class Graphic {
 		if("Sælg et hus".equals(input)) {
 			return Actions.SELL_HOUSE;
 		}
+		if("Slut turen, og betal procentvis skat".equals(input)) {
+			return Actions.END_PCT;
+		}
 		
 		return Actions.END;
 	}
@@ -67,6 +82,10 @@ public class Graphic {
 		return null;
 	}
 	
+	public static void showCard(String name, String message) {
+		GUI.showMessage(name + ", " + message);
+	}
+	
 	public static void updateHouses(int fieldNumber, int houseCount) {
 		if(houseCount < 5) {
 			GUI.setHotel(fieldNumber, false);
@@ -78,21 +97,27 @@ public class Graphic {
 		}
 	}
 	
+	
 	public static int getNumberOfPlayers() {
 		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
 	}
+	
+	
 	
 	public static String getPlayerName() {
 		return GUI.getUserString("Indtast navn");
 	}
 	
+	
 	public static void getOk(String name) {
 		GUI.getUserButtonPressed("Det er " + name + "'s tur. Tryk for at slå...", "Slå");
 	}
 	
+	
 	public static void announceWinner(String name) {
 		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
 	}
+	
 	
 	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount, String name) {
 		String msg = name + ", vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
@@ -105,24 +130,13 @@ public class Graphic {
 		return false;
 	}
 	
-	public static String getSelection(String name) {
-		String input = GUI.getUserSelection(name + ", vælg en mulighed", "Køb feltet", "Giv turen videre");
-		if("Køb feltet".equals(input)) {
-			return "buy";
-		}
-		if("Giv turen videre".equals(input)) {
-			return "donothing";
-		}
-		
-		return null;
-	}
-	
 	/**
 	 * Method to set the value of the dice on the GUI.
 	 *
 	 * @param die1 Value of die1.
 	 * @param die2 Value of die2.
 	 */
+	
 	public static void setDice(int die1, int die2) {
 		//TODO: Lav det så terningerne ikke kan lande bagved vores beskeder..
 		GUI.setDice(die1, die2);
@@ -134,6 +148,7 @@ public class Graphic {
 	 * @param playerName The name of the player to add.
 	 * @param playerScore The score of the player to add.
 	 */
+	
 	public static void addPlayer(String playerName, int playerScore, int playerNumber) {
 		GUI.addPlayer(playerName, playerScore, getColor(playerNumber));
 	}
@@ -144,9 +159,11 @@ public class Graphic {
 	 *
 	 * @param players The array of player objects to get the information from.
 	 */
+	
 	public static void updatePlayer(String name, int score) {
 		GUI.setBalance(name, score);
 	}
+	
 
 	/**
 	 * Close the GUI window.
@@ -161,10 +178,12 @@ public class Graphic {
 	 * @param playerName The name of the player who's car should be moved.
 	 * @param fieldNumber The number of the field the car should be moved to.
 	 */
+	
 	public static void moveCar(String playerName, int fieldNumber) {
 		GUI.removeAllCars(playerName);
 		GUI.setCar(fieldNumber, playerName);
 	}
+	
 
 	/**
 	 * Method to set owner of a field. Marks the given field number with the given players color.
@@ -181,9 +200,11 @@ public class Graphic {
 	 *
 	 * @param fieldNumber The number of the field to remove owner from.
 	 */
+	
 	public static void removeOwner(int fieldNumber) {
 		GUI.removeOwner(fieldNumber);
 	}
+	
 
 	/**
 	 * Method to remove a players car from the board.
@@ -194,19 +215,34 @@ public class Graphic {
 		GUI.removeAllCars(name);
 	}
 	
-	public static void showCardMessage(String message, String name) {
-		GUI.showMessage(name + ", " + message);
-	}
 	
 	public static void printLoser(String name) {
 		GUI.showMessage("Beklager, " + name + ", du er bankerot.");
 	}
 	
+	
 	public static void goToJailMessage(String name) {
 		GUI.showMessage(name + ", gå i fængsel!");
 	}
 	
+	
+	public static void updateField(int fieldNumber, String title, int price, boolean subAsTitle) {
+		if(subAsTitle) {
+			GUI.setSubText(fieldNumber, title);
+		}
+		else {
+			GUI.setTitleText(fieldNumber, title);
+			GUI.setDescriptionText(fieldNumber, title);
+			
+			if(price > 0) {
+				GUI.setSubText(fieldNumber, "Pris: " + price);
+			}
+		}
+	}
+	
+	
 
+	
 	private static Color getColor(int playerNumber) {
 		switch(playerNumber) {
 		case 0:
@@ -224,6 +260,7 @@ public class Graphic {
 		}
 	}
 
+	
 	private static String[] addOption(String[] options, String newOption) {
 		int i;
 		String[] output = new String[options.length+1];
@@ -234,5 +271,19 @@ public class Graphic {
 		}
 		
 		return output;
+	}
+	
+
+	private static String[] replaceOption(String[] input, String oldString, String newString) {
+		int i;
+		
+		for(i = 0; i < input.length; i++) {
+			if(input[i].equals(oldString)) {
+				input[i] = newString;
+				return input;
+			}
+		}
+		
+		return null;
 	}
 }

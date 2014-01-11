@@ -32,25 +32,29 @@ public abstract class Ownable extends Field {
 	 * This implementation is used by all the own able fields that inherits from this class.
 	 */
 	public void landOnField(Player player) {
-		int rent = 0;
-		int buyPrice = 0;
-		boolean isBuildable = false;
-		Actions action;
+		int rent = 0, buyPrice;
+		boolean isBuildable;
 		
-		// Calculate rent if field is owned by someone else, and not pleged
-		if(owner != null && owner != player && !isPledged) {
-			rent = getRent();
+		Actions action = null;
+		while(action != Actions.END) {
+			buyPrice = 0;
+			isBuildable = false;
+			
+			// Calculate rent if field is owned by someone else, and not pleged
+			if(owner != null && owner != player && !isPledged) {
+				rent = getRent();
+			}
+			// Get the option to buy if field is not owned
+			else if (owner == null) {
+				buyPrice = price;
+			}
+			else if (owner == player) {
+				isBuildable = isBuildable();
+			}
+			
+			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, isBuildable, false, false, null);
+			performAction(action, player);
 		}
-		// Get the option to buy if field is not owned
-		else if (owner == null) {
-			buyPrice = price;
-		}
-		else if (owner == player) {
-			isBuildable = isBuildable();
-		}
-		
-		action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, isBuildable);
-		performAction(action, player);
 		
 		// Transfer the rent
 		if(rent != 0) {
@@ -92,7 +96,6 @@ public abstract class Ownable extends Field {
 	public void pledgeField() {
 		this.isPledged = true;
 		owner.addToAccount(price/2);
-		//TODO: Måske skal der ske noget på GUI'en, for at vise at et felt er pantsat?
 	}
 	
 	public void unpledgeField() {

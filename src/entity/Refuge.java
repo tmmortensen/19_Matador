@@ -32,8 +32,11 @@ public class Refuge extends Field {
 	public void landOnField(Player player) {
 		if(!player.isInJail()) {
 			player.addToAccount(bonus);
-			Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
-			performStdActions(action, player);
+			Actions action = null;
+			while(action != Actions.END) {
+				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, null);
+				performStdActions(action, player);
+			}
 		}
 	}
 }

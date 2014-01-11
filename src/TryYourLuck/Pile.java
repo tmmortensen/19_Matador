@@ -19,14 +19,14 @@ public class Pile {
 	 * Konstruktør som opretter kortene i et array
 	 */
 	public Pile() {
-		pile[0] = new MoneyCards("Prøv Lykken\nTillykke med fødselsdagen! Du modtager Kr. 2000,-", Card.DEPOSITCARD, +2000);
-		pile[1] = new NoneMoneyCards("Prøv Lykken\nRyk til Start", Card.MOVETO, 1);
-		pile[2] = new MoneyCards("Prøv Lykken\nDu kørte for hurtigt, modtag en bøde på Kr. 1500,-", Card.WITHDRAWCARD, -1500);
-		pile[3] = new NoneMoneyCards("Prøv Lykken\nRyk til Rådhuspladsen", Card.MOVETO, 40);
-		pile[4] = new MoneyCards("Prøv Lykken\nDu har fået penge tilbage i skat. Modtag Kr. 3000,-", Card.DEPOSITCARD, +3000);
-		pile[5] = new NoneMoneyCards("Prøv lykken\nFlyt 4 felter frem", Card.CHANGEPOSITION, +4);
-		pile[6] = new NoneMoneyCards("Prøv lykken\nGå i Fængsel!", Card.GOTOJAIL, 0);
-		pile[7] = new NoneMoneyCards("Prøv Lykken\nFlyt 4 felter baglæns", Card.CHANGEPOSITION, -4);
+		pile[0] = new MoneyCards("Tillykke med fødselsdagen! Du modtager Kr. 2000,-", Card.DEPOSITCARD, +2000);
+		pile[1] = new NoneMoneyCards("Ryk til Start", Card.MOVETO, 1);
+		pile[2] = new MoneyCards("Du kørte for hurtigt, modtag en bøde på Kr. 1500,-", Card.WITHDRAWCARD, -1500);
+		pile[3] = new NoneMoneyCards("Ryk til Rådhuspladsen", Card.MOVETO, 40);
+		pile[4] = new MoneyCards("Du har fået penge tilbage i skat. Modtag Kr. 3000,-", Card.DEPOSITCARD, +3000);
+		pile[5] = new NoneMoneyCards("Flyt 4 felter frem", Card.CHANGEPOSITION, +4);
+		pile[6] = new NoneMoneyCards("Gå i Fængsel!", Card.GOTOJAIL, 0);
+		pile[7] = new NoneMoneyCards("Flyt 4 felter baglæns", Card.CHANGEPOSITION, -4);
 		shufflePile();
 	}
 
@@ -47,11 +47,11 @@ public class Pile {
 	 *            Kortets nummer
 	 * @return Returnerer kortets nummer som en String
 	 */
-	public String getCardType(int cardNumber) {
+	public Card getCardType() {
 		if (cardNumber == -1)
 			return null;
 		else
-			return shuffledPile[cardNumber].getCardType().toString();
+			return shuffledPile[cardNumber].getCardType();
 	}
 
 	/**

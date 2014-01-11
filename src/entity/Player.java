@@ -14,7 +14,7 @@ public class Player {
 	
 	private String name;
 	private Account account;
-	private boolean isBankrupt, isInJail, getsExtraTurn, landedOnNewField;
+	private boolean isBankrupt, isInJail, getsExtraTurn;
 	private int location, numberOfIdentical, turnsInJail;
 
 	/**
@@ -26,7 +26,6 @@ public class Player {
 		isBankrupt = false;
 		isInJail = false;
 		getsExtraTurn = false;
-		landedOnNewField = false;
 		location = 1;
 		numberOfIdentical = 0;
 		turnsInJail = 0;
@@ -70,7 +69,6 @@ public class Player {
 	}
 	
 	public void goToJail() {
-		Graphic.goToJailMessage(name);
 		isInJail = true;
 		setLocation(11);
 		turnsInJail = 0;
@@ -114,14 +112,6 @@ public class Player {
 	 */
 	public int getLocation() {
 		return location;
-	}
-
-	public void setLandedOnNewField(boolean landedOnNewField) {
-		this.landedOnNewField = landedOnNewField;
-	}
-	
-	public boolean getLandedOnNewField() {
-		return landedOnNewField;
 	}
 	
 	/**
@@ -212,6 +202,7 @@ public class Player {
 			
 			if(numberOfIdentical >= 3) {
 				numberOfIdentical = 0;
+				Graphic.goToJailMessage(name);
 				goToJail();
 			}
 			else {

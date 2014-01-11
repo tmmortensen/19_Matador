@@ -24,6 +24,7 @@ public class Game {
 	public Game() {
 		gameBoard = new GameBoard(41);
 		gameBoard.createFields();
+		gameBoard.updateGuiFields();
 	}
 
 	/**

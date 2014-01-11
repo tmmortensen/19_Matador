@@ -37,11 +37,9 @@ public class NoneMoneyCards extends Cards {
 		switch (cardType) {
 		case MOVETO:
 			player.setLocation(position);
-			player.setLandedOnNewField(true);
 			break;
 		case CHANGEPOSITION:
 			player.moveFieldsForward(position);
-			player.setLandedOnNewField(true);
 			break;
 		case GOTOJAIL:
 			player.goToJail();

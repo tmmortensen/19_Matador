@@ -1,5 +1,7 @@
 package entity;
 
+import boundary.Graphic;
+
 /**
  * Feltet gotojail, som sender spilleren i fængsel
  * 
@@ -23,6 +25,7 @@ public class GoToJail extends Field {
 	 * Overrider fra Field
 	 */
 	public void landOnField(Player player) {
+		Graphic.goToJailMessage(player.getName());
 		player.goToJail();
 	}
 }

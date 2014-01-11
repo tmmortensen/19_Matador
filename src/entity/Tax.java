@@ -41,25 +41,27 @@ public class Tax extends Field {
 	 * subtracts score accordingly.
 	 */
 	public void landOnField(Player player) {
-		int taxToPay;
+		int taxToPay, taxFromPct = 0;
+		boolean taxOption = false;
 
-		Actions action = Graphic.showMenu(player.getName(), this.name, 0, 0, false);
-		performStdActions(action, player);
-		//TODO: Måske en pænere visning af skattespørgsmål ifm. menu'en?
-		
 		if (taxRate != -1) {
-			int taxFromPct = get10PctTax(player);
-			boolean payPct = Graphic.taxPctChoice(taxRate, taxFromPct, taxAmount, player.getName());
-
-			if (payPct) {
-				taxToPay = get10PctTax(player);
-			} else {
-				taxToPay = taxAmount;
-			}
-		} else {
-			taxToPay = taxAmount;
+			taxFromPct = get10PctTax(player);
+			taxOption = true;
+		}
+		
+		Actions action = null;
+		while(action != Actions.END && action != Actions.END_PCT) {
+			action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, taxOption, false, null);
+			performStdActions(action, player);
 		}
 
+		if(action == Actions.END_PCT) {
+			taxToPay = taxFromPct;
+		}
+		else {
+			taxToPay = taxAmount;
+		}
+		
 		player.addToAccount(-1 * taxToPay);
 	}
 

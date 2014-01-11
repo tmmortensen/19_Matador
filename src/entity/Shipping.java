@@ -10,12 +10,7 @@ import boundary.Graphic.Actions;
  */
 public class Shipping extends Ownable {
 	private final int[] SHIPPING_FIELDS = { 6, 16, 26, 36 };
-
-	//TODO: Lav til array
-	private final int RENT_1 = 500;
-	private final int RENT_2 = 1000;
-	private final int RENT_3 = 2000;
-	private final int RENT_4 = 4000;
+	private final int[] RENTS = { 500, 1000, 2000, 4000 };
 
 	/**
 	 * Constructor that takes all inputs needed for the class.
@@ -39,18 +34,7 @@ public class Shipping extends Ownable {
 	public int getRent() {
 		int numberOfShippingsOwned = getShippingsOwned();
 
-		switch (numberOfShippingsOwned) {
-		case 1:
-			return RENT_1;
-		case 2:
-			return RENT_2;
-		case 3:
-			return RENT_3;
-		case 4:
-			return RENT_4;
-		default:
-			return 0;
-		}
+		return RENTS[numberOfShippingsOwned-1];
 	}
 
 	protected boolean isBuildable() {

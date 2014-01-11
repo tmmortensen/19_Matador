@@ -36,7 +36,6 @@ public class Brewery extends Ownable {
 	 */
 	public int getRent() {
 		gameBoard.shakeDieCup();
-		//TODO: Tjek at det stadig er sådan man regner det ud..
 		return baseRent * gameBoard.getDieCupSum() * getBrewerysOwned();
 	}
 
