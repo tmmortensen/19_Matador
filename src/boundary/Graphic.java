@@ -25,8 +25,8 @@ public class Graphic {
 			int rent, int buyPrice, boolean canBuild, boolean taxOption,
 			boolean drawCard, String cardMessage) {
 		String message = playerName + ", du landede på '" + fieldName + "'. ";
-		String[] options = { "Sælg en grund", "Pantsæt en grund",
-				"Ophæv pantsætning af en grund", "Sælg et hus", "Slut turen" };
+		String[] options = { "Slut turen", "Sælg en grund", "Pantsæt en grund",
+				"Ophæv pantsætning af en grund", "Sælg et hus" };
 
 		if (rent != 0) {
 			message = message + " Du skal betale " + rent + " i leje. ";
