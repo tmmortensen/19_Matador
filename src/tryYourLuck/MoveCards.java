@@ -29,7 +29,7 @@ public class MoveCards extends Cards {
 	}
 	
 	public enum MoveCardTypes {
-		CHANGEPOSITION, MOVETO, GOTOJAIL;
+		MOVEFORWARD, MOVETO, GOTOJAIL;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class MoveCards extends Cards {
 			case MOVETO:
 				player.setLocation(position);
 				break;
-			case CHANGEPOSITION:
+			case MOVEFORWARD:
 				player.moveFieldsForward(position);
 				break;
 			case GOTOJAIL:
