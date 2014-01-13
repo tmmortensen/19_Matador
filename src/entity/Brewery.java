@@ -35,8 +35,8 @@ public class Brewery extends Ownable {
 	 * @return The rent for this field.
 	 */
 	public int getRent() {
-		gameBoard.shakeDieCup();
-		return baseRent * gameBoard.getDieCupSum() * getBrewerysOwned();
+		gameBoard.getDieCup().shakeDieCup();
+		return baseRent * gameBoard.getDieCup().getSum() * getBrewerysOwned();
 	}
 
 	protected boolean isBuildable() {

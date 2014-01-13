@@ -1,4 +1,4 @@
-package TryYourLuck;
+package tryYourLuck;
 
 import entity.Player;
 
@@ -9,9 +9,7 @@ import entity.Player;
  * 
  */
 public class MoneyCards extends Cards {
-
-	protected int effect;
-	protected int typeOfMoneyCard;
+	private int effect;
 
 	/**
 	 * Konstruktøren for de kort der skal behandle penge
@@ -23,8 +21,8 @@ public class MoneyCards extends Cards {
 	 * @param effect
 	 *            Antallet af penge man får eller mister
 	 */
-	public MoneyCards(String cardText, Card cardType, int effect) {
-		super(cardType, cardText);
+	public MoneyCards(String cardText, int effect) {
+		super(cardText);
 		this.effect = effect;
 	}
 

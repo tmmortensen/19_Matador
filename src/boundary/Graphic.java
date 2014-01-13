@@ -12,10 +12,10 @@ import boundaryToMatador.GUI;
  * 
  */
 public class Graphic {
-	private static int[] xLow = { 2, 3 };
-	private static int[] xHigh = { 2, 3, 4, 5, 6 };
-	private static int x1, x2, y1, y2;
-	private static int[] yRange = { 3, 4, 5, 6, 7, 8, 9 };
+	//Constants, that define where the dice can land
+	private static final int[] X_LOW = { 2, 3 };
+	private static final int[] X_HIGH = { 2, 3, 4, 5, 6 };
+	private static final int[] Y_RANGE = { 3, 4, 5, 6, 7, 8, 9 };
 
 	public static enum Actions {
 		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END_PCT, END;
@@ -149,27 +149,29 @@ public class Graphic {
 
 	public static void setDice(int die1, int die2) {
 		// Algorithm to make sure dice doesn't disturb cars or text in the game
+		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		Random random = new Random();
-		y1 = yRange[random.nextInt(yRange.length)];
-		y2 = yRange[random.nextInt(yRange.length)];
+		
+		y1 = Y_RANGE[random.nextInt(Y_RANGE.length)];
+		y2 = Y_RANGE[random.nextInt(Y_RANGE.length)];
 
 		if (y1 == 3) {
-			x1 = xHigh[random.nextInt(xHigh.length)];
+			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y1 >= 4 && y1 <= 6) {
-			x1 = xLow[random.nextInt(xLow.length)];
+			x1 = X_LOW[random.nextInt(X_LOW.length)];
 		}
 		if (y1 >= 7 && y1 <= 9) {
-			x1 = xHigh[random.nextInt(xHigh.length)];
+			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y2 == 3) {
-			x2 = xHigh[random.nextInt(xHigh.length)];
+			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y2 >= 4 && y2 <= 6) {
-			x2 = xLow[random.nextInt(xLow.length)];
+			x2 = X_LOW[random.nextInt(X_LOW.length)];
 		}
 		if (y2 >= 7 && y2 <= 9) {
-			x2 = xHigh[random.nextInt(xHigh.length)];
+			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		// Sets value and position of dice
 		GUI.setDice(die1, x1, y1, die2, x2, y2);

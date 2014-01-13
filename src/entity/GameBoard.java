@@ -1,8 +1,7 @@
 package entity;
 
-import TryYourLuck.Pile;
+import tryYourLuck.PileOfCards;
 import boundary.Graphic;
-import TryYourLuck.Cards.Card;
 
 /**
  * Class to create a game board. This class takes in a lot of fields and makes
@@ -14,21 +13,160 @@ import TryYourLuck.Cards.Card;
 public class GameBoard {
 	private DieCup dieCup;
 	private Field[] fields;
-	private Pile pileOfCards;
+	private PileOfCards pileOfCards;
 
 	/**
 	 * Constructor that makes an array for fields and a DieCup
 	 */
-	public GameBoard(int numberOfFields) {
+	public GameBoard() {
 		dieCup = new DieCup();
-		fields = new Field[numberOfFields];
-		pileOfCards = new Pile();
+		fields = new Field[41];
+		pileOfCards = new PileOfCards();
+		
+		createFields();
+	}
+
+	public void updateGuiFields() {
+		int i, price;
+		boolean subAsTitle;
+		
+		for(i = 1; i <= 40; i++) {
+			price = 0;
+			subAsTitle = false;
+			
+			if(fields[i] instanceof Ownable) {
+				price = ((Ownable)fields[i]).price;
+			}
+			else if(fields[i] instanceof TryYourLuck || fields[i] instanceof Refuge) {
+				subAsTitle = true;
+			}
+			
+			Graphic.updateField(i, fields[i].name, price, subAsTitle);
+		}
 	}
 
 	/**
+	 * Method that calls the landOnField method on the fieldNumber that the
+	 * player is on.
+	 * 
+	 * @param player
+	 *            The player that landed on a field.
+	 */
+	public void landOnField(Player player) {
+		fields[player.getLocation()].landOnField(player);
+	}
+
+	public PileOfCards getPile() {
+		return pileOfCards;
+	}
+	
+	public DieCup getDieCup() {
+		return dieCup;
+	}
+	
+	public Field getField(int fieldNumber) {
+		return fields[fieldNumber];
+	}
+	
+	/**
+	 * Gets the owner of a field.
+	 * 
+	 * @param fieldNumber
+	 *            The number of the field to get owner for.
+	 * @return The owner of the field.
+	 */
+	public Player getOwner(int fieldNumber) {
+		if (fields[fieldNumber] instanceof Ownable) {
+			return ((Ownable)fields[fieldNumber]).owner;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Method to set a given player as owner of the field he is on.
+	 * 
+	 * @param player
+	 */
+	public void setOwner(Player player) {
+		((Ownable)fields[player.getLocation()]).setOwner(player);
+	}
+	
+	/**
+	 * Method that sets the owner to null in all the fields owned by a given
+	 * player.
+	 * 
+	 * @param player
+	 *            The player to remove.
+	 */
+	public void clearFieldOwners(Player player) {
+		int i;
+		for (i = 0; i <= 40; i++) {
+			if (getOwner(i) == player) {
+				((Ownable) fields[i]).owner = null;
+				((Ownable) fields[i]).isPledged = false;
+				Graphic.removeOwner(i);
+				Graphic.updateHouses(i, 0);
+			}
+		}
+	}
+	
+	public void sellField(Player player) {
+		int selectedField = getFieldSelected(player, fieldsSellableByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Ownable)fields[selectedField]).sellField(selectedField);
+		}
+	}
+		
+	public void pledgeField(Player player) {
+		int selectedField = getFieldSelected(player, fieldsPledgeableByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Ownable)fields[selectedField]).pledgeField();
+		}
+	}
+	
+	public void unpledgeField(Player player) {
+		int selectedField = getFieldSelected(player, fieldsPledgedByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Ownable)fields[selectedField]).unpledgeField();
+		}
+	}
+	
+	public void sellHouse(Player player) {
+		int selectedField = getFieldSelected(player, fieldsWithHousesByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Street)fields[selectedField]).sellHouse(selectedField);
+		}
+	}
+		
+	/**
+	 * A method to generate a nice string containing the value of all the
+	 * fields. Also contains value of the DieCup.
+	 * 
+	 * @return All the field values as a string.
+	 */
+	public String toString() {
+		String output = "";
+		int i;
+
+		for (i = 0; i < fields.length; i++) {
+			if (fields[i] != null) {
+				output = output + fields[i] + "\n";
+			}
+		}
+
+		return output + dieCup;
+	}
+
+		
+	/**
 	 * Creates all the fields according to the game rules.
 	 */
-	public void createFields() {
+	private void createFields() {
 		// Syntax for Streets: Name, Price, ContructPrice, AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel), this
 		fields[1] = new Refuge("Start", 0, this);
 		fields[2] = new Street("Rødovrevej", 1200, 1000, new int[] { 2, 4 }, new int[] { 40, 200, 600, 1800, 3200, 5000 }, this);
@@ -72,220 +210,13 @@ public class GameBoard {
 		fields[40] = new Street("Rådhus Pladsen", 8000, 4000, new int[] { 38, 40 }, new int[] { 1000, 4000, 12000, 28000, 34000, 40000 }, this);
 	}
 	
-	public void updateGuiFields() {
-		int i, price;
-		boolean subAsTitle;
-		
-		for(i = 1; i <= 40; i++) {
-			price = 0;
-			subAsTitle = false;
-			
-			if(fields[i] instanceof Ownable) {
-				price = ((Ownable)fields[i]).price;
-			}
-			else if(fields[i] instanceof TryYourLuck || fields[i] instanceof Refuge) {
-				subAsTitle = true;
-			}
-			
-			Graphic.updateField(i, fields[i].name, price, subAsTitle);
-		}
-	}
-
-	/**
-	 * Method that calls the landOnField method on the fieldNumber that the
-	 * player is on.
-	 * 
-	 * @param player
-	 *            The player that landed on a field.
-	 */
-	public void landOnField(Player player) {
-		fields[player.getLocation()].landOnField(player);
-	}
-
-	/**
-	 * Method that sets the owner to null in all the fields owned by a given
-	 * player.
-	 * 
-	 * @param player
-	 *            The player to remove.
-	 */
-	public void clearFieldOwners(Player player) {
-		int i;
-		for (i = 0; i <= 40; i++) {
-			if (getOwner(i) == player) {
-				((Ownable) fields[i]).owner = null;
-				((Ownable) fields[i]).isPledged = false;
-				Graphic.removeOwner(i);
-				Graphic.updateHouses(i, 0);
-			}
-		}
-	}
-
-	/**
-	 * Gets the owner of a field.
-	 * 
-	 * @param fieldNumber
-	 *            The number of the field to get owner for.
-	 * @return The owner of the field.
-	 */
-	public Player getOwner(int fieldNumber) {
-		if (getOwnableField(fieldNumber) != null) {
-			return getOwnableField(fieldNumber).owner;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Method to set a given player as owner of the field he is on.
-	 * 
-	 * @param player
-	 */
-	public void setOwner(Player player) {
-		getOwnableField(player.getLocation()).setOwner(player);
-	}
-
-	/**
-	 * Gets the price of a field.
-	 * 
-	 * @param fieldNumber
-	 *            The number of the field to get price for.
-	 * @return The price of the field.
-	 */
-	public int getPrice(int fieldNumber) {
-		return getOwnableField(fieldNumber).price;
-	}
-
-	/**
-	 * Gets the name of a field.
-	 * 
-	 * @param fieldNumber
-	 *            The number of the field to get name for.
-	 * @return The name of the field.
-	 */
-	public String getName(int fieldNumber) {
-		return fields[fieldNumber].getName();
-	}
-
-	/**
-	 * Method to shake the DieCup.
-	 */
-	public void shakeDieCup() {
-		dieCup.shakeDieCup();
-	}
-
-	/**
-	 * Gets the sum of the values of the Dice in the DieCup.
-	 * 
-	 * @return The sum of the Dice.
-	 */
-	public int getDieCupSum() {
-		return dieCup.getSum();
-	}
-
-	public boolean getDieCupIdentical() {
-		return dieCup.getIdentical();
-	}
-
-	/**
-	 * Method to set a field.
-	 * 
-	 * @param field
-	 *            Field object to insert.
-	 * @param number
-	 *            Place number to insert field on.
-	 */
-	public void setField(Field field, int number) {
-		fields[number] = field;
-	}
-
-	public Field getField(int fieldNumber) {
-		return fields[fieldNumber];
-	}
-	
-	public void sellField(Player player) {
-		int selectedField = getFieldSelected(player, fieldsSellableByPlayer(player));
-		
-		if(selectedField != 0) {
-			getOwnableField(selectedField).sellField(selectedField);
-		}
-	}
-		
-	public void pledgeField(Player player) {
-		int selectedField = getFieldSelected(player, fieldsPledgeableByPlayer(player));
-		
-		if(selectedField != 0) {
-			getOwnableField(selectedField).pledgeField();
-		}
-	}
-	
-	public void unpledgeField(Player player) {
-		int selectedField = getFieldSelected(player, fieldsPledgedByPlayer(player));
-		
-		if(selectedField != 0) {
-			getOwnableField(selectedField).unpledgeField();
-		}
-	}
-	
-	public void sellHouse(Player player) {
-		int selectedField = getFieldSelected(player, fieldsWithHousesByPlayer(player));
-		
-		if(selectedField != 0) {
-			((Street)fields[selectedField]).sellHouse(selectedField);
-		}
-	}
-	
-	public void nextCard() {
-		pileOfCards.nextCard();
-	}
-	
-	public String getCardText() {
-		return pileOfCards.ShowCardText();
-	}
-	
-	public void cardEffect(Player player) {
-		pileOfCards.effect(player);
-	}
-
-	public Card getCardType() {
-		return pileOfCards.getCardType();
-	}
-	
-	/**
-	 * A method to generate a nice string containing the value of all the
-	 * fields. Also contains value of the DieCup.
-	 * 
-	 * @return All the field values as a string.
-	 */
-	public String toString() {
-		String output = "";
-		int i;
-
-		for (i = 0; i < fields.length; i++) {
-			if (fields[i] != null) {
-				output = output + fields[i] + "\n";
-			}
-		}
-
-		return output + dieCup;
-	}
-
-	
-	private Ownable getOwnableField(int fieldNumber) {
-		if (fields[fieldNumber] instanceof Ownable) {
-			return (Ownable) fields[fieldNumber];
-		}
-
-		return null;
-	}
-	
 	private String[] fieldsSellableByPlayer(Player player) {
 		int i, size = 0;
 		
 		//Find names of fields the player owns
 		String[] sellableFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player && !fieldsHasHouses(i)) {
+			if(getOwner(i) == player && !associatedFieldsHasHouses(i)) {
 				sellableFields[size] = fields[i].getName();
 				size++;
 			}
@@ -299,7 +230,7 @@ public class GameBoard {
 		
 		String[] pledgeableFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player && !getOwnableField(i).isPledged && !fieldsHasHouses(i)) {
+			if(getOwner(i) == player && !((Ownable)fields[i]).isPledged && !associatedFieldsHasHouses(i)) {
 				pledgeableFields[size] = fields[i].getName();
 				size++;
 			}
@@ -313,7 +244,7 @@ public class GameBoard {
 		
 		String[] notPledgedFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player && getOwnableField(i).isPledged) {
+			if(getOwner(i) == player && ((Ownable)fields[i]).isPledged) {
 				notPledgedFields[size] = fields[i].getName();
 				size++;
 			}
@@ -353,18 +284,7 @@ public class GameBoard {
 		return 0;
 	}
 
-	private String[] trimArray(String[] input, int size) {
-		int i;
-		
-		String[] trimmed = new String[size];
-		for(i=0; i<size; i++) {
-			trimmed[i] = input[i];
-		}
-		
-		return trimmed;
-	}
-
-	private boolean fieldsHasHouses(int fieldNumber) {
+	private boolean associatedFieldsHasHouses(int fieldNumber) {
 		if(fields[fieldNumber] instanceof Street) {
 			Street streetToTest = (Street)fields[fieldNumber];
 			if(streetToTest.associatedFieldsHasAnyHouses()) {
@@ -384,5 +304,16 @@ public class GameBoard {
 		}
 		
 		return false;
+	}
+	
+	private String[] trimArray(String[] input, int size) {
+		int i;
+		
+		String[] trimmed = new String[size];
+		for(i=0; i<size; i++) {
+			trimmed[i] = input[i];
+		}
+		
+		return trimmed;
 	}
 }

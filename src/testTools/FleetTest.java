@@ -16,14 +16,14 @@ public class FleetTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.gameBoard = new GameBoard(22);
+		this.gameBoard = new GameBoard();
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
 
-		this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
-		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
-		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		//this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
+		//this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
+		//this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		//this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 
 		this.owner.setLocation(6);
 		this.gameBoard.setOwner(owner);
@@ -35,9 +35,9 @@ public class FleetTest {
 	public void tearDown() throws Exception {
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
-		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
-		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		//this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
+		//this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		//this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 	}
 
 	@Test
