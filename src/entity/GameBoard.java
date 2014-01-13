@@ -1,6 +1,6 @@
 package entity;
 
-import tryYourLuck_FIX.PileOfCards;
+import tryYourLuck.PileOfCards;
 import boundary.Graphic;
 
 /**
