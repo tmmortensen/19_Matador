@@ -1,4 +1,4 @@
-package tryYourLuck;
+package tryYourLuck_FIX;
 
 import entity.Player;
 

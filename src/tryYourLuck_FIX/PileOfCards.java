@@ -1,6 +1,6 @@
-package tryYourLuck;
+package tryYourLuck_FIX;
 
-import tryYourLuck.MoveCards.MoveCardTypes;
+import tryYourLuck_FIX.MoveCards.MoveCardTypes;
 import entity.Player;
 
 /**
