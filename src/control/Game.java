@@ -39,7 +39,7 @@ public class Game {
 
 		// Start of the actual game-turns
 		while (true) {
-			Graphic.getOk(players[activePlayer].getName());
+			Graphic.getRollOk(players[activePlayer].getName());
 			gameBoard.getDieCup().shakeDieCup();
 			players[activePlayer].actOnDice(gameBoard.getDieCup().getSum(), gameBoard.getDieCup().getIdentical());
 			gameBoard.landOnField(players[activePlayer]);
