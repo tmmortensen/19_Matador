@@ -65,6 +65,7 @@ public class Tax extends Field {
 		player.addToAccount(-1 * taxToPay);
 	}
 
+	
 	private int getAssets(Player player) {
 		int i, assets = 0;
 

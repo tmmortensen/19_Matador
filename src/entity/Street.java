@@ -4,7 +4,7 @@ import boundary.Graphic;
 import boundary.Graphic.Actions;
 
 /**
- * Class to make a Territory-field.
+ * Class to make a Street-field.
  * 
  * @author DTU 02312 Gruppe 19
  * 
@@ -30,7 +30,32 @@ public class Street extends Ownable {
 		this.rents = rents;
 		numberOfHouses = 0;
 	}
+	
+	public void sellHouse(int thisFieldNumber) {
+		owner.addToAccount(constructPrice/2);
+		numberOfHouses--;
+		
+		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
+	}
+	
+	public boolean hasSellableHouses() {
+		return numberOfHouses > 0 && !associatedFieldsHasTooManyHouses();
+	}
+	
+	public boolean associatedFieldsHasAnyHouses() {
+		int i;
+		
+		for(i = 0; i < associatedFields.length; i++) {
+			Street streetToTest = (Street)gameBoard.getField(associatedFields[i]);
+			if(streetToTest.numberOfHouses > 0) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
+	
 	/**
 	 * Method to calculate rent for this field.
 	 * 
@@ -50,17 +75,6 @@ public class Street extends Ownable {
 		}
 	}
 	
-	public void sellHouse(int thisFieldNumber) {
-		owner.addToAccount(constructPrice/2);
-		numberOfHouses--;
-		
-		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
-	}
-	
-	public boolean hasSellableHouses() {
-		return numberOfHouses > 0 && !associatedFieldsHasTooManyHouses();
-	}
-	
 	protected boolean isBuildable() {
 		if(numberOfHouses >= 5) {
 			return false;
@@ -78,6 +92,14 @@ public class Street extends Ownable {
 		else if(action == Actions.BUY_HOUSE) {
 			buyHouse();
 		}
+	}
+	
+	
+	private void buyHouse() {
+		owner.addToAccount(-constructPrice);
+		numberOfHouses++;
+		
+		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
 	}
 	
 	private boolean ownsAllAssociatedFields() {
@@ -116,25 +138,5 @@ public class Street extends Ownable {
 		}
 		
 		return false;
-	}
-	
-	public boolean associatedFieldsHasAnyHouses() {
-		int i;
-		
-		for(i = 0; i < associatedFields.length; i++) {
-			Street streetToTest = (Street)gameBoard.getField(associatedFields[i]);
-			if(streetToTest.numberOfHouses > 0) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private void buyHouse() {
-		owner.addToAccount(-constructPrice);
-		numberOfHouses++;
-		
-		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
 	}
 }
