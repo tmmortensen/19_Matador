@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import entity.Field;
+import entity.GameBoard;
 import entity.Player;
 import entity.Tax;
 
@@ -13,12 +14,13 @@ public class TaxTest {
 	private Player player;
 	private Field tax200;
 	private Field tax0;
+	private GameBoard gameBoard;
 
 	@Before
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And", 1);
-		//this.tax200 = new Tax("Helle +200", 200);
-		//this.tax0 = new Tax("Helle 0", 0);
+		this.tax200 = new Tax("Helle +200", 200, 0, gameBoard);
+		this.tax0 = new Tax("Helle 0", 0, 0, gameBoard);
 	}
 
 	@After

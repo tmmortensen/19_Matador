@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import entity.Field;
+import entity.GameBoard;
 import entity.Ownable;
 import entity.Player;
 import entity.Street;
@@ -15,13 +16,14 @@ public class TerritoryTest {
 	private Player owner;
 	private Field ter200;
 	private Field ter0;
+	private GameBoard gameBoard;
 
 	@Before
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
-		//this.ter200 = new Street("Territory +200", 200, 200);
-		//this.ter0 = new Street("Territory 0", 0, 0);
+		// this.ter200 = new Street("Territory +200", 200, 200);
+		// this.ter0 = new Street("Territory 0", 0, 0);
 		((Ownable) ter200).setOwner(owner); // Cast to ownable to be able to set
 											// owner
 		((Ownable) ter0).setOwner(owner); // Cast to ownable to be able to set

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import entity.Field;
+import entity.GameBoard;
 import entity.Player;
 import entity.Refuge;
 
@@ -13,12 +14,13 @@ public class RefugeTest {
 	private Player player;
 	private Field refuge200;
 	private Field refuge0;
+	private GameBoard gameBoard;
 
 	@Before
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And", 1);
-		//this.refuge200 = new Refuge("Helle +200", 200);
-		//this.refuge0 = new Refuge("Helle 0", 0);
+		this.refuge200 = new Refuge("Helle +200", 200, gameBoard);
+		this.refuge0 = new Refuge("Helle 0", 0, gameBoard);
 	}
 
 	@After

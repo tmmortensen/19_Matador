@@ -9,7 +9,7 @@ import entity.GameBoard;
 import entity.Player;
 import entity.Shipping;
 
-public class FleetTest {
+public class ShippingTest {
 	private Player player;
 	private Player owner;
 	private GameBoard gameBoard;
@@ -20,10 +20,10 @@ public class FleetTest {
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
 
-		this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
-		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
-		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		this.gameBoard.setField(new Shipping("Shipping1", 0, gameBoard), 6);
+		this.gameBoard.setField(new Shipping("Shipping2", 0, gameBoard), 16);
+		this.gameBoard.setField(new Shipping("Shipping3", 0, gameBoard), 20);
+		this.gameBoard.setField(new Shipping("Shipping4", 0, gameBoard), 21);
 
 		this.owner.setLocation(6);
 		this.gameBoard.setOwner(owner);
@@ -35,9 +35,9 @@ public class FleetTest {
 	public void tearDown() throws Exception {
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
-		this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
-		this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		this.gameBoard.setField(new Shipping("Shipping2", 0, gameBoard), 19);
+		this.gameBoard.setField(new Shipping("Shipping3", 0, gameBoard), 20);
+		this.gameBoard.setField(new Shipping("Shipping4", 0, gameBoard), 21);
 	}
 
 	@Test
