@@ -61,26 +61,6 @@ public abstract class Ownable extends Field {
 			player.transferTo(owner, rent);
 		}
 	}
-
-	/**
-	 * Method to calculate rent. Has different implementation for different types of fields.
-	 *
-	 * @return
-	 */
-	public abstract int getRent();
-	
-	protected abstract void performAction(Actions action, Player player);
-	
-	protected abstract boolean isBuildable();
-	
-	/**
-	 * Method to set owner of the field.
-	 * 
-	 * @param owner The player to set as owner.
-	 */
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}
 	
 	public void sellField(int thisFieldNumber) {
 		owner.addToAccount(price);
@@ -103,11 +83,33 @@ public abstract class Ownable extends Field {
 		owner.addToAccount(-(price/2 + getPledgeIntrest()));
 	}
 	
+	/**
+	 * Method to set owner of the field.
+	 * 
+	 * @param owner The player to set as owner.
+	 */
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
+	
+	/**
+	 * Method to calculate rent. Has different implementation for different types of fields.
+	 *
+	 * @return
+	 */
+	protected abstract int getRent();
+	
+	protected abstract void performAction(Actions action, Player player);
+	
+	protected abstract boolean isBuildable();
+		
 	protected void buyField(Player player) {
 		player.addToAccount(-1 * price);
-		setOwner(player);
+		owner = player;
 		Graphic.setOwner(player.getLocation(), player.getName());
 	}
+	
 	
 	private int getPledgeIntrest() {
 		//Calc the intrest with all decimals

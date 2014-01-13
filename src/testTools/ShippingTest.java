@@ -33,7 +33,7 @@ public class ShippingTest {
 >>>>>>> 52d3e9d0f065c988a3dcc2fec68cda2c9e9fcb26:src/testTools/FleetTest.java
 
 		this.owner.setLocation(6);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.player.setLocation(6);
 	}
@@ -81,7 +81,7 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 1000;
@@ -97,9 +97,9 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 		this.owner.setLocation(20);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 2000;
@@ -115,11 +115,11 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 		this.owner.setLocation(20);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 		this.owner.setLocation(21);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 4000;

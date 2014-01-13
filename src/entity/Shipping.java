@@ -26,12 +26,13 @@ public class Shipping extends Ownable {
 		super(name, price, gameBoard);
 	}
 
+	
 	/**
 	 * Method to calculate rent for this field.
 	 * 
 	 * @return The rent for this field.
 	 */
-	public int getRent() {
+	protected int getRent() {
 		int numberOfShippingsOwned = getShippingsOwned();
 
 		return RENTS[numberOfShippingsOwned-1];
@@ -48,6 +49,7 @@ public class Shipping extends Ownable {
 			buyField(player);
 		}
 	}
+	
 	
 	private int getShippingsOwned() {
 		int i, numberOfShippingsOwned = 0;

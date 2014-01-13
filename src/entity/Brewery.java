@@ -29,12 +29,13 @@ public class Brewery extends Ownable {
 		this.baseRent = baseRent;
 	}
 
+	
 	/**
 	 * Method to calculate rent for this field.
 	 * 
 	 * @return The rent for this field.
 	 */
-	public int getRent() {
+	protected int getRent() {
 		gameBoard.getDieCup().shakeDieCup();
 		return baseRent * gameBoard.getDieCup().getSum() * getBrewerysOwned();
 	}
@@ -51,6 +52,7 @@ public class Brewery extends Ownable {
 		}
 	}
 	
+	
 	private int getBrewerysOwned() {
 		int i, numberOfBrewerysOwned = 0;
 
@@ -62,5 +64,4 @@ public class Brewery extends Ownable {
 
 		return numberOfBrewerysOwned;
 	}
-
 }

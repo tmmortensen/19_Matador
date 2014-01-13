@@ -25,7 +25,7 @@ public class LaborCampTest {
 		this.gameBoard.getDieCup().shakeDieCup();
 
 		this.owner.setLocation(14);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.player.setLocation(14);
 	}
@@ -65,7 +65,7 @@ public class LaborCampTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(15);
-		this.gameBoard.setOwner(owner);
+		//this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - (2 * 100 * this.gameBoard.getDieCup().getSum());

@@ -36,7 +36,7 @@ public class Street extends Ownable {
 	 * 
 	 * @return The rent for this field.
 	 */
-	public int getRent() {
+	protected int getRent() {
 		if(numberOfHouses > 0) {
 			return rents[numberOfHouses];
 		}
@@ -48,6 +48,13 @@ public class Street extends Ownable {
 			//Just base rent
 			return rents[0];
 		}
+	}
+	
+	public void sellHouse(int thisFieldNumber) {
+		owner.addToAccount(constructPrice/2);
+		numberOfHouses--;
+		
+		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
 	}
 	
 	public boolean hasSellableHouses() {
@@ -129,12 +136,5 @@ public class Street extends Ownable {
 		numberOfHouses++;
 		
 		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
-	}
-	
-	public void sellHouse(int thisFieldNumber) {
-		owner.addToAccount(constructPrice/2);
-		numberOfHouses--;
-		
-		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
 	}
 }

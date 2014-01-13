@@ -82,15 +82,6 @@ public class GameBoard {
 
 		return null;
 	}
-
-	/**
-	 * Method to set a given player as owner of the field he is on.
-	 * 
-	 * @param player
-	 */
-	public void setOwner(Player player) {
-		((Ownable)fields[player.getLocation()]).setOwner(player);
-	}
 	
 	/**
 	 * Method that sets the owner to null in all the fields owned by a given
