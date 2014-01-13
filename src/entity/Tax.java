@@ -72,6 +72,10 @@ public class Tax extends Field {
 		for (i = 1; i <= 40; i++) {
 			if (gameBoard.getOwner(i) == player) {
 				assets = assets + ((Ownable)gameBoard.getField(i)).price;
+				
+				if(gameBoard.getField(i) instanceof Street) {
+					assets = assets + ((Street)gameBoard.getField(i)).valueOfHouses();
+				}
 			}
 		}
 

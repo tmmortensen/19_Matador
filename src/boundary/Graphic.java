@@ -123,13 +123,13 @@ public class Graphic {
 		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
 	}
 
-	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount, String name) {
-		String msg = name + ", vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
-		String input = GUI.getUserButtonPressed(msg, "Ja", "Nej");
-
+	public static boolean showJailOption() {
+		String input;
+		input = GUI.getUserSelection("Vil du betale 1000 for at komme ud af fængsel?", "Nej", "Ja");
+		
 		return "Ja".equals(input);
 	}
-
+	
 	/**
 	 * Method to set the value of the dice on the GUI.
 	 * 
@@ -141,30 +141,31 @@ public class Graphic {
 		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		Random random = new Random();
 		
-		y1 = Y_RANGE[random.nextInt(Y_RANGE.length)];
-		y2 = Y_RANGE[random.nextInt(Y_RANGE.length)];
-
-		if (y1 == 3) {
-			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
+		while(x1 == x2 && y1 == y2) {
+			y1 = Y_RANGE[random.nextInt(Y_RANGE.length)];
+			y2 = Y_RANGE[random.nextInt(Y_RANGE.length)];
+	
+			if (y1 == 3) {
+				x1 = X_HIGH[random.nextInt(X_HIGH.length)];
+			}
+			if (y1 >= 4 && y1 <= 6) {
+				x1 = X_LOW[random.nextInt(X_LOW.length)];
+			}
+			if (y1 >= 7 && y1 <= 9) {
+				x1 = X_HIGH[random.nextInt(X_HIGH.length)];
+			}
+			if (y2 == 3) {
+				x2 = X_HIGH[random.nextInt(X_HIGH.length)];
+			}
+			if (y2 >= 4 && y2 <= 6) {
+				x2 = X_LOW[random.nextInt(X_LOW.length)];
+			}
+			if (y2 >= 7 && y2 <= 9) {
+				x2 = X_HIGH[random.nextInt(X_HIGH.length)];
+			}
 		}
-		if (y1 >= 4 && y1 <= 6) {
-			x1 = X_LOW[random.nextInt(X_LOW.length)];
-		}
-		if (y1 >= 7 && y1 <= 9) {
-			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
-		}
-		if (y2 == 3) {
-			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
-		}
-		if (y2 >= 4 && y2 <= 6) {
-			x2 = X_LOW[random.nextInt(X_LOW.length)];
-		}
-		if (y2 >= 7 && y2 <= 9) {
-			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
-		}
-		if (x1 == x2 && y1 == y2) {
-			x1 = x1 + 1;
-		}
+		
+		
 		// Sets value and position of dice
 		GUI.setDice(die1, x1, y1, die2, x2, y2);
 	}

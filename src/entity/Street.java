@@ -55,6 +55,10 @@ public class Street extends Ownable {
 		return false;
 	}
 
+	public int valueOfHouses() {
+		return numberOfHouses * constructPrice;
+	}
+
 	
 	/**
 	 * Method to calculate rent for this field.

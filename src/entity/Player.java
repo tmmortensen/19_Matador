@@ -227,6 +227,10 @@ public class Player {
 				isInJail = false;
 				moveFieldsForward(sum);
 			}
+			else if(Graphic.showJailOption()) {
+				addToAccount(-1000);
+				isInJail = false;
+			}
 		}
 	}
 }
