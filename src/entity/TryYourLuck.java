@@ -2,7 +2,6 @@ package entity;
 
 import boundary.Graphic;
 import boundary.Graphic.Actions;
-import TryYourLuck.Cards.Card;
 
 public class TryYourLuck extends Field {
 	
@@ -18,19 +17,19 @@ public class TryYourLuck extends Field {
 			performStdActions(action, player);
 		}
 		
-		gameBoard.nextCard();
+		gameBoard.getPile().nextCard();
 		
-		if(gameBoard.getCardType() == Card.DEPOSITCARD || gameBoard.getCardType() == Card.WITHDRAWCARD) {
+		if(gameBoard.getPile().isMoneyCard()) {
 			action = null;
 			while(action != Actions.END) {
-				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, gameBoard.getCardText());
+				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, gameBoard.getPile().getCardText());
 				performStdActions(action, player);
 			}
-			gameBoard.cardEffect(player);
+			gameBoard.getPile().effect(player);
 		}
 		else {
-			Graphic.showCard(player.getName(), gameBoard.getCardText());
-			gameBoard.cardEffect(player);
+			Graphic.showCard(player.getName(), gameBoard.getPile().getCardText());
+			gameBoard.getPile().effect(player);
 			gameBoard.landOnField(player);
 		}
 	}

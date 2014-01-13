@@ -12,10 +12,10 @@ import boundaryToMatador.GUI;
  * 
  */
 public class Graphic {
-	private static int[] xLow = { 2, 3 };
-	private static int[] xHigh = { 2, 3, 4, 5, 6 };
-	private static int x1, x2, y1, y2;
-	private static int[] yRange = { 3, 4, 5, 6, 7, 8, 9 };
+	//Constants, that define where the dice can land
+	private static final int[] X_LOW = { 2, 3 };
+	private static final int[] X_HIGH = { 2, 3, 4, 5, 6 };
+	private static final int[] Y_RANGE = { 3, 4, 5, 6, 7, 8, 9 };
 
 	public static enum Actions {
 		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END_PCT, END;
@@ -115,61 +115,52 @@ public class Graphic {
 		return GUI.getUserString("Indtast navn");
 	}
 
-	public static void getOk(String name) {
-		GUI.getUserButtonPressed("Det er " + name
-				+ "'s tur. Tryk for at slå...", "Slå");
+	public static void getRollOk(String name) {
+		GUI.getUserButtonPressed("Det er " + name + "'s tur. Tryk for at slå...", "Slå");
 	}
 
 	public static void announceWinner(String name) {
-		GUI.getUserButtonPressed("Tillykke " + name
-				+ " du har vundet! Tryk OK for at afslutte...", "OK");
+		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
 	}
 
-	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount,
-			String name) {
-		String msg = name + ", vil du betale " + pct + "% af din formue ("
-				+ taxFromPct + ") i skat, istedet for " + taxAmount + "?";
+	public static boolean taxPctChoice(int pct, int taxFromPct, int taxAmount, String name) {
+		String msg = name + ", vil du betale " + pct + "% af din formue (" + taxFromPct + ") i skat, istedet for " + taxAmount + "?";
 		String input = GUI.getUserButtonPressed(msg, "Ja", "Nej");
 
-		if ("Ja".equals(input)) {
-			return true;
-		}
-
-		return false;
+		return "Ja".equals(input);
 	}
 
 	/**
 	 * Method to set the value of the dice on the GUI.
 	 * 
-	 * @param die1
-	 *            Value of die1.
-	 * @param die2
-	 *            Value of die2.
+	 * @param die1 Value of die1.
+	 * @param die2 Value of die2.
 	 */
-
 	public static void setDice(int die1, int die2) {
 		// Algorithm to make sure dice doesn't disturb cars or text in the game
+		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		Random random = new Random();
-		y1 = yRange[random.nextInt(yRange.length)];
-		y2 = yRange[random.nextInt(yRange.length)];
+		
+		y1 = Y_RANGE[random.nextInt(Y_RANGE.length)];
+		y2 = Y_RANGE[random.nextInt(Y_RANGE.length)];
 
 		if (y1 == 3) {
-			x1 = xHigh[random.nextInt(xHigh.length)];
+			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y1 >= 4 && y1 <= 6) {
-			x1 = xLow[random.nextInt(xLow.length)];
+			x1 = X_LOW[random.nextInt(X_LOW.length)];
 		}
 		if (y1 >= 7 && y1 <= 9) {
-			x1 = xHigh[random.nextInt(xHigh.length)];
+			x1 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y2 == 3) {
-			x2 = xHigh[random.nextInt(xHigh.length)];
+			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (y2 >= 4 && y2 <= 6) {
-			x2 = xLow[random.nextInt(xLow.length)];
+			x2 = X_LOW[random.nextInt(X_LOW.length)];
 		}
 		if (y2 >= 7 && y2 <= 9) {
-			x2 = xHigh[random.nextInt(xHigh.length)];
+			x2 = X_HIGH[random.nextInt(X_HIGH.length)];
 		}
 		if (x1 == x2 && y1 == y2) {
 			x1 = x1 + 1;
@@ -181,14 +172,10 @@ public class Graphic {
 	/**
 	 * Method to add a player.
 	 * 
-	 * @param playerName
-	 *            The name of the player to add.
-	 * @param playerScore
-	 *            The score of the player to add.
+	 * @param playerName The name of the player to add.
+	 * @param playerScore The score of the player to add.
 	 */
-
-	public static void addPlayer(String playerName, int playerScore,
-			int playerNumber) {
+	public static void addPlayer(String playerName, int playerScore, int playerNumber) {
 		GUI.addPlayer(playerName, playerScore, getColor(playerNumber));
 	}
 
@@ -199,7 +186,6 @@ public class Graphic {
 	 * @param players
 	 *            The array of player objects to get the information from.
 	 */
-
 	public static void updatePlayer(String name, int score) {
 		GUI.setBalance(name, score);
 	}
@@ -219,7 +205,6 @@ public class Graphic {
 	 * @param fieldNumber
 	 *            The number of the field the car should be moved to.
 	 */
-
 	public static void moveCar(String playerName, int fieldNumber) {
 		GUI.removeAllCars(playerName);
 		GUI.setCar(fieldNumber, playerName);
@@ -244,7 +229,6 @@ public class Graphic {
 	 * @param fieldNumber
 	 *            The number of the field to remove owner from.
 	 */
-
 	public static void removeOwner(int fieldNumber) {
 		GUI.removeOwner(fieldNumber);
 	}
@@ -281,6 +265,7 @@ public class Graphic {
 		}
 	}
 
+	
 	private static Color getColor(int playerNumber) {
 		switch (playerNumber) {
 		case 0:

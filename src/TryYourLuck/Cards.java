@@ -1,11 +1,9 @@
-package TryYourLuck;
+package tryYourLuck;
 
 import entity.Player;
 
 public abstract class Cards {
-
-	protected Card cardType;
-	protected String cardText;
+	private String cardText;
 
 	/**
 	 * Konstruktøren
@@ -15,13 +13,8 @@ public abstract class Cards {
 	 * @param cardText
 	 *            Hvad der skal stå på kortet
 	 */
-	public Cards(Card cardType, String cardText) {
-		this.cardType = cardType;
+	public Cards(String cardText) {
 		this.cardText = cardText;
-	}
-
-	public enum Card {
-		WITHDRAWCARD, DEPOSITCARD, CHANGEPOSITION, MOVETO, GOTOJAIL;
 	}
 
 	/**
@@ -31,15 +24,6 @@ public abstract class Cards {
 	 *            Spillerarrayet
 	 */
 	public abstract void calcEffect(Player player);
-
-	/**
-	 * Henter korttypen
-	 * 
-	 * @return Returnerer korttypen
-	 */
-	public Card getCardType() {
-		return cardType;
-	}
 
 	public String getCardText() {
 		return cardText;

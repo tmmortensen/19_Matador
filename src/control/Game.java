@@ -22,8 +22,7 @@ public class Game {
 	 * Game constructor. Creates new instances of the required classes.
 	 */
 	public Game() {
-		gameBoard = new GameBoard(41);
-		gameBoard.createFields();
+		gameBoard = new GameBoard();
 		gameBoard.updateGuiFields();
 	}
 
@@ -40,9 +39,9 @@ public class Game {
 
 		// Start of the actual game-turns
 		while (true) {
-			Graphic.getOk(players[activePlayer].getName());
-			gameBoard.shakeDieCup();
-			players[activePlayer].actOnDice(gameBoard.getDieCupSum(), gameBoard.getDieCupIdentical());
+			Graphic.getRollOk(players[activePlayer].getName());
+			gameBoard.getDieCup().shakeDieCup();
+			players[activePlayer].actOnDice(gameBoard.getDieCup().getSum(), gameBoard.getDieCup().getIdentical());
 			gameBoard.landOnField(players[activePlayer]);
 
 			if (players[activePlayer].isBankrupt()) {
