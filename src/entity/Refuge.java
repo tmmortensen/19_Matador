@@ -34,7 +34,7 @@ public class Refuge extends Field {
 			player.addToAccount(bonus);
 			Actions action = null;
 			while(action != Actions.END) {
-				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, null);
+				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, null);
 				performStdActions(action, player);
 			}
 		}

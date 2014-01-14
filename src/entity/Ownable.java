@@ -27,32 +27,29 @@ public abstract class Ownable extends Field {
 		owner = null;
 	}
 
+	public abstract boolean isBuildable();
+	
 	/**
 	 * Method to take care of everything that should happen, when a player lands on this field.
 	 * This implementation is used by all the own able fields that inherits from this class.
 	 */
 	public void landOnField(Player player) {
 		int rent = 0, buyPrice;
-		boolean isBuildable;
 		
 		Actions action = null;
 		while(action != Actions.END) {
 			buyPrice = 0;
-			isBuildable = false;
 			
 			// Calculate rent if field is owned by someone else, and not pleged
-			if(owner != null && owner != player && !isPledged) {
+			if(owner != null && owner != player && !isPledged && !owner.isInJail()) {
 				rent = getRent();
 			}
 			// Get the option to buy if field is not owned
 			else if (owner == null) {
 				buyPrice = price;
 			}
-			else if (owner == player) {
-				isBuildable = isBuildable();
-			}
 			
-			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, isBuildable, false, false, null);
+			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, false, false, null);
 			performAction(action, player);
 		}
 		
@@ -99,17 +96,21 @@ public abstract class Ownable extends Field {
 	 * @return
 	 */
 	protected abstract int getRent();
-	
-	protected abstract void performAction(Actions action, Player player);
-	
-	protected abstract boolean isBuildable();
-		
+			
 	protected void buyField(Player player) {
 		player.addToAccount(-1 * price);
 		owner = player;
 		Graphic.setOwner(player.getLocation(), player.getName());
 	}
 	
+	
+	private void performAction(Actions action, Player player) {
+		performStdActions(action, player);
+		
+		if (action == Actions.BUY_FIELD) {
+			buyField(player);
+		}
+	}
 	
 	private int getPledgeIntrest() {
 		//Calc the intrest with all decimals

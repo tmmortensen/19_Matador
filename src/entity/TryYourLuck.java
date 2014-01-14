@@ -13,7 +13,7 @@ public class TryYourLuck extends Field {
 		Actions action = null;
 		
 		while(action != Actions.END) {
-			action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, true, null);
+			action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, true, null);
 			performStdActions(action, player);
 		}
 		
@@ -22,7 +22,7 @@ public class TryYourLuck extends Field {
 		if(gameBoard.getPile().isMoneyCard()) {
 			action = null;
 			while(action != Actions.END) {
-				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, false, gameBoard.getPile().getCardText());
+				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, gameBoard.getPile().getCardText());
 				performStdActions(action, player);
 			}
 			gameBoard.getPile().effect(player);

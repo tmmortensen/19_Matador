@@ -135,6 +135,14 @@ public class GameBoard {
 			((Street)fields[selectedField]).sellHouse(selectedField);
 		}
 	}
+	
+	public void buyHouse(Player player) {
+		int selectedField = getFieldSelected(player, fieldsBuildableByPlayer(player));
+		
+		if(selectedField != 0) {
+			((Street)fields[selectedField]).buyHouse(selectedField);
+		}
+	}
 		
 	/**
 	 * A method to generate a nice string containing the value of all the
@@ -255,6 +263,25 @@ public class GameBoard {
 			if(getOwner(i) == player && fieldHasHouses(i)) {
 				houseFields[size] = fields[i].getName();
 				size++;
+			}
+		}
+		
+		return trimArray(houseFields, size);
+	}
+	
+	private String[] fieldsBuildableByPlayer(Player player) {
+		int i, size = 0;
+		
+		//Find names of fields the player owns
+		String[] houseFields = new String[41];
+		for(i=1; i<41; i++) {
+			if(getOwner(i) == player) {
+				Ownable fieldToTest = (Ownable)fields[i];
+				
+				if(fieldToTest.isBuildable()) {
+					houseFields[size] = fieldToTest.getName();
+					size++;
+				}
 			}
 		}
 		

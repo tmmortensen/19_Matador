@@ -28,15 +28,14 @@ public class Graphic {
 	 * @param fieldName The name of the field to be printed as part of the message
 	 * @param rent The rent of the field to be printed as part of the message
 	 * @param buyPrice The price of the field to be printed as part of the message
-	 * @param canBuild Decides if the option to build a house should be available
 	 * @param taxOption Decides if the option to select between pct and fixed amount of tax should be showed
 	 * @param drawCard Decides if the option to end the turn should be replaced with a "draw card" option 
 	 * @param cardMessage A message that can be printed with the menu, for TryYourLuck cards
 	 * @return An enum telling which option was selected
 	 */
-	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild, boolean taxOption, boolean drawCard, String cardMessage) {
+	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean taxOption, boolean drawCard, String cardMessage) {
 		String message = playerName + ", du landede på '" + fieldName + "'. ";
-		String[] options = { "Slut turen", "Sælg en grund", "Pantsæt en grund", "Ophæv pantsætning af en grund", "Sælg et hus" };
+		String[] options = { "Slut turen", "Sælg en grund", "Pantsæt en grund", "Ophæv pantsætning af en grund", "Køb et hus", "Sælg et hus" };
 
 		// Customize options and message according to where and who
 		if (rent != 0) {
@@ -45,9 +44,6 @@ public class Graphic {
 		if (buyPrice != 0) {
 			message = message + " Du kan købe grunden for " + buyPrice + ".";
 			options = addOption(options, "Køb grunden");
-		}
-		if (canBuild) {
-			options = addOption(options, "Køb et hus");
 		}
 		if (cardMessage != null) {
 			message = message + "\n" + cardMessage;
@@ -89,6 +85,13 @@ public class Graphic {
 		return Actions.END;
 	}
 	
+	/**
+	 * Shows the fields given as String-array in a drop-down menu, and returns the one
+	 * the user selects
+	 * 
+	 * @param fieldsOwned The array of names of fields to be selected from
+	 * @return The name of the field selected
+	 */
 
 	public static String selectOwnedField(String[] fieldsOwned) {
 		if (fieldsOwned.length > 0) {
@@ -100,11 +103,24 @@ public class Graphic {
 		return null;
 	}
 	
+	/**
+	 * Show a message on the GUI.
+	 * 
+	 * @param name The player-name to be printed as part of the message
+	 * @param message The message to be printed
+	 */
 
 	public static void showCard(String name, String message) {
 		GUI.showMessage(name + ", " + message);
 	}
 	
+	/**
+	 * Updates the amount of houses displayed on a given field on the GUI
+	 * Will display 5 houses as a hotel
+	 * 
+	 * @param fieldNumber The number of the field to set the houses on
+	 * @param houseCount The number of houses to set
+	 */
 
 	public static void updateHouses(int fieldNumber, int houseCount) {
 		if (houseCount < 5) {
@@ -116,24 +132,48 @@ public class Graphic {
 		}
 	}
 	
-
+	/**
+	 * Shows a text-field and asks the user to input a number of players.
+	 * GUI validates the number
+	 * 
+	 * @return An integer from 2-6, describing how many players the user wants
+	 */
 	public static int getNumberOfPlayers() {
 		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
 	}
 	
-
+	/**
+	 * Shows a text-field and asks the user to input a name
+	 * 
+	 * @return The given name as a String
+	 */
 	public static String getPlayerName() {
 		return GUI.getUserString("Indtast navn");
 	}
 
+	/**
+	 * Tells the player to press roll, and waits for "OK"
+	 * 
+	 * @param name The name of the player to printed as part of the message
+	 */
 	public static void getRollOk(String name) {
 		GUI.getUserButtonPressed("Det er " + name + "'s tur. Tryk for at slå...", "Slå");
 	}
 
+	/**
+	 * Shows a message telling if a player has won the game
+	 * 
+	 * @param name The name of the player who has won the game.
+	 */
 	public static void announceWinner(String name) {
 		GUI.getUserButtonPressed("Tillykke " + name + " du har vundet! Tryk OK for at afslutte...", "OK");
 	}
 
+	/**
+	 * Ask the player if he would like to pay to get out of jail
+	 * 
+	 * @return True/False for Yes/No
+	 */
 	public static boolean showJailOption() {
 		String input;
 		input = GUI.getUserSelection("Vil du betale 1000 for at komme ud af fængsel?", "Nej", "Ja");
@@ -143,6 +183,8 @@ public class Graphic {
 	
 	/**
 	 * Method to set the value of the dice on the GUI.
+	 * Uses fixed position in the GUI, and has its own random function,
+	 * to make sure the dice does not land under/on anything on the board.
 	 * 
 	 * @param die1 Value of die1.
 	 * @param die2 Value of die2.
@@ -192,11 +234,10 @@ public class Graphic {
 	}
 
 	/**
-	 * Method to update all players information on the GUI according to a given
-	 * array of player objects.
+	 * Updates a players score
 	 * 
-	 * @param players
-	 *            The array of player objects to get the information from.
+	 * @param name The name of the player to update
+	 * @param score The new score to be displayed
 	 */
 	public static void updatePlayer(String name, int score) {
 		GUI.setBalance(name, score);
@@ -212,10 +253,8 @@ public class Graphic {
 	/**
 	 * Method to move a car from any field to the field number given.
 	 * 
-	 * @param playerName
-	 *            The name of the player who's car should be moved.
-	 * @param fieldNumber
-	 *            The number of the field the car should be moved to.
+	 * @param playerName The name of the player who's car should be moved.
+	 * @param fieldNumber The number of the field the car should be moved to.
 	 */
 	public static void moveCar(String playerName, int fieldNumber) {
 		GUI.removeAllCars(playerName);
@@ -226,10 +265,8 @@ public class Graphic {
 	 * Method to set owner of a field. Marks the given field number with the
 	 * given players color.
 	 * 
-	 * @param location
-	 *            The number of the field.
-	 * @param name
-	 *            The name of the player to set as owner.
+	 * @param location The number of the field.
+	 * @param name The name of the player to set as owner.
 	 */
 	public static void setOwner(int location, String name) {
 		GUI.setOwner(location, name);
@@ -238,13 +275,19 @@ public class Graphic {
 	/**
 	 * Method to remove the owner-marking from a field.
 	 * 
-	 * @param fieldNumber
-	 *            The number of the field to remove owner from.
+	 * @param fieldNumber The number of the field to remove owner from.
 	 */
 	public static void removeOwner(int fieldNumber) {
 		GUI.removeOwner(fieldNumber);
 	}
 	
+	/**
+	 * Adds a note to the description of a field, telling if it is pledged
+	 * 
+	 * @param fieldName The name of the field
+	 * @param fieldNumber The number of the field
+	 * @param isPledged Whether the field should be set as pledged or not-pledged
+	 */
 	public static void setPledgeDescription(String fieldName, int fieldNumber, boolean isPledged) {
 		String description = fieldName;
 		
@@ -258,21 +301,38 @@ public class Graphic {
 	/**
 	 * Method to remove a players car from the board.
 	 * 
-	 * @param name
-	 *            Name of the player to remove car for.
+	 * @param name Name of the player to remove car for.
 	 */
 	public static void removePlayer(String name) {
 		GUI.removeAllCars(name);
 	}
 
+	/**
+	 * Prints the name of a player who has lost the game
+	 * 
+	 * @param name The name of the player who has lost
+	 */
 	public static void printLoser(String name) {
 		GUI.showMessage("Beklager, " + name + ", du er bankerot.");
 	}
 
+	/**
+	 * Tells a player to go to jail
+	 * 
+	 * @param name The name of the player who should go to jail
+	 */
 	public static void goToJailMessage(String name) {
 		GUI.showMessage(name + ", gå i fængsel!");
 	}
 
+	/**
+	 * Sets the title and description of a field on the GUI
+	 * 
+	 * @param fieldNumber The number of the field to change the title/description for
+	 * @param title The title to set
+	 * @param price The price to set
+	 * @param subAsTitle Whether the given title should be used as description (and no title should be set) 
+	 */
 	public static void updateField(int fieldNumber, String title, int price, boolean subAsTitle) {
 		if (subAsTitle) {
 			GUI.setSubText(fieldNumber, title);

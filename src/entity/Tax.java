@@ -51,7 +51,7 @@ public class Tax extends Field {
 		
 		Actions action = null;
 		while(action != Actions.END && action != Actions.END_PCT) {
-			action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, taxOption, false, null);
+			action = Graphic.showMenu(player.getName(), this.name, 0, 0, taxOption, false, null);
 			performStdActions(action, player);
 		}
 

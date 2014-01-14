@@ -65,6 +65,9 @@ public abstract class Field {
 			case SELL_HOUSE:
 				gameBoard.sellHouse(player);
 				break;
+			case BUY_HOUSE:
+				gameBoard.buyHouse(player);
+				break;
 			default:
 				break;
 		}

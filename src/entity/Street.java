@@ -1,7 +1,6 @@
 package entity;
 
 import boundary.Graphic;
-import boundary.Graphic.Actions;
 
 /**
  * Class to make a Street-field.
@@ -38,6 +37,13 @@ public class Street extends Ownable {
 		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
 	}
 	
+	public void buyHouse(int location) {
+		owner.addToAccount(-constructPrice);
+		numberOfHouses++;
+		
+		Graphic.updateHouses(location, numberOfHouses);
+	}
+	
 	public boolean hasSellableHouses() {
 		return numberOfHouses > 0 && !associatedFieldsHasTooManyHouses();
 	}
@@ -57,6 +63,14 @@ public class Street extends Ownable {
 
 	public int valueOfHouses() {
 		return numberOfHouses * constructPrice;
+	}
+
+	public boolean isBuildable() {
+		if(numberOfHouses >= 5) {
+			return false;
+		}
+		
+		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
 	}
 
 	
@@ -79,33 +93,7 @@ public class Street extends Ownable {
 		}
 	}
 	
-	protected boolean isBuildable() {
-		if(numberOfHouses >= 5) {
-			return false;
-		}
 		
-		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
-	}
-
-	protected void performAction(Actions action, Player player) {
-		performStdActions(action, player);
-		
-		if (action == Actions.BUY_FIELD) {
-			buyField(player);
-		}
-		else if(action == Actions.BUY_HOUSE) {
-			buyHouse();
-		}
-	}
-	
-	
-	private void buyHouse() {
-		owner.addToAccount(-constructPrice);
-		numberOfHouses++;
-		
-		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
-	}
-	
 	private boolean ownsAllAssociatedFields() {
 		int i;
 		

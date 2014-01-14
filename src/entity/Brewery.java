@@ -1,7 +1,5 @@
 package entity;
 
-import boundary.Graphic.Actions;
-
 /**
  * Class to make a LaborCamp field.
  * 
@@ -29,6 +27,10 @@ public class Brewery extends Ownable {
 		this.baseRent = baseRent;
 	}
 
+	public boolean isBuildable() {
+		return false;
+	}
+	
 	
 	/**
 	 * Method to calculate rent for this field.
@@ -38,18 +40,6 @@ public class Brewery extends Ownable {
 	protected int getRent() {
 		gameBoard.getDieCup().shakeDieCup();
 		return baseRent * gameBoard.getDieCup().getSum() * getBrewerysOwned();
-	}
-
-	protected boolean isBuildable() {
-		return false;
-	}
-	
-	protected void performAction(Actions action, Player player) {
-		performStdActions(action, player);
-		
-		if(action == Actions.BUY_FIELD) {
-			buyField(player);
-		}
 	}
 	
 	
