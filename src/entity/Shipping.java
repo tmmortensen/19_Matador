@@ -56,7 +56,11 @@ public class Shipping extends Ownable {
 
 		for (i = 0; i < SHIPPING_FIELDS.length; i++) {
 			if (owner == gameBoard.getOwner(SHIPPING_FIELDS[i])) {
-				numberOfShippingsOwned++;
+				Ownable fieldToTest = (Ownable)gameBoard.getField(SHIPPING_FIELDS[i]);
+				
+				if(!fieldToTest.isPledged) {
+					numberOfShippingsOwned++;
+				}
 			}
 		}
 

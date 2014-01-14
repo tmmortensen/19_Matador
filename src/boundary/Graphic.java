@@ -21,43 +21,49 @@ public class Graphic {
 		BUY_FIELD, SELL_FIELD, PLEDGE_FIELD, UNPLEDGE_FIELD, BUY_HOUSE, SELL_HOUSE, END_PCT, END;
 	}
 
-	public static Actions showMenu(String playerName, String fieldName,
-			int rent, int buyPrice, boolean canBuild, boolean taxOption,
-			boolean drawCard, String cardMessage) {
+	/**
+	 * Shows a drop-down menu on the GUI, to allow the user to select what to do.
+	 * 
+	 * @param playerName The name of the player to be printed as part of the message
+	 * @param fieldName The name of the field to be printed as part of the message
+	 * @param rent The rent of the field to be printed as part of the message
+	 * @param buyPrice The price of the field to be printed as part of the message
+	 * @param canBuild Decides if the option to build a house should be available
+	 * @param taxOption Decides if the option to select between pct and fixed amount of tax should be showed
+	 * @param drawCard Decides if the option to end the turn should be replaced with a "draw card" option 
+	 * @param cardMessage A message that can be printed with the menu, for TryYourLuck cards
+	 * @return An enum telling which option was selected
+	 */
+	public static Actions showMenu(String playerName, String fieldName, int rent, int buyPrice, boolean canBuild, boolean taxOption, boolean drawCard, String cardMessage) {
 		String message = playerName + ", du landede på '" + fieldName + "'. ";
-		String[] options = { "Slut turen", "Sælg en grund", "Pantsæt en grund",
-				"Ophæv pantsætning af en grund", "Sælg et hus" };
+		String[] options = { "Slut turen", "Sælg en grund", "Pantsæt en grund", "Ophæv pantsætning af en grund", "Sælg et hus" };
 
+		// Customize options and message according to where and who
 		if (rent != 0) {
 			message = message + " Du skal betale " + rent + " i leje. ";
 		}
-
 		if (buyPrice != 0) {
 			message = message + " Du kan købe grunden for " + buyPrice + ".";
 			options = addOption(options, "Køb grunden");
 		}
-
 		if (canBuild) {
 			options = addOption(options, "Køb et hus");
 		}
-
 		if (cardMessage != null) {
 			message = message + "\n" + cardMessage;
 		}
-
 		if (drawCard) {
 			replaceOption(options, "Slut turen", "Træk et kort");
 		}
-
 		if (taxOption) {
-			options = replaceOption(options, "Slut turen",
-					"Slut turen, og betal fast beløb");
+			options = replaceOption(options, "Slut turen", "Slut turen, og betal fast beløb");
 			options = addOption(options, "Slut turen, og betal procentvis skat");
 		}
 
-		String input = GUI.getUserSelection(message + "\nVælg en mulighed: ",
-				options);
+		// Get option selected from GUI
+		String input = GUI.getUserSelection(message + "\nVælg en mulighed: ", options);
 
+		// Translate String input to Enums, to be able to switch on it later.. 
 		if ("Køb grunden".equals(input)) {
 			return Actions.BUY_FIELD;
 		}
@@ -82,6 +88,7 @@ public class Graphic {
 
 		return Actions.END;
 	}
+	
 
 	public static String selectOwnedField(String[] fieldsOwned) {
 		if (fieldsOwned.length > 0) {
@@ -92,10 +99,12 @@ public class Graphic {
 
 		return null;
 	}
+	
 
 	public static void showCard(String name, String message) {
 		GUI.showMessage(name + ", " + message);
 	}
+	
 
 	public static void updateHouses(int fieldNumber, int houseCount) {
 		if (houseCount < 5) {
@@ -106,10 +115,12 @@ public class Graphic {
 			GUI.setHotel(fieldNumber, true);
 		}
 	}
+	
 
 	public static int getNumberOfPlayers() {
 		return GUI.getUserInteger("Indtast antallet af spillere (2-6)", 2, 6);
 	}
+	
 
 	public static String getPlayerName() {
 		return GUI.getUserString("Indtast navn");
@@ -233,6 +244,16 @@ public class Graphic {
 	public static void removeOwner(int fieldNumber) {
 		GUI.removeOwner(fieldNumber);
 	}
+	
+	public static void setPledgeDescription(String fieldName, int fieldNumber, boolean isPledged) {
+		String description = fieldName;
+		
+		if(isPledged) {
+			description = description + " (PANTSAT)";
+		}
+		
+		GUI.setDescriptionText(fieldNumber, description);
+	}
 
 	/**
 	 * Method to remove a players car from the board.
@@ -252,11 +273,11 @@ public class Graphic {
 		GUI.showMessage(name + ", gå i fængsel!");
 	}
 
-	public static void updateField(int fieldNumber, String title, int price,
-			boolean subAsTitle) {
+	public static void updateField(int fieldNumber, String title, int price, boolean subAsTitle) {
 		if (subAsTitle) {
 			GUI.setSubText(fieldNumber, title);
-		} else {
+		}
+		else {
 			GUI.setTitleText(fieldNumber, title);
 			GUI.setDescriptionText(fieldNumber, title);
 

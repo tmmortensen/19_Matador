@@ -58,7 +58,11 @@ public class Brewery extends Ownable {
 
 		for (i = 0; i < BREWERY_FIELDS.length; i++) {
 			if (owner == gameBoard.getOwner(BREWERY_FIELDS[i])) {
-				numberOfBrewerysOwned++;
+				Ownable fieldToTest = (Ownable)gameBoard.getField(BREWERY_FIELDS[i]);
+				
+				if(!fieldToTest.isPledged) {
+					numberOfBrewerysOwned++;
+				}
 			}
 		}
 

@@ -115,6 +115,7 @@ public class GameBoard {
 		
 		if(selectedField != 0) {
 			((Ownable)fields[selectedField]).pledgeField();
+			Graphic.setPledgeDescription(fields[selectedField].getName(), selectedField, true);
 		}
 	}
 	
@@ -123,6 +124,7 @@ public class GameBoard {
 		
 		if(selectedField != 0) {
 			((Ownable)fields[selectedField]).unpledgeField();
+			Graphic.setPledgeDescription(fields[selectedField].getName(), selectedField, false);
 		}
 	}
 	

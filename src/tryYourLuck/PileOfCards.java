@@ -86,7 +86,7 @@ public class PileOfCards {
 		
 		pile[22] = new MoveCards("Gå i fængesel. Ryk direkte til fængslet. Selv om De passerer \"START\" indkasserer de ikke kr. 4.000", MoveCardTypes.GOTOJAIL, 0);
 		pile[23] = new MoveCards("Gå i fængesel. Ryk direkte til fængslet. Selv om De passerer \"START\" indkasserer de ikke kr. 4.000", MoveCardTypes.GOTOJAIL, 0);
-		pile[24] = new MoveCards("Ryk brikken frem til Frederiksberg Allé. Hvis De passerer \"START\" indkassér da kr. 4.000", MoveCardTypes.MOVETO, 11);
+		pile[24] = new MoveCards("Ryk brikken frem til Frederiksberg Allé. Hvis De passerer \"START\" indkassér da kr. 4.000", MoveCardTypes.MOVETO, 12);
 		pile[25] = new MoveCards("Ryk tre felter frem", MoveCardTypes.MOVEFORWARD, 3);
 		pile[26] = new MoveCards("Ryk tre felter tilbage", MoveCardTypes.MOVEFORWARD, -3);
 		pile[27] = new MoveCards("Ryk tre felter tilbage", MoveCardTypes.MOVEFORWARD, -3);
