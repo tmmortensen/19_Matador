@@ -3,7 +3,7 @@ package entity;
 /**
  * Class to create an Account. This class can be used to store a number representing an account value.
  *
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  *
  */
 public class Account {

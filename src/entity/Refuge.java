@@ -6,7 +6,7 @@ import boundary.Graphic.Actions;
 /**
  * Class to make a Refuge-field.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Refuge extends Field {
@@ -15,10 +15,8 @@ public class Refuge extends Field {
 	/**
 	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param name
-	 *            The name of this field.
-	 * @param bonus
-	 *            How much the field should give as bonus.
+	 * @param name The name of this field.
+	 * @param bonus How much the field should give as bonus.
 	 */
 	public Refuge(String name, int bonus, GameBoard gameBoard) {
 		super(name, gameBoard);
@@ -32,6 +30,7 @@ public class Refuge extends Field {
 	public void landOnField(Player player) {
 		if(!player.isInJail()) {
 			player.addToAccount(bonus);
+			
 			Actions action = null;
 			while(action != Actions.END) {
 				action = Graphic.showMenu(player.getName(), this.name, 0, 0, false, false, null);

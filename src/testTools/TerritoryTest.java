@@ -24,9 +24,9 @@ public class TerritoryTest {
 		this.owner = new Player(1000, "Andersine", 2);
 		// this.ter200 = new Street("Territory +200", 200, 200);
 		// this.ter0 = new Street("Territory 0", 0, 0);
-		((Ownable) ter200).setOwner(owner); // Cast to ownable to be able to set
+		//((Ownable) ter200).setOwner(owner); // Cast to ownable to be able to set
 											// owner
-		((Ownable) ter0).setOwner(owner); // Cast to ownable to be able to set
+		//((Ownable) ter0).setOwner(owner); // Cast to ownable to be able to set
 											// owner
 	}
 

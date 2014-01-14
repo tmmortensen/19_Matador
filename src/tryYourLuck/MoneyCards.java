@@ -3,32 +3,27 @@ package tryYourLuck;
 import entity.Player;
 
 /**
- * Nedarvet fra Cards
+ * Class to make a moneycard. Extends Cards
  * 
- * @author Gruppe 16
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class MoneyCards extends Cards {
 	private int effect;
 
 	/**
-	 * Konstruktøren for de kort der skal behandle penge
+	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param cardText
-	 *            Kortets tekst
-	 * @param cardType
-	 *            Kortets type
-	 * @param effect
-	 *            Antallet af penge man får eller mister
+	 * @param cardText The text of the card
+	 * @param effect The score that the player will get/lose
 	 */
 	public MoneyCards(String cardText, int effect) {
 		super(cardText);
 		this.effect = effect;
 	}
 
-	@Override
 	/**
-	 * Overskrevet fra Cards
+	 * Calculates the effect of this card
 	 */
 	public void calcEffect(Player player) {
 		player.addToAccount(effect);

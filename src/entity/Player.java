@@ -6,7 +6,7 @@ import boundary.Graphic;
  * Class to create a player. This class can be used for storing a name and
  * account for a player.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Player {
@@ -18,7 +18,12 @@ public class Player {
 	private int location, numberOfIdentical, turnsInJail;
 
 	/**
-	 * Constructor that initiates name to empty and set account to an initial score.
+	 * Constructor that initiates name to a given name and set account to an initial score.
+	 * Also sets all other values to 0/false
+	 * 
+	 * @param initialScore The score the player should start with
+	 * @param name The name of the player
+	 * @param playerNumber The number of the player
 	 */
 	public Player(int initialScore, String name, int playerNumber) {
 		this.name = name;
@@ -60,20 +65,40 @@ public class Player {
 		return isBankrupt;
 	}
 	
+	/**
+	 * Checks if the player is in jail.
+	 * 
+	 * @return True if the player is in Jail, otherwise false
+	 */
 	public boolean isInJail() {
 		return isInJail;
 	}
 	
+	/**
+	 * Checks if the player should get an extra turn
+	 * 
+	 * @return True if the player should get an extra turn, otherwise false
+	 */
 	public boolean getsExtraTurn() {
 		return getsExtraTurn;
 	}
 	
+	/**
+	 * Puts the player in jail. Sets isInJail to true, and also moves the player to the 
+	 * jail field, as well as updating the GUI
+	 */
 	public void goToJail() {
 		isInJail = true;
 		setLocation(11);
 		turnsInJail = 0;
 	}
 
+	/**
+	 * Method that takes the value of the dice and finds out what should happen 
+	 * 
+	 * @param sum The sum of the dice
+	 * @param isIdentical Whether the dice shows identical values
+	 */
 	public void actOnDice(int sum, boolean isIdentical) {
 		getsExtraTurn = false;
 		
@@ -90,8 +115,7 @@ public class Player {
 	/**
 	 * Method to set the players current location (field number).
 	 * 
-	 * @param location
-	 *            The location to set the player to.
+	 * @param location The location to set the player to.
 	 */
 	public void setLocation(int newLocation) {
 		if((newLocation+20) < location && !isInJail) {
@@ -118,8 +142,7 @@ public class Player {
 	 * Method to move a player forward on the board. Takes the players current
 	 * location and adds a given number of fields.
 	 * 
-	 * @param fields
-	 *            The number of fields to move forward.
+	 * @param fields The number of fields to move forward.
 	 */
 	public void moveFieldsForward(int fields) {
 	    int newLocation = location + fields;

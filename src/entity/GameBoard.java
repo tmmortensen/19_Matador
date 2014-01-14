@@ -7,7 +7,7 @@ import boundary.Graphic;
  * Class to create a game board. This class takes in a lot of fields and makes
  * it a board.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class GameBoard {
@@ -26,6 +26,9 @@ public class GameBoard {
 		createFields();
 	}
 
+	/**
+	 * Updates the field-info on the GUI, to make it correspond to the info saved in field entities
+	 */
 	public void updateGuiFields() {
 		int i, price;
 		boolean subAsTitle;
@@ -47,23 +50,38 @@ public class GameBoard {
 
 	/**
 	 * Method that calls the landOnField method on the fieldNumber that the
-	 * player is on.
+	 * player is on. Will get the field number from the players location.
 	 * 
-	 * @param player
-	 *            The player that landed on a field.
+	 * @param player The player that landed on a field.
 	 */
 	public void landOnField(Player player) {
 		fields[player.getLocation()].landOnField(player);
 	}
 
+	/**
+	 * Get the pile of TryYourLuck-cards, to be able to draw etc. from fields.
+	 * 
+	 * @return The pile of cards
+	 */
 	public PileOfCards getPile() {
 		return pileOfCards;
 	}
 	
+	/**
+	 * Get the die cup, to be able to roll etc. from fields.
+	 * 
+	 * @return The die cup
+	 */
 	public DieCup getDieCup() {
 		return dieCup;
 	}
 	
+	/**
+	 * Get a field of a given number. Useful for field-operations that does not have a dedicated method
+	 * 
+	 * @param fieldNumber The number of the field to get
+	 * @return The field of the given number
+	 */
 	public Field getField(int fieldNumber) {
 		return fields[fieldNumber];
 	}
@@ -71,8 +89,7 @@ public class GameBoard {
 	/**
 	 * Gets the owner of a field.
 	 * 
-	 * @param fieldNumber
-	 *            The number of the field to get owner for.
+	 * @param fieldNumber The number of the field to get owner for.
 	 * @return The owner of the field.
 	 */
 	public Player getOwner(int fieldNumber) {
@@ -84,11 +101,10 @@ public class GameBoard {
 	}
 	
 	/**
-	 * Method that sets the owner to null in all the fields owned by a given
-	 * player.
+	 * Method that sets the owner to null in all the fields owned by a given player.
+	 * Also clears the player from the GUI.
 	 * 
-	 * @param player
-	 *            The player to remove.
+	 * @param player The player to remove.
 	 */
 	public void clearFieldOwners(Player player) {
 		int i;
@@ -102,14 +118,27 @@ public class GameBoard {
 		}
 	}
 	
+	/**
+	 * Method to sell a field. Displays a list of sellable fields on the GUI, and calls sellField on the
+	 * field selected by the player.
+	 * 
+	 * @param player The player who should be given the option to sell a field
+	 */
 	public void sellField(Player player) {
 		int selectedField = getFieldSelected(player, fieldsSellableByPlayer(player));
 		
 		if(selectedField != 0) {
-			((Ownable)fields[selectedField]).sellField(selectedField);
+			((Ownable)fields[selectedField]).sellField();
+			Graphic.removeOwner(selectedField);
 		}
 	}
-		
+	
+	/**
+	 * Method to pledge a field. Displays a list of pledgeable fields on the GUI, and calls pledgeField
+	 * on the field selected by the player.
+	 * 
+	 * @param player The player who should be given the option to pledge a field
+	 */
 	public void pledgeField(Player player) {
 		int selectedField = getFieldSelected(player, fieldsPledgeableByPlayer(player));
 		
@@ -119,6 +148,12 @@ public class GameBoard {
 		}
 	}
 	
+	/**
+	 * Method to un-pledge a field. Displays a list of pledged fields on the GUI, and calls unpledgeField
+	 * on the field selected by the player.
+	 * 
+	 * @param player The player who should be given the option to unpledge a field
+	 */
 	public void unpledgeField(Player player) {
 		int selectedField = getFieldSelected(player, fieldsPledgedByPlayer(player));
 		
@@ -128,6 +163,12 @@ public class GameBoard {
 		}
 	}
 	
+	/**
+	 * Method to sell a house. Displays a list of fields with sellable houses on the GUI, and calls
+	 * sellHouse on the field selected by the player.
+	 * 
+	 * @param player The player who should be given the option to sell a house
+	 */
 	public void sellHouse(Player player) {
 		int selectedField = getFieldSelected(player, fieldsWithHousesByPlayer(player));
 		
@@ -136,6 +177,12 @@ public class GameBoard {
 		}
 	}
 	
+	/**
+	 * Method to buy a house. Displays a list of buildable fields on the GUI, and calls
+	 * buyHouse on the field selected by the player.
+	 * 
+	 * @param player The player who should be given the option to buy a house
+	 */
 	public void buyHouse(Player player) {
 		int selectedField = getFieldSelected(player, fieldsBuildableByPlayer(player));
 		
@@ -162,11 +209,8 @@ public class GameBoard {
 
 		return output + dieCup;
 	}
-
-		
-	/**
-	 * Creates all the fields according to the game rules.
-	 */
+	
+	
 	private void createFields() {
 		// Syntax for Streets: Name, Price, ContructPrice, AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel), this
 		fields[1] = new Refuge("Start", 0, this);

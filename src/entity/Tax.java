@@ -6,7 +6,7 @@ import boundary.Graphic.Actions;
 /**
  * Class to make a Tax-field.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Tax extends Field {
@@ -18,16 +18,10 @@ public class Tax extends Field {
 	 * percentage of assets as tax. Takes more arguments, to be able to get
 	 * other fields, and to be able to ask user for fixed or percentage.
 	 * 
-	 * @param name
-	 *            The name of this field.
-	 * @param taxAmount
-	 *            The amount of tax to pay, if fixed amount i chosen.
-	 * @param taxRate
-	 *            The percentage of assets to pay, if percentage is chosen.
-	 * @param gameBoard
-	 *            The gameboard that this field is on.
-	 * @param scanner
-	 *            A scanner to use for console input.
+	 * @param name The name of this field.
+	 * @param taxAmount The amount of tax to pay, if fixed amount i chosen.
+	 * @param taxRate The percentage of assets to pay, if percentage is chosen.
+	 * @param gameBoard The gameboard that this field is on.
 	 */
 	public Tax(String name, int taxAmount, int taxRate, GameBoard gameBoard) {
 		super(name, gameBoard);

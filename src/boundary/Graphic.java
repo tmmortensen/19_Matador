@@ -8,7 +8,7 @@ import boundaryToMatador.GUI;
 /**
  * Class to send commands to the GUI.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Graphic {

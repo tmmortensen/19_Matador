@@ -1,9 +1,9 @@
 package entity;
 
 /**
- * Class to make a LaborCamp field.
+ * Class to make a Brewery field.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Brewery extends Ownable {
@@ -14,13 +14,9 @@ public class Brewery extends Ownable {
 	/**
 	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param name
-	 *            The name of the field.
-	 * @param baseRent
-	 *            The baseRent to multiply with dice and number of LaborCamps
-	 *            owned
-	 * @param gameBoard
-	 *            The gameboard that this field is created in.
+	 * @param name The name of the field.
+	 * @param baseRent The baseRent to multiply with dice and number of brewerys owned
+	 * @param gameBoard The gameboard that this field is created in.
 	 */
 	public Brewery(String name, int baseRent, int price, GameBoard gameBoard) {
 		super(name, price, gameBoard);

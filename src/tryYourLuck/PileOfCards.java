@@ -4,9 +4,9 @@ import tryYourLuck.MoveCards.MoveCardTypes;
 import entity.Player;
 
 /**
- * Bunken af kort
+ * Class to make a pile of cards
  * 
- * @author Gruppe 16
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class PileOfCards {
@@ -15,7 +15,7 @@ public class PileOfCards {
 	private int cardNumber;
 
 	/**
-	 * Konstruktør som opretter kortene i et array
+	 * Constructor that makes an array/pile of cards, and shuffles it
 	 */
 	public PileOfCards() {
 		pile = new Cards[34];
@@ -27,7 +27,7 @@ public class PileOfCards {
 	}
 
 	/**
-	 * Tager det næste kort frem i bunken
+	 * Go to the next card of the pile
 	 */
 	public void nextCard() {
 		cardNumber++;
@@ -36,24 +36,28 @@ public class PileOfCards {
 		}
 	}
 	
+	/**
+	 * Check if the current card is a moneycard
+	 * 
+	 * @return True if the current card is a moneycard, otherwise false
+	 */
 	public boolean isMoneyCard() {
 		return shuffledPile[cardNumber] instanceof MoneyCards;
 	}
 
 	/**
-	 * Beregner effekten af kortet
+	 * Calculates the effect of the current card
 	 * 
-	 * @param player
-	 *            Spillerarrayet
+	 * @param player The player who drew the card
 	 */
 	public void effect(Player player) {
 		shuffledPile[cardNumber].calcEffect(player);
 	}
 
 	/**
-	 * Sender kortets tekst vdere
+	 * Gets the text of the card
 	 * 
-	 * @return Returnerer kortets tekst
+	 * @return The text of the card
 	 */
 	public String getCardText() {
 		return shuffledPile[cardNumber].getCardText();
@@ -98,9 +102,6 @@ public class PileOfCards {
 		pile[33] = new MoveCards("Ryk frem til Strandvejen. Hvis De passerer \"START\", inkassér da kr. 4.000", MoveCardTypes.MOVETO, 20);
 	}
 	
-	/**
-	 * Blander bunken
-	 */
 	private void shufflePile() {
 		for (int i = 0; i < pile.length; i++) {
 			int randNum = (int) (Math.random() * pile.length);

@@ -5,7 +5,7 @@ import boundary.Graphic;
 /**
  * Class to create a diecup. This class will take in 2 dice.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class DieCup {

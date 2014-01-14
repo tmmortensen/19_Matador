@@ -7,7 +7,7 @@ import entity.Player;
 /**
  * This is controller class in the game.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Game {
