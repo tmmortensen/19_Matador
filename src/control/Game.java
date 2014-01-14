@@ -7,16 +7,15 @@ import entity.Player;
 /**
  * This is controller class in the game.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Game {
 	private final int POINTS_TO_START_WITH = 30000;
 
-	private GameBoard gameBoard;
-	private Player[] players;
-
 	private int numberOfPlayers;
+	private GameBoard gameBoard;
+	private Player[] players;	
 
 	/**
 	 * Game constructor. Creates new instances of the required classes.
@@ -55,6 +54,7 @@ public class Game {
 		}
 	}
 
+	
 	private int getNextPlayer(int input) {
 		if (input + 1 >= numberOfPlayers) {
 			return 0;

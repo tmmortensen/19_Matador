@@ -1,11 +1,9 @@
 package entity;
 
-import boundary.Graphic.Actions;
-
 /**
- * Class to make a LaborCamp field.
+ * Class to make a Brewery field.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Brewery extends Ownable {
@@ -16,19 +14,15 @@ public class Brewery extends Ownable {
 	/**
 	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param name
-	 *            The name of the field.
-	 * @param baseRent
-	 *            The baseRent to multiply with dice and number of LaborCamps
-	 *            owned
-	 * @param gameBoard
-	 *            The gameboard that this field is created in.
+	 * @param name The name of the field.
+	 * @param baseRent The baseRent to multiply with dice and number of brewerys owned
+	 * @param gameBoard The gameboard that this field is created in.
 	 */
 	public Brewery(String name, int baseRent, int price, GameBoard gameBoard) {
 		super(name, price, gameBoard);
 		this.baseRent = baseRent;
 	}
-
+	
 	
 	/**
 	 * Method to calculate rent for this field.
@@ -38,18 +32,6 @@ public class Brewery extends Ownable {
 	protected int getRent() {
 		gameBoard.getDieCup().shakeDieCup();
 		return baseRent * gameBoard.getDieCup().getSum() * getBrewerysOwned();
-	}
-
-	protected boolean isBuildable() {
-		return false;
-	}
-	
-	protected void performAction(Actions action, Player player) {
-		performStdActions(action, player);
-		
-		if(action == Actions.BUY_FIELD) {
-			buyField(player);
-		}
 	}
 	
 	

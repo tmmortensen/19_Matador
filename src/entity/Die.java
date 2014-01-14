@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Class to create a die. This class can be used to generate random numbers from 1 to 6.
  *
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  *
  */
 public class Die {

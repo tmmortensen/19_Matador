@@ -1,12 +1,11 @@
 package entity;
 
 import boundary.Graphic;
-import boundary.Graphic.Actions;
 
 /**
  * Class to make a Street-field.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class Street extends Ownable {
@@ -16,12 +15,12 @@ public class Street extends Ownable {
 	/**
 	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param name
-	 *            The name of this field.
-	 * @param rent
-	 *            The rent a player should pay if landing on this field.
-	 * @param price
-	 *            The price of this field.
+	 * @param name The name of this field
+	 * @param price The pirce of this field
+	 * @param constructPrice How much it costs to build a house on this field
+	 * @param associatedFields The numbers of the fields of same color/type as this field
+	 * @param rents The rents for this field with 0-5 houses
+	 * @param gameBoard A reference to the gameboard that this field is created in
 	 */
 	public Street(String name, int price, int constructPrice, int[] associatedFields, int[] rents, GameBoard gameBoard) {
 		super(name, price, gameBoard);
@@ -31,6 +30,11 @@ public class Street extends Ownable {
 		numberOfHouses = 0;
 	}
 	
+	/**
+	 * Sells a house on this field
+	 * 
+	 * @param thisFieldNumber This fields number. Needed to update the GUI
+	 */
 	public void sellHouse(int thisFieldNumber) {
 		owner.addToAccount(constructPrice/2);
 		numberOfHouses--;
@@ -38,10 +42,34 @@ public class Street extends Ownable {
 		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
 	}
 	
+	/**
+	 * Buys a house on this field. Takes the construct price from the owners account
+	 * and adds one to the current number of houses
+	 * 
+	 * @param thisFieldNumber This fields number. Needed to update the GUI
+	 */
+	public void buyHouse(int thisFieldNumber) {
+		owner.addToAccount(-constructPrice);
+		numberOfHouses++;
+		
+		Graphic.updateHouses(thisFieldNumber, numberOfHouses);
+	}
+	
+	/**
+	 * Checks if the field has sellable houses.
+	 * Takes into account if the number of houses is still "equal"
+	 * 
+	 * @return True if the field has houses that can be sold, otherwise false
+	 */
 	public boolean hasSellableHouses() {
 		return numberOfHouses > 0 && !associatedFieldsHasTooManyHouses();
 	}
 	
+	/**
+	 * Checks if the associated fields has any houses
+	 * 
+	 * @return True if there is a house on any of the fields, otherwise false
+	 */
 	public boolean associatedFieldsHasAnyHouses() {
 		int i;
 		
@@ -55,8 +83,28 @@ public class Street extends Ownable {
 		return false;
 	}
 
+	/**
+	 * Calculates the total value of the houses on this field
+	 * 
+	 * @return The total value of the houses on this field
+	 */
 	public int valueOfHouses() {
 		return numberOfHouses * constructPrice;
+	}
+
+	/**
+	 * Checks if the field is buildable.
+	 * That is, the owner owns the associated fields, is not trying to build "un-equal"
+	 * and the field does not already have 5 houses.
+	 * 
+	 * @return True if the field is buildable, otherwise false
+	 */
+	public boolean isBuildable() {
+		if(numberOfHouses >= 5) {
+			return false;
+		}
+		
+		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
 	}
 
 	
@@ -79,33 +127,7 @@ public class Street extends Ownable {
 		}
 	}
 	
-	protected boolean isBuildable() {
-		if(numberOfHouses >= 5) {
-			return false;
-		}
 		
-		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
-	}
-
-	protected void performAction(Actions action, Player player) {
-		performStdActions(action, player);
-		
-		if (action == Actions.BUY_FIELD) {
-			buyField(player);
-		}
-		else if(action == Actions.BUY_HOUSE) {
-			buyHouse();
-		}
-	}
-	
-	
-	private void buyHouse() {
-		owner.addToAccount(-constructPrice);
-		numberOfHouses++;
-		
-		Graphic.updateHouses(owner.getLocation(), numberOfHouses);
-	}
-	
 	private boolean ownsAllAssociatedFields() {
 		int i;
 		

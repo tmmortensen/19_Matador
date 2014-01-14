@@ -3,9 +3,9 @@ package tryYourLuck;
 import entity.Player;
 
 /**
- * Nedarvet fra Cards
+ * Class to make a movecard. Extends Cards
  * 
- * @author Gruppe 16
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public class MoveCards extends Cards {
@@ -13,14 +13,11 @@ public class MoveCards extends Cards {
 	private MoveCardTypes moveCardType;
 
 	/**
-	 * Konstruktør for kort der ikke behandler penge
+	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param cardText
-	 *            Hvad der skal stå på kortet
-	 * @param cardType
-	 *            Typen af kort
-	 * @param position
-	 *            Hvor spilleren skal flyttes hen hvis de får kortet
+	 * @param cardText The text of the card
+	 * @param moveCardType The type of the card, as an enum type
+	 * @param position How many fields the player should move, or where to move to
 	 */
 	public MoveCards(String cardText, MoveCardTypes moveCardType, int position) {
 		super(cardText);
@@ -32,9 +29,8 @@ public class MoveCards extends Cards {
 		MOVEFORWARD, MOVETO, GOTOJAIL;
 	}
 
-	@Override
 	/**
-	 * Overskrevet fra Cards, til at beregne hvad der skal ske hvis et bestemt kort bliver trukket
+	 * Calculates the effect of this card, depending on the type of the card
 	 */
 	public void calcEffect(Player player) {
 		switch (moveCardType) {

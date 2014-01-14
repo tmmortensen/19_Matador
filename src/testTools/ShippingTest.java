@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import entity.GameBoard;
 import entity.Player;
-import entity.Shipping;
 
 public class ShippingTest {
 	private Player player;
@@ -20,14 +19,13 @@ public class ShippingTest {
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
 
-
-		//this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
-		//this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
-		//this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		//this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		// this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
+		// this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
+		// this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		// this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 
 		this.owner.setLocation(6);
-		//this.gameBoard.setOwner(owner);
+		this.gameBoard.getOwner(6);
 
 		this.player.setLocation(6);
 	}
@@ -37,9 +35,9 @@ public class ShippingTest {
 		this.player = new Player(5000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
 
-		//this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
-		//this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		//this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		// this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
+		// this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
+		// this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
 	}
 
 	@Test
@@ -70,7 +68,7 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 1000;
@@ -86,9 +84,9 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 		this.owner.setLocation(20);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 2000;
@@ -104,11 +102,11 @@ public class ShippingTest {
 
 		// Perform the action to be tested
 		this.owner.setLocation(19);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 		this.owner.setLocation(20);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 		this.owner.setLocation(21);
-		//this.gameBoard.setOwner(owner);
+		// this.gameBoard.setOwner(owner);
 
 		this.gameBoard.landOnField(this.player);
 		expected = 5000 - 4000;

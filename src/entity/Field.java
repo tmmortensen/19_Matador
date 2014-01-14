@@ -4,9 +4,9 @@ import boundary.Graphic.Actions;
 
 /**
  * Class to create a field. This class can be used to contain the score of a
- * field and a value for extra turn.
+ * field, as well as other field-related info.
  * 
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  * 
  */
 public abstract class Field {
@@ -16,8 +16,7 @@ public abstract class Field {
 	/**
 	 * Constructor to set field name.
 	 * 
-	 * @param name
-	 *            Name of field.
+	 * @param name Name of field.
 	 */
 	public Field(String name, GameBoard gameBoard) {
 		this.name = name;
@@ -29,8 +28,7 @@ public abstract class Field {
 	 * on this field. Has different implementations for different types of
 	 * fields.
 	 * 
-	 * @param player
-	 *            The player that landed on the field.
+	 * @param player The player that landed on the field.
 	 */
 	public abstract void landOnField(Player player);
 	
@@ -64,6 +62,9 @@ public abstract class Field {
 				break;
 			case SELL_HOUSE:
 				gameBoard.sellHouse(player);
+				break;
+			case BUY_HOUSE:
+				gameBoard.buyHouse(player);
 				break;
 			default:
 				break;

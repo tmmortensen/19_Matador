@@ -6,7 +6,7 @@ import boundary.Graphic.Actions;
 /**
  * Class that contains all the methods and values relevant for ownable fields.
  *
- * @author DTU 02312 Gruppe 19
+ * @author DTU 02312 Gruppe 19, 2014
  *
  */
 public abstract class Ownable extends Field {
@@ -19,6 +19,7 @@ public abstract class Ownable extends Field {
 	 *
 	 * @param name Name of the field.
 	 * @param price Price of the field.
+	 * @param gameBoard A reference to the gameboard the field is created on.
 	 */
 	public Ownable(String name, int price, GameBoard gameBoard) {
 		super(name, gameBoard);
@@ -26,33 +27,28 @@ public abstract class Ownable extends Field {
 		isPledged = false;
 		owner = null;
 	}
-
+	
 	/**
 	 * Method to take care of everything that should happen, when a player lands on this field.
 	 * This implementation is used by all the own able fields that inherits from this class.
 	 */
 	public void landOnField(Player player) {
 		int rent = 0, buyPrice;
-		boolean isBuildable;
 		
 		Actions action = null;
 		while(action != Actions.END) {
 			buyPrice = 0;
-			isBuildable = false;
 			
-			// Calculate rent if field is owned by someone else, and not pleged
-			if(owner != null && owner != player && !isPledged) {
+			// Calculate rent if field is owned by someone else, and not pledged
+			if(owner != null && owner != player && !isPledged && !owner.isInJail()) {
 				rent = getRent();
 			}
 			// Get the option to buy if field is not owned
 			else if (owner == null) {
 				buyPrice = price;
 			}
-			else if (owner == player) {
-				isBuildable = isBuildable();
-			}
 			
-			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, isBuildable, false, false, null);
+			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, false, false, null);
 			performAction(action, player);
 		}
 		
@@ -62,7 +58,21 @@ public abstract class Ownable extends Field {
 		}
 	}
 	
-	public void sellField(int thisFieldNumber) {
+	/**
+	 * Buys the field. Takes the value of the field from the players account, and sets owner to the player.
+	 * 
+	 * @param player The player who buys the field
+	 */
+	public void buyField(Player player) {
+		player.addToAccount(-1 * price);
+		owner = player;
+		Graphic.setOwner(player.getLocation(), player.getName());
+	}
+	
+	/**
+	 * Sells the field. Adds the fields value to the owners account, and sets owner of the field to null. 
+	 */
+	public void sellField() {
 		owner.addToAccount(price);
 		
 		if(isPledged) {
@@ -70,46 +80,40 @@ public abstract class Ownable extends Field {
 		}
 		
 		owner = null;
-		Graphic.removeOwner(thisFieldNumber);
 	}
 	
+	/**
+	 * Pledges the field. Adds half the fields value to the owners account, and sets isPledged = true.
+	 */
 	public void pledgeField() {
 		this.isPledged = true;
 		owner.addToAccount(price/2);
 	}
 	
+	/**
+	 * Un-pledges the field. Takes half the fields value plus some interest from the owners account.
+	 */
 	public void unpledgeField() {
 		this.isPledged = false;
 		owner.addToAccount(-(price/2 + getPledgeIntrest()));
-	}
-	
-	/**
-	 * Method to set owner of the field.
-	 * 
-	 * @param owner The player to set as owner.
-	 */
-	public void setOwner(Player owner) {
-		this.owner = owner;
 	}
 
 	
 	/**
 	 * Method to calculate rent. Has different implementation for different types of fields.
 	 *
-	 * @return
+	 * @return The calculated rent as an integer
 	 */
 	protected abstract int getRent();
+				
 	
-	protected abstract void performAction(Actions action, Player player);
-	
-	protected abstract boolean isBuildable();
+	private void performAction(Actions action, Player player) {
+		performStdActions(action, player);
 		
-	protected void buyField(Player player) {
-		player.addToAccount(-1 * price);
-		owner = player;
-		Graphic.setOwner(player.getLocation(), player.getName());
+		if (action == Actions.BUY_FIELD) {
+			buyField(player);
+		}
 	}
-	
 	
 	private int getPledgeIntrest() {
 		//Calc the intrest with all decimals

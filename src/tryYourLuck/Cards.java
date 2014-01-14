@@ -2,29 +2,36 @@ package tryYourLuck;
 
 import entity.Player;
 
+/**
+ * Abstract class to make a card.
+ * 
+ * @author DTU 02312 Gruppe 19, 2014
+ * 
+ */
 public abstract class Cards {
 	private String cardText;
 
 	/**
-	 * Konstruktøren
+	 * Constructor that takes all inputs needed for the class.
 	 * 
-	 * @param cardType
-	 *            Hvilken type kort
-	 * @param cardText
-	 *            Hvad der skal stå på kortet
+	 * @param cardText The text-message on the card
 	 */
 	public Cards(String cardText) {
 		this.cardText = cardText;
 	}
 
 	/**
-	 * Beregner kortets efekt
+	 * Calculates the effect of the card
 	 * 
-	 * @param player
-	 *            Spillerarrayet
+	 * @param player The player who drew the card
 	 */
 	public abstract void calcEffect(Player player);
  
+	/**
+	 * Get the text-massage from the card
+	 * 
+	 * @return The message on the card
+	 */
 	public String getCardText() {
 		return cardText;
 	}
