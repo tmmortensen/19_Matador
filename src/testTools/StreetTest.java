@@ -11,7 +11,7 @@ import entity.Ownable;
 import entity.Player;
 import entity.Street;
 
-public class TerritoryTest {
+public class StreetTest {
 	private Player player;
 	private Player owner;
 	private Field ter200;
@@ -22,8 +22,13 @@ public class TerritoryTest {
 	public void setUp() throws Exception {
 		this.player = new Player(1000, "Anders And", 1);
 		this.owner = new Player(1000, "Andersine", 2);
-		// this.ter200 = new Street("Territory +200", 200, 200);
-		// this.ter0 = new Street("Territory 0", 0, 0);
+		// Syntax for Streets: Name, Price, ContructPrice,
+		// AssosiatedFields(1-2), Rents (0 = base, 1-4 = houses, 5 = hotel),
+		// this
+
+		this.ter200 = new Street("Territory +200", 200, 0, new int[] { 2, 4 },
+				new int[] { 40, 200, 600, 1800, 3200, 5000 }, gameBoard);
+		this.ter0 = new Street("Territory 0", 0, 0, null, null, gameBoard);
 		((Ownable) ter200).setOwner(owner); // Cast to ownable to be able to set
 											// owner
 		((Ownable) ter0).setOwner(owner); // Cast to ownable to be able to set

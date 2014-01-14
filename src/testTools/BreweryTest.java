@@ -9,7 +9,7 @@ import entity.Brewery;
 import entity.GameBoard;
 import entity.Player;
 
-public class LaborCampTest {
+public class BreweryTest {
 	private Player player;
 	private Player owner;
 	private GameBoard gameBoard;
