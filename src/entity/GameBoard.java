@@ -275,8 +275,8 @@ public class GameBoard {
 		//Find names of fields the player owns
 		String[] houseFields = new String[41];
 		for(i=1; i<41; i++) {
-			if(getOwner(i) == player) {
-				Ownable fieldToTest = (Ownable)fields[i];
+			if(getOwner(i) == player && fields[i] instanceof Street) {
+				Street fieldToTest = (Street)fields[i];
 				
 				if(fieldToTest.isBuildable()) {
 					houseFields[size] = fieldToTest.getName();

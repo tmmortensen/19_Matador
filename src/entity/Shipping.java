@@ -23,10 +23,6 @@ public class Shipping extends Ownable {
 	public Shipping(String name, int price, GameBoard gameBoard) {
 		super(name, price, gameBoard);
 	}
-
-	public boolean isBuildable() {
-		return false;
-	}
 	
 	
 	/**

@@ -26,8 +26,6 @@ public abstract class Ownable extends Field {
 		isPledged = false;
 		owner = null;
 	}
-
-	public abstract boolean isBuildable();
 	
 	/**
 	 * Method to take care of everything that should happen, when a player lands on this field.
@@ -40,7 +38,7 @@ public abstract class Ownable extends Field {
 		while(action != Actions.END) {
 			buyPrice = 0;
 			
-			// Calculate rent if field is owned by someone else, and not pleged
+			// Calculate rent if field is owned by someone else, and not pledged
 			if(owner != null && owner != player && !isPledged && !owner.isInJail()) {
 				rent = getRent();
 			}

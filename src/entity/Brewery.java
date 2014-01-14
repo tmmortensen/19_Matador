@@ -26,10 +26,6 @@ public class Brewery extends Ownable {
 		super(name, price, gameBoard);
 		this.baseRent = baseRent;
 	}
-
-	public boolean isBuildable() {
-		return false;
-	}
 	
 	
 	/**
