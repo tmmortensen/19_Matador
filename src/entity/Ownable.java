@@ -13,6 +13,7 @@ public abstract class Ownable extends Field {
 	protected int price;
 	protected boolean isPledged;
 	protected Player owner;
+	private boolean useMenu;
 
 	/**
 	 * Constructor that set name and price.
@@ -26,6 +27,7 @@ public abstract class Ownable extends Field {
 		this.price = price;
 		isPledged = false;
 		owner = null;
+		useMenu = true;
 	}
 	
 	/**
@@ -48,8 +50,13 @@ public abstract class Ownable extends Field {
 				buyPrice = price;
 			}
 			
-			action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, false, false, null);
-			performAction(action, player);
+			if(useMenu) {
+				action = Graphic.showMenu(player.getName(), this.name, rent, buyPrice, false, false, null);
+				performAction(action, player);
+			}
+			else {
+				break;
+			}
 		}
 		
 		// Transfer the rent
@@ -96,6 +103,13 @@ public abstract class Ownable extends Field {
 	public void unpledgeField() {
 		this.isPledged = false;
 		owner.addToAccount(-(price/2 + getPledgeIntrest()));
+	}
+	
+	/**
+	 * Sets the useMenu option to false. Useful for debug and test
+	 */
+	public void diableMenu() {
+		useMenu = false;
 	}
 
 	

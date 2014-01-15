@@ -225,7 +225,7 @@ public class Player {
 			
 			if(numberOfIdentical >= 3) {
 				numberOfIdentical = 0;
-				Graphic.goToJailMessage(name);
+				Graphic.goToJailMessage(name, true);
 				goToJail();
 			}
 			else {
@@ -250,7 +250,7 @@ public class Player {
 				isInJail = false;
 				moveFieldsForward(sum);
 			}
-			else if(Graphic.showJailOption()) {
+			else if(Graphic.showJailOption(name)) {
 				addToAccount(-1000);
 				isInJail = false;
 			}

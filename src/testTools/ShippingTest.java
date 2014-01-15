@@ -5,39 +5,30 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entity.GameBoard;
-import entity.Player;
+import boundaryToMatador.GUI;
+
+import entity.*;
 
 public class ShippingTest {
-	private Player player;
-	private Player owner;
+	private Player player, owner;
 	private GameBoard gameBoard;
 
 	@Before
 	public void setUp() throws Exception {
 		this.gameBoard = new GameBoard();
-		this.player = new Player(5000, "Anders And", 1);
-		this.owner = new Player(1000, "Andersine", 2);
-
-		// this.gameBoard.setField(new Shipping("Fleet1", 0, gameBoard), 6);
-		// this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 16);
-		// this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		// this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
-
-		this.owner.setLocation(6);
-		this.gameBoard.getOwner(6);
-
+		this.player = new Player(25000, "Anders And", 1);
+		this.owner = new Player(25000, "Andersine", 2);
+		((Ownable)gameBoard.getField(6)).diableMenu();
 		this.player.setLocation(6);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		this.player = new Player(5000, "Anders And", 1);
-		this.owner = new Player(1000, "Andersine", 2);
-
-		// this.gameBoard.setField(new Shipping("Fleet2", 0, gameBoard), 19);
-		// this.gameBoard.setField(new Shipping("Fleet3", 0, gameBoard), 20);
-		// this.gameBoard.setField(new Shipping("Fleet4", 0, gameBoard), 21);
+		this.gameBoard = new GameBoard();
+		this.player = new Player(25000, "Anders And", 1);
+		this.owner = new Player(25000, "Andersine", 2);
+		((Ownable)gameBoard.getField(6)).diableMenu();
+		GUI.close();
 	}
 
 	@Test
@@ -48,68 +39,76 @@ public class ShippingTest {
 	}
 
 	@Test
-	public void testLandOnField1Owned() {
-		int expected = 5000;
+	public void testLandOnField0Owned() {
+		int expected = 25000;
 		int actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 
 		// Perform the action to be tested
 		this.gameBoard.landOnField(this.player);
-		expected = 5000 - 500;
+		expected = 25000;
+		actual = this.player.getAccountValue();
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testLandOnField1Owned() {
+		((Ownable)this.gameBoard.getField(6)).buyField(this.owner);
+		int expected = 25000;
+		int actual = this.player.getAccountValue();
+		Assert.assertEquals(expected, actual);
+
+		// Perform the action to be tested
+		this.gameBoard.landOnField(this.player);
+		expected = 25000 - 500;
 		actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testLandOnField2Owned() {
-		int expected = 5000;
+		((Ownable)this.gameBoard.getField(6)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(16)).buyField(this.owner);
+		int expected = 25000;
 		int actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 
 		// Perform the action to be tested
-		this.owner.setLocation(19);
-		// this.gameBoard.setOwner(owner);
-
 		this.gameBoard.landOnField(this.player);
-		expected = 5000 - 1000;
+		expected = 25000 - 1000;
 		actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testLandOnField3Owned() {
-		int expected = 5000;
+		((Ownable)this.gameBoard.getField(6)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(16)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(26)).buyField(this.owner);
+		int expected = 25000;
 		int actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 
 		// Perform the action to be tested
-		this.owner.setLocation(19);
-		// this.gameBoard.setOwner(owner);
-		this.owner.setLocation(20);
-		// this.gameBoard.setOwner(owner);
-
 		this.gameBoard.landOnField(this.player);
-		expected = 5000 - 2000;
+		expected = 25000 - 2000;
 		actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testLandOnField4Owned() {
-		int expected = 5000;
+		((Ownable)this.gameBoard.getField(6)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(16)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(26)).buyField(this.owner);
+		((Ownable)this.gameBoard.getField(36)).buyField(this.owner);
+		int expected = 25000;
 		int actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 
 		// Perform the action to be tested
-		this.owner.setLocation(19);
-		// this.gameBoard.setOwner(owner);
-		this.owner.setLocation(20);
-		// this.gameBoard.setOwner(owner);
-		this.owner.setLocation(21);
-		// this.gameBoard.setOwner(owner);
-
 		this.gameBoard.landOnField(this.player);
-		expected = 5000 - 4000;
+		expected = 25000 - 4000;
 		actual = this.player.getAccountValue();
 		Assert.assertEquals(expected, actual);
 	}

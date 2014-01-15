@@ -25,7 +25,7 @@ public class GoToJail extends Field {
 	 * on this field. Sends the player to Jail.
 	 */
 	public void landOnField(Player player) {
-		Graphic.goToJailMessage(player.getName());
+		Graphic.goToJailMessage(player.getName(), false);
 		player.goToJail();
 	}
 }

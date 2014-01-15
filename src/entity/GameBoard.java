@@ -113,7 +113,12 @@ public class GameBoard {
 				((Ownable) fields[i]).owner = null;
 				((Ownable) fields[i]).isPledged = false;
 				Graphic.removeOwner(i);
-				Graphic.updateHouses(i, 0);
+				Graphic.setPledgeDescription(fields[i].getName(), i, false);
+				
+				if(fields[i] instanceof Street) {
+					((Street)fields[i]).setNumberOfHouses(0);
+					Graphic.updateHouses(i, 0);
+				}
 			}
 		}
 	}

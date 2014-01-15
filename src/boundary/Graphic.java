@@ -174,9 +174,9 @@ public class Graphic {
 	 * 
 	 * @return True/False for Yes/No
 	 */
-	public static boolean showJailOption() {
+	public static boolean showJailOption(String name) {
 		String input;
-		input = GUI.getUserSelection("Vil du betale 1000 for at komme ud af fængsel?", "Nej", "Ja");
+		input = GUI.getUserSelection(name + ", vil du betale 1000 for at komme ud af fængsel?", "Nej", "Ja");
 		
 		return "Ja".equals(input);
 	}
@@ -321,8 +321,17 @@ public class Graphic {
 	 * 
 	 * @param name The name of the player who should go to jail
 	 */
-	public static void goToJailMessage(String name) {
-		GUI.showMessage(name + ", gå i fængsel!");
+	public static void goToJailMessage(String name, boolean byIdenticalDice) {
+		String message;
+		
+		if(byIdenticalDice) {
+			message = name + ", du har slået to ens tre gange i træk. Gå i fængsel!";
+		}
+		else {
+			message = name + ", gå i fængsel!";
+		}
+		
+		GUI.showMessage(message);
 	}
 
 	/**

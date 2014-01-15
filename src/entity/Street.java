@@ -107,6 +107,17 @@ public class Street extends Ownable {
 		return ownsAllAssociatedFields() && associatedFieldsHasEnoughHouses();
 	}
 
+	/**
+	 * Set the number of houses on this field to a specific number. Useful for
+	 * debugging and testing, and also used when clearing a bankrupt player from
+	 * the board.
+	 * 
+	 * @param numberOfHouses The number of houses to set
+	 */
+	public void setNumberOfHouses(int numberOfHouses) {
+		this.numberOfHouses = numberOfHouses;
+	}
+	
 	
 	/**
 	 * Method to calculate rent for this field.
