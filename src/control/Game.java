@@ -48,7 +48,7 @@ public class Game {
 			}
 
 			// Switch turn to the next player if he didn't get an extra turn
-			if(!players[activePlayer].getsExtraTurn()) {
+			if(!players[activePlayer].getsExtraTurn() && !players[activePlayer].isBankrupt()) {
 				activePlayer = getNextPlayerAlive(activePlayer);
 			}
 		}
